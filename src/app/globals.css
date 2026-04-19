@@ -50,10 +50,10 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #f8fafc; /* Replaced pure white with soft elegant surface */
   --foreground: #0a0a0a;
   
-  --bg-surface: #f8fafc;
+  --bg-surface: #f1f5f9;
   --bg-elevated: #ffffff;
   
   --text-primary: #0a0a0a;
@@ -83,11 +83,11 @@
 }
 
 .dark {
-  --background: #0a0a0a;
+  --background: #0f1115; /* Sleek, continuous extremely dark slate instead of harsh pitch black */
   --foreground: #f8fafc;
 
-  --bg-surface: #121212;
-  --bg-elevated: #1e1e1e;
+  --bg-surface: #17191e;
+  --bg-elevated: #1e2028;
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;

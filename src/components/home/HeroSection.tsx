@@ -80,8 +80,7 @@ export function HeroSection({
   headline = (
     <>
       <span className="relative inline-block z-10 whitespace-nowrap after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Learning Designer</span> <br className="hidden lg:block" />
-      who turns tools <br className="hidden lg:block" />
-      into impact.
+      who turns tools into impact.
     </>
   ),
   subtitle = "I merge instructional design with interactive media, video production, and artificial intelligence to create digital learning experiences that are engaging, scalable, and objective-driven.",
@@ -112,7 +111,7 @@ export function HeroSection({
   }, [mouseX, mouseY])
 
   return (
-    <section className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-32 pb-20">
+    <section id="hero" className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-4 pb-20">
 
       {/* Background Accent - Adjusted position for 2-col */}
       <motion.div
@@ -160,36 +159,36 @@ export function HeroSection({
 
             <motion.p
               variants={itemVariants}
-              className="max-w-xl text-base sm:text-lg md:text-xl text-slate-500 leading-relaxed mb-10"
+              className="max-w-xl text-sm sm:text-base md:text-lg text-slate-500 leading-relaxed mb-10"
             >
               {subtitle}
             </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center w-full sm:w-auto"
             >
               <Magnetic strength={0.3}>
-                <div className="w-full sm:w-auto">
+                <div className="w-full sm:w-auto flex">
                   <SolidGlowButton
                     href="/projects"
                     text="View Projects"
                     color="#0a0a0a"
                     size="md"
-                    className="w-full sm:w-auto sm:px-8"
+                    className="w-full sm:w-auto sm:px-8 flex-1"
                     icon={<ArrowRight className="w-5 h-5 ml-1" />}
                   />
                 </div>
               </Magnetic>
               <Magnetic strength={0.2}>
-                <div className="w-full sm:w-auto">
+                <div className="w-full sm:w-auto flex">
                   <AnimatedSwipeButton
                     href="/CV - Ferdy Fadhil Lazuardi.pdf"
                     text="Download CV"
                     color="var(--primary)"
                     size="md"
                     textColorClass="text-text-primary border-border bg-transparent shadow-none"
-                    className="w-full sm:w-auto sm:px-8"
+                    className="w-full sm:w-auto sm:px-8 flex-1"
                     noSwipe={true}
                     icon={<Download className="w-5 h-5 mr-1" />}
                   />
@@ -200,7 +199,7 @@ export function HeroSection({
             {/* Stats Row (like reference) */}
             <motion.div
               variants={itemVariants}
-              className="flex items-center gap-6 sm:gap-10 mt-16 pt-8 border-t border-border/50 w-full max-w-lg"
+              className="grid grid-cols-[1fr_auto_1fr] sm:flex sm:items-center gap-y-8 gap-x-4 sm:gap-10 mt-16 pt-8 border-t border-border/50 w-full max-w-lg"
             >
               <div className="flex flex-col items-center text-center">
                 <p className="font-heading font-extrabold text-2xl text-text-primary">
@@ -213,10 +212,10 @@ export function HeroSection({
                 <p className="font-heading font-extrabold text-2xl text-text-primary">
                   <Counter value={2} suffix="+" duration={0.8} />
                 </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Yrs Exp.</p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Years Experience</p>
               </div>
-              <div className="w-px h-10 bg-border/50 shrink-0" />
-              <div className="flex flex-col items-center text-center">
+              <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
+              <div className="col-span-3 sm:col-span-1 flex flex-col items-center text-center sm:text-left pt-2 sm:pt-0">
                 <p className="font-heading font-extrabold text-2xl text-text-primary text-accent">
                   <Counter value={10000} suffix="+" duration={3} useSeparator={true} />
                 </p>

@@ -12,7 +12,7 @@ const noteData = [
     title: "ADDIE & TNA",
     content: "Applied research to identify challenges & design effective instructional solutions.",
     color: "#FFF38B", // Yellow
-    rotate: 0,
+    rotate: -3,
     top: "5%",
     left: "10%",
   },
@@ -20,7 +20,7 @@ const noteData = [
     title: "Bloom's Taxonomy",
     content: "Crafting objective-driven curricula for cognitive learning outcomes.",
     color: "#FFC999", // Orange
-    rotate: 0,
+    rotate: 2,
     top: "5%",
     left: "42%",
   },
@@ -28,23 +28,23 @@ const noteData = [
     title: "LMS Management",
     content: "Managing Moodle & SCORM for 10,000+ active employees.",
     color: "#B6F5D0", // Green
-    rotate: 0,
+    rotate: -4,
     top: "32%",
     left: "8%",
   },
   {
-    title: "Edu-Game Dev",
-    content: "Created educational games for elementary science (Plant materials).",
+    title: "Gamified Learning",
+    content: "Developing interactive game mechanics to increase learner motivation and retention.",
     color: "#B2D9FF", // Blue
-    rotate: 0,
-    top: "60%",
-    left: "12%",
+    rotate: 3,
+    top: "55%",
+    left: "9%",
   },
   {
     title: "Interactive Learning",
     content: "Developing immersive e-learning modules using Articulate Storyline.",
     color: "#E2CCFF", // Purple
-    rotate: 0,
+    rotate: -2,
     top: "25%",
     left: "32%",
   },
@@ -52,7 +52,7 @@ const noteData = [
     title: "Video Learning",
     content: "Editing high-quality educational videos with Premiere Pro & Capcut.",
     color: "#FFC2E2", // Pink
-    rotate: 0,
+    rotate: 4,
     top: "5%",
     left: "68%",
   },
@@ -60,31 +60,31 @@ const noteData = [
     title: "Visual Design",
     content: "Designing engaging learning materials using Adobe CC & Canva.",
     color: "#FFF38B",
-    rotate: 0,
+    rotate: -3,
     top: "35%",
     left: "63%",
   },
   {
     title: "Motion Graphics",
-    content: "Visual storytelling for complex skeletal systems using After Effects.",
+    content: "Bringing abstract learning materials to life through dynamic animations.",
     color: "#B6F5D0",
-    rotate: 0,
+    rotate: 2,
     top: "52%",
     left: "35%",
   },
   {
-    title: "Poster Competition",
-    content: "1st Winner in National Poster Design Competition (UIN Surabaya).",
+    title: "Information Design",
+    content: "Simplifying complex concepts into clear, engaging educational visuals.",
     color: "#FFC999",
-    rotate: 0,
+    rotate: -4,
     top: "78%",
     left: "60%",
   },
   {
-    title: "Branding & Socials",
-    content: "Managed KOMINFO branding, boosting engagement by ~10%.",
+    title: "Learning Campaigns",
+    content: "Crafting visual identities to boost engagement in training programs.",
     color: "#B2D9FF",
-    rotate: 0,
+    rotate: 3,
     top: "55%",
     left: "70%",
   },
@@ -92,7 +92,7 @@ const noteData = [
     title: "RAG & AI Chatbots",
     content: "Architecting knowledge bases for instant, smart info retrieval.",
     color: "#E2CCFF",
-    rotate: 0,
+    rotate: -2,
     top: "82%",
     left: "35%",
   },
@@ -100,7 +100,7 @@ const noteData = [
     title: "Design for Impact",
     content: "Merging instructional design with advanced tech ecosystems.",
     color: "#FFC2E2",
-    rotate: 0,
+    rotate: 2,
     top: "80%",
     left: "10%",
   }
@@ -138,9 +138,13 @@ export function AboutSection() {
   ]
 
   return (
-    <section ref={ref} className="py-24 md:py-32 relative z-10 overflow-hidden">
+    <section id="about" ref={ref} className="py-24 md:py-32 relative z-10 overflow-visible">
+      {/* Ambient Left Background Glow to prevent plain white look */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
+        <div className="absolute top-[10%] left-[-20%] w-[50%] h-[60%] rounded-full bg-cat-instructional/5 dark:bg-cat-instructional/10 blur-[120px]" />
+      </div>
 
-      {/* Background Accent - Optimized: Pauses when off-screen, reduced blur */}
+      {/* Shared Interactive Background Accent (Right Side) */}
       <motion.div
         animate={isInView ? {
           scale: [1, 1.15, 1],
@@ -172,7 +176,7 @@ export function AboutSection() {
               Bridging Pedagogy with <br className="hidden md:block" />
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
-            <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
+            <p className="text-sm sm:text-base md:text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
               I am Ferdy Fadhil Lazuardi — an Educational Technology graduate and Learning Designer
               focused on creating engaging, objective-driven learning materials that empower employees and learners to grow.
             </p>
@@ -192,9 +196,13 @@ export function AboutSection() {
 
           {/* RIGHT: INTERACTIVE FLOATING NOTES (No background box) */}
           <div className="relative min-h-[650px] lg:h-[800px] w-full mt-10 lg:mt-0">
+            {/* Background "Drag me" text for Desktop */}
+            <div className="hidden sm:block absolute -right-6 lg:-right-12 top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] font-handwriting text-slate-300/40 dark:text-slate-700/40 font-bold text-4xl lg:text-6xl pointer-events-none select-none tracking-[0.2em] uppercase z-0">
+              Drag me
+            </div>
 
             {/* Desktop & Tablet: Floating Draggable View */}
-            <div className="hidden sm:block relative w-full h-full">
+            <div className="hidden sm:block relative w-full h-full z-10">
               {noteData.map((note, index) => {
                 const style = foldStyles[index % foldStyles.length]
                 const textRotation = 0 // Flatten text as well
@@ -217,14 +225,19 @@ export function AboutSection() {
                       zIndex: 100,
                       transition: { duration: 0.2 }
                     }}
-                    whileDrag={{ scale: 1.1, zIndex: 100 }}
+                    whileDrag={{ 
+                      scale: 1.15, 
+                      rotate: note.rotate - 6, // Twist slightly when peeling off
+                      zIndex: 100,
+                      boxShadow: "15px 25px 35px rgba(0,0,0,0.2)"
+                    }}
                     transition={{
                       type: "spring",
-                      stiffness: 100,
-                      damping: 15,
+                      stiffness: 250, // Increase stiffness for snappier return
+                      damping: 20,
                       delay: index * 0.03
                     }}
-                    className="absolute w-[160px] lg:w-[185px] aspect-square p-6 pt-8 flex flex-col items-start justify-start text-left cursor-grab transition-shadow group shadow-[0_8px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.15)]"
+                    className="absolute w-[160px] lg:w-[185px] aspect-square p-6 pt-8 flex flex-col items-start justify-start text-left cursor-grab active:cursor-grabbing transition-shadow group shadow-[0_8px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.15)]"
                     style={{
                       backgroundColor: note.color,
                       top: note.top,
@@ -261,7 +274,7 @@ export function AboutSection() {
             {/* Mobile: Compact Grid View (Also no container background) */}
             <div className="sm:hidden grid grid-cols-2 gap-x-3 gap-y-6 pt-4 pb-10">
               {noteData.map((note, index) => {
-                const style = note.title === "Branding & Socials" ? foldStyles[0] : foldStyles[index % foldStyles.length]
+                const style = note.title === "Learning Campaigns" ? foldStyles[0] : foldStyles[index % foldStyles.length]
                 const textRotation = 0
 
                 return (

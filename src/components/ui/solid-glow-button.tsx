@@ -8,6 +8,7 @@ interface SolidGlowButtonProps {
   icon?: React.ReactNode
   size?: 'sm' | 'md' | 'lg'
   className?: string
+  download?: string
 }
 
 export function SolidGlowButton({ 
@@ -16,7 +17,8 @@ export function SolidGlowButton({
   text, 
   icon,
   size = 'lg',
-  className = ''
+  className = '',
+  download
 }: SolidGlowButtonProps) {
   
   const isExternal = href.startsWith('http') || href.startsWith('mailto:');
@@ -30,6 +32,7 @@ export function SolidGlowButton({
     <LinkComponent
       href={href}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(download ? { download } : {})}
       className={`group relative inline-flex items-center justify-center gap-2 ${sizeClass} rounded-full font-bold text-white transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:scale-[1.02] ${className}`}
       style={{
         backgroundColor: color,

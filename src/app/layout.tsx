@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description: 'Portfolio of Ferdy Fadhil Lazuardi — Educational Technology graduate & Learning Designer merging creative multimedia design with AI to deliver engaging, scalable digital learning experiences.',
 };
 
-import { Navbar } from '@/components/layout/Navbar';
+import { FloatingNav } from '@/components/layout/FloatingNav';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ClientLayout } from '@/components/layout/ClientLayout';
@@ -55,7 +55,7 @@ export default function RootLayout({
         </div>
         
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
-          <Navbar />
+          <FloatingNav />
           <ClientLayout>{children}</ClientLayout>
         </ThemeProvider>
       </body>

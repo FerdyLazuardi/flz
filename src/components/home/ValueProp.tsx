@@ -50,10 +50,10 @@ const containerVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
@@ -61,15 +61,14 @@ const itemVariants = {
     }
   },
 }
-
 export function ValueProp() {
   const ref = React.useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
-    <section ref={ref} className="py-32 relative overflow-hidden">
+    <section id="value" ref={ref} className="py-32 relative overflow-visible">
       {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10 overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/5 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]" />
       </div>
@@ -81,10 +80,11 @@ export function ValueProp() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 tracking-tight">
-            End-to-End <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Learning Architecture</span>
+          <h2 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black text-text-primary mb-6 tracking-tight leading-[1.05]">
+            End-to-End <br />
+            <span className="relative inline-block z-10 whitespace-nowrap after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm mt-2 sm:mt-0">Learning Architecture</span>
           </h2>
-          <p className="text-slate-500 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
+          <p className="text-slate-500 max-w-3xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
             I bring three distinct disciplines together to build learning experiences that are
             conceptually sound, visually striking, and technically advanced.
           </p>

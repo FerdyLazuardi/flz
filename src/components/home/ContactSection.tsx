@@ -74,12 +74,22 @@ export function ContactSection() {
     let height = canvas.height = window.innerHeight
 
     let particles: Array<{ x: number, y: number, ox: number, oy: number, vx: number, vy: number, type: number, size: number, angle: number, vAngle: number }> = []
+    
+    // Pre-allocate spatial grid to avoid Garbage Collection stutters
+    let cellSize = 45;
+    let colsInGrid = Math.ceil(width / cellSize);
+    let rowsInGrid = Math.ceil(height / cellSize);
+    let grid: number[][] = Array(colsInGrid * rowsInGrid).fill(0).map(() => []);
 
     const initParticles = () => {
       particles = []
       const spacing = width < 768 ? 24 : 20
       const cols = Math.floor(width / spacing)
       const rows = Math.floor((height * 0.45) / spacing)
+      
+      colsInGrid = Math.ceil(width / cellSize);
+      rowsInGrid = Math.ceil(height / cellSize);
+      grid = Array(colsInGrid * rowsInGrid).fill(0).map(() => []);
       
       const homeYStart = height - (rows * spacing)
       
@@ -168,22 +178,25 @@ export function ContactSection() {
       time += 0.003
       ctx.clearRect(0, 0, width, height)
 
-      // --- SPATIAL PARTITIONING OPTIMIZED ---
-      const cellSize = 45
-      const colsInGrid = Math.ceil(width / cellSize)
-      const grid = new Map<number, number[]>()
-      
-      particles.forEach((p, idx) => {
-        const gx = Math.floor(p.x / cellSize)
-        const gy = Math.floor(p.y / cellSize)
-        const key = gy * colsInGrid + gx
-        if (!grid.has(key)) grid.set(key, [])
-        grid.get(key)!.push(idx)
-      })
-
       const isDark = document.documentElement.classList.contains("dark")
       const colorBase = isDark ? "255, 255, 255" : "0, 0, 0"
 
+      // 1. Clear spatial grid without garbage collection (reusing arrays)
+      for (let i = 0; i < grid.length; i++) {
+        grid[i].length = 0;
+      }
+
+      // 2. Populate grid
+      particles.forEach((p, idx) => {
+        const gx = Math.floor(p.x / cellSize);
+        const gy = Math.floor(p.y / cellSize);
+        const key = gy * colsInGrid + gx;
+        if (key >= 0 && key < grid.length) {
+          grid[key].push(idx);
+        }
+      });
+
+      // 3. Process physics
       particles.forEach((p, i) => {
         const driftX = Math.sin(time + p.oy * 0.01) * 20 + Math.cos(time * 0.7 + p.ox * 0.01) * 10
         const driftY = Math.cos(time + p.ox * 0.01) * 15 + Math.sin(time * 0.7 + p.oy * 0.01) * 10
@@ -193,50 +206,79 @@ export function ContactSection() {
         const dx = mouseX - p.x
         const dy = mouseY - p.y
         const distSq = dx * dx + dy * dy
-        const maxDistSq = 40000 // 200 * 200
+        const maxDistSq = 4900 // 70 * 70
 
+        // Mouse Repulsion
         if (distSq < maxDistSq && isMouseInContent) {
           const dist = Math.sqrt(distSq)
-          const force = Math.pow((200 - dist) / 200, 2)
+          const force = Math.pow((70 - dist) / 70, 2)
           
-          p.vx -= (dx / dist) * force * 2.5
-          p.vy -= (dy / dist) * force * 2.5
-          p.vx += (dy / dist) * force * 5.5
-          p.vy -= (dx / dist) * force * 5.5
-          p.vx += mouseVX * force * 10.0
-          p.vy += mouseVY * force * 10.0
+          p.vx -= (dx / dist) * force * 2.0
+          p.vy -= (dy / dist) * force * 2.0
+          p.vx += (dy / dist) * force * 4.0
+          p.vy -= (dx / dist) * force * 4.0
+          p.vx += mouseVX * force * 12.0 // Boost throw power so they act as projectiles
+          p.vy += mouseVY * force * 12.0
         }
 
-        const gx = Math.floor(p.x / cellSize)
-        const gy = Math.floor(p.y / cellSize)
+        // Zero-GC Particle-Particle Anti-Overlap & Momentum Transfer
+        const gx = Math.floor(p.x / cellSize);
+        const gy = Math.floor(p.y / cellSize);
         for (let oy = -1; oy <= 1; oy++) {
           for (let ox = -1; ox <= 1; ox++) {
-            const key = (gy + oy) * colsInGrid + (gx + ox)
-            const neighbors = grid.get(key)
-            if (neighbors) {
-              for (const ni of neighbors) {
-                if (ni === i) continue
-                const other = particles[ni]
-                const pdx = p.x - other.x
-                const pdy = p.y - other.y
-                const pd2 = pdx * pdx + pdy * pdy
-                const minDist = (p.size + other.size) * 1.8
-                if (pd2 < minDist * minDist) {
-                  const d = Math.sqrt(pd2) || 1
-                  const overlapForce = (minDist - d) / minDist
-                  p.vx += (pdx / d) * overlapForce * 0.15
-                  p.vy += (pdy / d) * overlapForce * 0.15
+            const key = (gy + oy) * colsInGrid + (gx + ox);
+            if (key >= 0 && key < grid.length) {
+              const neighbors = grid[key];
+              for (let ni = 0; ni < neighbors.length; ni++) {
+                const neighborIdx = neighbors[ni];
+                if (neighborIdx === i) continue;
+                
+                const other = particles[neighborIdx];
+                const pdx = p.x - other.x;
+                const pdy = p.y - other.y;
+                const pd2 = pdx * pdx + pdy * pdy;
+                const minDist = (p.size + other.size) * 3.5; // Larger hitbox for collisions
+                
+                if (pd2 > 0 && pd2 < minDist * minDist) {
+                  const d = Math.sqrt(pd2);
+                  const overlapForce = (minDist - d) / minDist;
+                  
+                  // Transfer kinetic energy: moving particles push stationary ones
+                  const pushX = (pdx / d) * overlapForce * 0.9;
+                  const pushY = (pdy / d) * overlapForce * 0.9;
+                  
+                  p.vx += pushX;
+                  p.vy += pushY;
+                  
+                  // Push the other particle away (Momentum Transfer)
+                  other.vx -= pushX;
+                  other.vy -= pushY;
                 }
               }
             }
           }
         }
 
-        p.vy += 0.05 
-        p.vx += (targetX - p.x) * 0.003
-        p.vy += (targetY - p.y) * 0.003
-        p.vx *= 0.95
-        p.vy *= 0.95
+        // Fluid Natural Return (Organic, Non-Magnetic)
+        const distToTargetX = targetX - p.x;
+        const distToTargetY = targetY - p.y;
+        const distToTarget = Math.sqrt(distToTargetX * distToTargetX + distToTargetY * distToTargetY) || 1;
+        
+        // A force that scales with distance but softly caps out, ensuring they steadily return
+        // without snapping back violently like a stretched rubber band.
+        const returnForce = Math.min(distToTarget * 0.0015, 0.4);
+        
+        p.vx += (distToTargetX / distToTarget) * returnForce;
+        p.vy += (distToTargetY / distToTarget) * returnForce;
+        
+        // Slight gravity to give them a natural falling weight in the fluid
+        p.vy += 0.03;
+
+        // High fluid friction (0.86) to make them "swim" through a dense medium
+        // This stops them from bouncing or vibrating rapidly around their target
+        p.vx *= 0.86;
+        p.vy *= 0.86;
+        
         p.x += p.vx
         p.y += p.vy
 
@@ -251,9 +293,8 @@ export function ContactSection() {
         const size = p.size * (0.6 + depthFactor * 1.2)
         const alpha = (0.1 + depthFactor * 0.6) * (0.6 + Math.abs(driftX/35) * 0.4)
         
-        ctx.save()
-        ctx.translate(p.x, p.y)
-        ctx.rotate(p.angle)
+        // Fast transform without ctx.save() and ctx.restore()
+        ctx.setTransform(Math.cos(p.angle), Math.sin(p.angle), -Math.sin(p.angle), Math.cos(p.angle), p.x, p.y)
         
         ctx.fillStyle = `rgba(${colorBase}, ${alpha})`
         ctx.strokeStyle = `rgba(${colorBase}, ${alpha})`
@@ -268,8 +309,9 @@ export function ContactSection() {
         } else {
           ctx.beginPath(); ctx.moveTo(0, -size * 1.5); ctx.lineTo(size * 1.5, size * 1.5); ctx.lineTo(-size * 1.5, size * 1.5); ctx.closePath(); ctx.stroke();
         }
-        ctx.restore()
       })
+      
+      ctx.resetTransform() // Reset the transformation matrix for the next frame
 
       animationId = requestAnimationFrame(animate)
     }
@@ -313,8 +355,12 @@ export function ContactSection() {
     <section
       id="contact"
       ref={containerRef}
-      className="relative w-full h-screen min-h-[700px] flex flex-col items-center justify-center overflow-hidden bg-bg-default"
+      className="relative w-full h-screen min-h-[700px] flex flex-col items-center justify-center overflow-visible"
     >
+      {/* Cinematic Ambient Glow to unify with previous sections */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
+        <div className="absolute bottom-[0%] left-[20%] w-[60%] h-[50%] rounded-full bg-cat-instructional/5 dark:bg-cat-instructional/10 blur-[150px]" />
+      </div>
       <motion.canvas
         ref={canvasRef}
         initial={{ opacity: 0 }}
@@ -323,7 +369,7 @@ export function ContactSection() {
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-4 -mt-32 md:-mt-40">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 -mt-48 md:-mt-64">
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -331,7 +377,7 @@ export function ContactSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] text-text-secondary uppercase mb-8 sm:mb-12 max-w-2xl text-center"
         >
-          READY FOR A NEW LEARNING MEDIA EXPERIENCE?
+          READY FOR A NEW LEARNING <br className="sm:hidden" /> MEDIA EXPERIENCE?
         </motion.p>
 
         <div
@@ -375,7 +421,7 @@ export function ContactSection() {
                transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                className="relative z-10"
             >
-              <h1 className="font-heading font-bold text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
+              <h1 className="font-heading font-bold text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-tight text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
                 <RollingText text={text2} iterations={iterations} offset={text1.length} />
               </h1>
             </motion.div>
@@ -397,65 +443,59 @@ export function ContactSection() {
         </div>
       </div>
 
-      <div className="absolute bottom-40 left-0 w-full flex justify-center z-20 px-6 pointer-events-auto">
+      <div className="absolute bottom-32 sm:bottom-60 left-0 w-full flex justify-center z-20 px-6 pointer-events-auto">
         <motion.div 
-          initial={{ 
-            opacity: 0, 
-            scale: 0.9, 
-            y: 30,
-            backdropFilter: "blur(0px)",
-          }}
-          whileInView={{ 
-            opacity: 1, 
-            scale: 1, 
-            y: 0,
-            backdropFilter: "blur(16px)",
-          }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ 
-            duration: 1.2, 
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.5
+            delay: 0.6, 
+            duration: 0.8, 
+            ease: [0.16, 1, 0.3, 1] 
           }}
-          className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 w-full max-w-4xl p-3 sm:p-4 rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
+          style={{
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+          }}
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-4xl p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
           <Magnetic strength={0.15}>
-            <div className="w-full sm:w-auto relative z-10">
+            <div className="w-full sm:w-auto relative z-10 flex">
               <AnimatedSwipeButton
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=ferdy.lazuardi05@gmail.com"
                 color="#EA4335"
                 size="md"
                 icon={<GmailIcon className="w-5 h-5 relative z-10" />}
                 text="Gmail"
-                className="w-full sm:w-auto sm:px-8"
+                className="w-full sm:w-auto sm:px-8 flex-1"
               />
             </div>
           </Magnetic>
 
           <Magnetic strength={0.15}>
-            <div className="w-full sm:w-auto relative z-10">
+            <div className="w-full sm:w-auto relative z-10 flex">
               <SolidGlowButton
                 href="https://wa.me/+628987863920"
                 color="#25D366"
                 size="md"
                 icon={<WhatsAppIcon className="w-5 h-5 relative z-10" />}
                 text="WhatsApp"
-                className="w-full sm:w-auto sm:px-8"
+                className="w-full sm:w-auto sm:px-8 flex-1"
               />
             </div>
           </Magnetic>
 
           <Magnetic strength={0.15}>
-            <div className="w-full sm:w-auto relative z-10">
+            <div className="w-full sm:w-auto relative z-10 flex">
               <AnimatedSwipeButton
                 href="https://www.linkedin.com/in/ferdy10/"
                 color="#0A66C2"
                 size="md"
                 icon={<LinkedInIcon className="w-5 h-5 relative z-10" />}
                 text="LinkedIn"
-                className="w-full sm:w-auto sm:px-8"
+                className="w-full sm:w-auto sm:px-8 flex-1"
               />
             </div>
           </Magnetic>
