@@ -404,14 +404,12 @@ export function ContactSection() {
             scale: 0.9, 
             y: 30,
             backdropFilter: "blur(0px)",
-            WebkitBackdropFilter: "blur(0px)"
           }}
           whileInView={{ 
             opacity: 1, 
             scale: 1, 
             y: 0,
             backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)"
           }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ 
