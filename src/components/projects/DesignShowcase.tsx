@@ -15,25 +15,52 @@ const brutalistItems = [
 ]
 
 const itemVariants = {
-  hidden: (i: number) => ({
-    opacity: 0,
-    y: 200,          // Deep vertical starting point for dramatic sweep
-    scale: 0.9,      // Slightly pushed back
-    rotate: brutalistItems[i].rot - 8, // Start with excessive tilt
-    filter: "blur(20px) grayscale(100%) brightness(0.8)", // Start muted and dreamy
-  }),
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    rotate: brutalistItems[i].rot, // Settle into final brutalist tilt
-    filter: "blur(0px) grayscale(0%) brightness(1)",
-    transition: {
-      duration: 1.8,                  // Slow, luxurious cinematic duration
-      ease: [0.16, 1, 0.3, 1],        // Ultra-premium Expo-Out bezier curve
-      delay: i * 0.1 + 0.1,           // Gentle sequential sweep
-    },
-  }),
+  hidden: (i: number) => {
+    // Detect mobile for scaling offsets
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    
+    // Deterministic "randomness" based on index
+    const seed = i * 45;
+    const initialX = Math.sin(seed) * (isMobile ? 150 : 400); 
+    const initialY = 400 + (i * 50); // Start from BELOW the section to avoid bleeding up
+    const initialZ = isMobile ? 300 : 800;
+    const initialRotateX = (seed % 360) - 180;
+    const initialRotateY = (seed % 200) - 100;
+    const initialRotateZ = (seed % 120) - 60;
+
+    return {
+      opacity: 0,
+      x: initialX,
+      y: 0,            // Centered vertically to prevent bleed
+      z: initialZ,
+      rotateX: initialRotateX,
+      rotateY: initialRotateY,
+      rotate: initialRotateZ,
+      scale: 0.1,      // Start much smaller for better focus
+      filter: "blur(30px) brightness(0)",
+    };
+  },
+  visible: (i: number) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    return {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      z: 0,
+      rotateX: 0,
+      rotateY: 0,
+      rotate: brutalistItems[i].rot,
+      scale: 1,
+      filter: "blur(0px) brightness(1)",
+      transition: {
+        duration: isMobile ? 1.6 : 2.4, 
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+        delay: i * 0.06, 
+        scale: { duration: isMobile ? 1.4 : 2 },
+        filter: { duration: 2.2 },
+      },
+    };
+  },
 }
 
 export function DesignShowcase() {
@@ -51,63 +78,52 @@ export function DesignShowcase() {
   return (
     <section className="mt-40 mb-32 relative" ref={containerRef}>
       {/* Aesthetic Section Header */}
-      <div className="mb-24 relative z-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: false, margin: "100% 0px 0px 0px", amount: 0.2 }} // Stay active when scrolled past DOWN
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-24 relative z-20 px-4 md:px-12"
+      >
         <div className="flex items-center gap-4 mb-8">
           <div className="h-px flex-1 bg-border/40" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono text-[10px] tracking-[0.4em] uppercase opacity-40 px-4 flex items-center gap-2"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            System.Archive/Raw_Assets_v2.1
-          </motion.div>
           <div className="h-px w-12 bg-border/40" />
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
           <div className="relative group">
-            <h2 className="font-heading text-7xl md:text-9xl lg:text-[11rem] font-black uppercase tracking-tighter text-text-primary leading-[0.8] mix-blend-difference relative z-10">
-              RAW <br />
-              <span
-                className="text-transparent"
-                style={{ WebkitTextStroke: '1px currentColor' }}
-              >
-                VISUALS.
-              </span>
+            <h2 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
+              <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
+                GALLERY
+              </span> 
+              {" "}PROJECT.
             </h2>
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ delay: 0.5, duration: 1 }}
-              className="absolute -bottom-4 left-0 h-1 bg-primary/20"
-            />
+
           </div>
 
-          <div className="max-w-xs space-y-6">
-            <p className="font-mono text-[11px] leading-relaxed text-slate-500 uppercase tracking-tight">
-                   // DECONSTRUCTED INTERFACES, MOTION EXPERIMENTS, AND UNFILTERED CREATIVE OUTPUT. 
-                   // EXECUTED WITH MATHEMATICAL PRECISION.
+          <div className="flex flex-col gap-6 text-left md:text-right">
+            <p className="font-mono text-[11px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
+                   // COMPREHENSIVE ARCHIVE OF MULTIMEDIA WORK, INTERACTIVE EXPERIMENTS, AND DESIGN EXPLORATIONS.
+                   // A DEEPER DIVE INTO THE CREATIVE PROCESS.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:justify-end">
               {[1, 2, 3, 4].map(i => (
                 <motion.div 
                   key={i} 
                   initial={{ opacity: 0.1 }}
                   whileInView={{ opacity: [0.1, 0.5, 0.1] }}
                   transition={{ repeat: Infinity, duration: 2, delay: i * 0.3 }}
-                  className="w-6 h-0.5 bg-primary" 
+                  className="w-10 h-0.5 bg-primary/40" 
                 />
               ))}
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Dynamic Masonry Grid with Perspective */}
       <div 
-        className="columns-1 sm:columns-2 lg:columns-3 gap-10 space-y-10 px-4 md:px-0"
+        className="columns-1 sm:columns-2 lg:columns-3 gap-10 space-y-10 px-4 md:px-12 lg:px-16"
         style={{ perspective: "2500px", transformStyle: "preserve-3d" }}
       >
         {brutalistItems.map((item, idx) => (
@@ -116,8 +132,13 @@ export function DesignShowcase() {
             custom={idx}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: false, margin: "100% 0px 0px 0px", amount: 0.1 }}
             variants={itemVariants}
+            style={{ 
+              willChange: "transform, opacity, filter",
+              transformStyle: "preserve-3d",
+              backfaceVisibility: "hidden" 
+            }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -125,7 +146,7 @@ export function DesignShowcase() {
               e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
               e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
             }}
-            className={`relative break-inside-avoid group cursor-pointer`}
+            className={`relative break-inside-avoid group cursor-pointer transform-gpu`}
           >
             <div className="relative overflow-hidden bg-bg-surface border border-border/30 backdrop-blur-sm transition-all duration-1000 ease-[0.23,1,0.32,1] group-hover:border-primary/50 group-hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] group-hover:!rotate-0 group-hover:-translate-y-2 z-10">
               <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/0 group-hover:border-primary/60 transition-all duration-500 z-30" />
@@ -164,7 +185,7 @@ export function DesignShowcase() {
               </div>
             </div>
             
-            <div className="mt-4 flex justify-between items-center px-1 opacity-0 group-hover:opacity-20 transition-opacity duration-700 transition-delay-300">
+            <div className="mt-4 flex justify-between items-center px-1 opacity-0 group-hover:opacity-20 transition-opacity duration-700 delay-300">
                <span className="font-mono text-[8px] tracking-widest uppercase">ID_{idx.toString().padStart(3, '0')}</span>
                <div className="h-px flex-1 mx-4 bg-text-primary/20" />
                <span className="font-mono text-[8px] tracking-widest uppercase">{item.size}</span>

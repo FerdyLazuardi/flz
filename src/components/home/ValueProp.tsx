@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Lightbulb, Code, Video, Sparkles, Workflow, Layers } from "lucide-react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, Variants } from "framer-motion"
 
 const capabilities = [
   {

@@ -31,9 +31,9 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   const variants = {
-    initial: (dir: number) => mounted ? { opacity: 0, x: dir > 0 ? 20 : dir < 0 ? -20 : 0 } : false,
+    initial: (dir: number) => mounted ? { opacity: 0, x: dir > 0 ? 20 : dir < 0 ? -20 : 0 } : {},
     animate: { opacity: 1, x: 0 },
-    exit: (dir: number) => mounted ? { opacity: 0, x: dir > 0 ? -20 : dir < 0 ? 20 : 0 } : false
+    exit: (dir: number) => mounted ? { opacity: 0, x: dir > 0 ? -20 : dir < 0 ? 20 : 0 } : {}
   };
 
   return (
@@ -46,7 +46,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
         animate="animate"
         exit="exit"
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="flex-grow"
+        className="flex-grow overflow-x-clip"
       >
         {children}
       </motion.main>

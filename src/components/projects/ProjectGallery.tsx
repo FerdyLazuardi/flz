@@ -23,7 +23,7 @@ export function ProjectGallery({ projects }: { projects: ProjectData[] }) {
               layout
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
               variants={{
                 hidden: { opacity: 0 },
                 visible: {

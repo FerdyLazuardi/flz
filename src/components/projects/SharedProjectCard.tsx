@@ -63,7 +63,7 @@ export function LusionCard({ project, onClick }: { project: ProjectData, onClick
           layoutId={`card-image-${project._id}`}
           whileHover={{ scale: 0.98 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-2xl md:rounded-[2rem] mb-4 cursor-none"
+          className="relative w-full aspect-video overflow-hidden rounded-2xl md:rounded-[2rem] mb-4 cursor-none"
         >
           <motion.div
             variants={{
