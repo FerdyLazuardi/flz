@@ -16,7 +16,7 @@ export function AnimatedBackground() {
         repeat: Infinity,
         ease: "linear",
       }}
-      className="fixed top-[10%] left-[40%] w-[1200px] h-[800px] pointer-events-none -z-10"
+      className="fixed top-[10%] left-[40%] w-[1200px] h-[800px] pointer-events-none -z-10 transform-gpu will-change-transform"
     >
       <div className="absolute inset-0 rounded-[100%] bg-gradient-to-tr from-cat-instructional/20 via-purple-200/30 to-cat-ai/20 blur-[120px]" />
     </motion.div>

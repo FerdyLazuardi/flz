@@ -1,13 +1,31 @@
 "use client"
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, useMotionValueEvent } from "framer-motion"
 import { Play, Pause, CheckCircle2, LayoutTemplate, MonitorPlay } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
+
+function ProgressNumber({ progress }: { progress: import("framer-motion").MotionValue<number> }) {
+  const [val, setVal] = useState(0)
+  useMotionValueEvent(progress, "change", (latest) => {
+    const rounded = Math.round(latest)
+    if (rounded !== val) setVal(rounded)
+  })
+  return <span>{val}</span>
+}
 
 export function InteractiveHeroGraphic() {
   const [isPlaying, setIsPlaying] = useState(true) // Autoplay enabled
-  const [progress, setProgress] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  const rawProgress = useMotionValue(0)
+
+  useAnimationFrame((time, delta) => {
+    if (isPlaying) {
+      const current = rawProgress.get()
+      // Adjust speed to match original: 0.2 every 50ms means 4 per second
+      rawProgress.set((current + (delta / 1000) * 4) % 100) 
+    }
+  })
 
   // Perspective values
   const x = useMotionValue(0)
@@ -37,19 +55,10 @@ export function InteractiveHeroGraphic() {
     y.set(0)
   }
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setProgress(p => (p + 0.2) % 100) // Master master clock (0-100)
-      }, 50)
-    }
-    return () => clearInterval(interval)
-  }, [isPlaying])
-
-  // Compute values based on progress for smooth pause/resume
-  const rotation = progress * 10.8 // 3 full rotations per progress cycle
-  const borderRadius = `${35 + Math.sin((progress / 100) * Math.PI * 10) * 15}%`
+  // Compute values based on progress for smooth pause/resume without react renders
+  const rotation = useTransform(rawProgress, p => p * 10.8) // 3 full rotations per progress cycle
+  const borderRadius = useTransform(rawProgress, p => `${35 + Math.sin((p / 100) * Math.PI * 10) * 15}%`)
+  const widthPct = useTransform(rawProgress, p => `${p}%`)
 
   return (
     <div 
@@ -62,7 +71,7 @@ export function InteractiveHeroGraphic() {
       <motion.div 
         animate={{ rotate: 360 }} 
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-br from-cat-instructional/20 to-cat-ai/20 rounded-full blur-[80px]"
+        className="absolute inset-0 bg-gradient-to-br from-cat-instructional/20 to-cat-ai/20 rounded-full blur-[80px] transform-gpu will-change-transform"
       />
       
       {/* Main floating card with perspective follow */}
@@ -100,16 +109,18 @@ export function InteractiveHeroGraphic() {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <motion.div 
                 animate={{ 
-                  scale: isPlaying ? 1.1 : 1,
+                  scale: isPlaying ? 1.1 : 1
+                }} 
+                style={{
                   rotate: rotation,
                   borderRadius: borderRadius
-                }} 
+                }}
                 transition={{ 
                   type: "tween", 
                   ease: "linear",
                   duration: 0.05
                 }}
-                className="w-40 h-40 border-[12px] border-accent opacity-20"
+                className="w-40 h-40 border-[12px] border-accent opacity-20 transform-gpu will-change-transform"
               />
             </div>
             
@@ -130,13 +141,12 @@ export function InteractiveHeroGraphic() {
           <div className="p-5 bg-white/50 dark:bg-black/30 border-t border-black/5 dark:border-white/10">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Module Progress</span>
-              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{Math.round(progress)}%</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400"><ProgressNumber progress={rawProgress} />%</span>
             </div>
             <div className="h-2 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
               <motion.div 
-                className="h-full bg-accent"
-                animate={{ width: `${progress}%` }}
-                transition={{ type: "tween", ease: "linear", duration: 0.05 }}
+                className="h-full bg-accent transform-gpu will-change-transform"
+                style={{ width: widthPct }}
               />
             </div>
           </div>

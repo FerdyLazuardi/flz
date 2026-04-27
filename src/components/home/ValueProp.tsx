@@ -7,7 +7,7 @@ import { motion, useInView, Variants } from "framer-motion"
 const capabilities = [
   {
     title: "Instructional Design",
-    description: "Developing safe-to-fail learning environments using gamification, scenario-based learning, and interactive storytelling.",
+    description: "Translating complex concepts into structured, human-centric learning journeys to ensure measurable skill gaps are closed effectively.",
     icon: Lightbulb,
     color: "var(--cat-instructional)",
     bgClass: "bg-[var(--cat-instructional)]/10",
@@ -18,7 +18,7 @@ const capabilities = [
   },
   {
     title: "Multimedia Production",
-    description: "Creating high-retention video content, cinematic motion graphics, and interactive experiences that engage learners actively.",
+    description: "Creating high-retention video content, motion graphics, and interactive experiences that engage learners actively.",
     icon: Video,
     color: "var(--cat-multimedia)",
     bgClass: "bg-[var(--cat-multimedia)]/10",

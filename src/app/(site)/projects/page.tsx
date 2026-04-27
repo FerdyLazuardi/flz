@@ -71,7 +71,7 @@ export default async function ProjectsPage() {
   }))
 
   return (
-    <div className="min-h-screen pt-32 relative overflow-hidden">
+    <div className="min-h-screen pt-24 md:pt-32 relative overflow-hidden">
       
       {/* Background Accent 1 (Middle Right) */}
       <div className="absolute top-[30%] right-[-10%] w-[1000px] h-[800px] pointer-events-none -z-10">
@@ -93,7 +93,7 @@ export default async function ProjectsPage() {
         <div className="absolute inset-0 rounded-[100%] bg-gradient-to-t from-cat-instructional/10 via-purple-200/15 to-transparent blur-[120px]" />
       </div>
 
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
+      <div className="relative z-20 px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
         <ProjectHeader />
         <ProjectGallery projects={projectsWithUrls} />
       </div>

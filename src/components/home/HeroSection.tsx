@@ -127,7 +127,7 @@ export function HeroSection({
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute top-1/3 left-1/4 w-[1200px] h-[800px] pointer-events-none -z-10"
+        className="absolute top-1/3 left-1/4 w-[1200px] h-[800px] pointer-events-none -z-10 transform-gpu will-change-transform"
       >
         <div className="absolute inset-0 rounded-[100%] bg-gradient-to-tr from-cat-instructional/20 via-purple-200/30 to-cat-ai/20 blur-[120px]" />
       </motion.div>

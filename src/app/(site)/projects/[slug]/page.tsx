@@ -125,11 +125,8 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                 <div className="mb-8 last:mb-0">
                   <div className="flex items-center gap-3 mb-4 px-2">
                     <h3 className="font-heading font-bold flex items-center gap-2 text-text-primary">
-                      <PlaySquare className="w-5 h-5 text-red-500" /> Video Showreel
+                      <PlaySquare className="w-5 h-5 text-red-500" /> Video Highlight
                     </h3>
-                    <span className="text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full border border-red-200 dark:border-red-700">
-                      Project Video Highlights
-                    </span>
                   </div>
                   <div className="aspect-video w-full rounded-2xl overflow-hidden bg-black/5 ring-1 ring-border">
                     <iframe

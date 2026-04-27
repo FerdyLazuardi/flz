@@ -22,8 +22,11 @@ const scribbled = Gloria_Hallelujah({
 });
 
 export const metadata: Metadata = {
-  title: 'Ferdy Fadhil Lazuardi | Learning Designer × AI',
+  title: 'Ferdy Fadhil Lazuardi | Learning Designer',
   description: 'Portfolio of Ferdy Fadhil Lazuardi — Educational Technology graduate & Learning Designer merging creative multimedia design with AI to deliver engaging, scalable digital learning experiences.',
+  icons: {
+    icon: '/logo_web/Logo_DigitalLayers.svg',
+  },
 };
 
 export default function RootLayout({
@@ -37,7 +40,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${inter.variable} ${scribbled.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body 
+      <body
         className="min-h-full flex flex-col font-sans bg-transparent relative"
         suppressHydrationWarning
       >

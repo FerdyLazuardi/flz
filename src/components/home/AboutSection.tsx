@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowUpRight } from "lucide-react"
+import { Download } from "lucide-react"
 import { motion, useInView } from "framer-motion"
 import { SolidGlowButton } from "@/components/ui/solid-glow-button"
 import { Magnetic } from "@/components/ui/magnetic"
@@ -183,12 +183,12 @@ export function AboutSection() {
             <Magnetic strength={0.2}>
               <div className="w-full sm:w-auto">
                 <SolidGlowButton
-                  href="/about"
-                  text="Read Full Bio"
+                  href="/CV - Ferdy Fadhil Lazuardi.pdf"
+                  text="Download CV"
                   color="#0a0a0a"
                   size="md"
                   className="w-full sm:w-auto sm:px-8"
-                  icon={<ArrowUpRight className="w-5 h-5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
+                  icon={<Download className="w-5 h-5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
                 />
               </div>
             </Magnetic>

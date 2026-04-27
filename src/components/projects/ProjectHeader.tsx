@@ -8,9 +8,9 @@ import { Magnetic } from "@/components/ui/magnetic"
 
 export function ProjectHeader() {
   return (
-    <header className="mb-16 md:mb-24 flex flex-col items-start w-full relative">
+    <header className="mb-12 md:mb-24 flex flex-col items-start w-full relative">
       {/* Premium Magnetic Back Button */}
-      <div className="mb-16 md:mb-24 mt-4">
+      <div className="mb-10 md:mb-24 mt-0 md:mt-4">
         <Magnetic strength={0.2}>
           <Link href="/" className="group relative outline-none block">
             <motion.div
