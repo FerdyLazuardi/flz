@@ -20,7 +20,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
   const activeProject = projects.find(p => p._id === selectedId);
 
   return (
-    <section id="projects" className={`py-16 md:py-24 relative overflow-visible ${activeProject ? 'z-[100]' : 'z-10'}`}>
+    <section id="projects" className={`py-32 relative overflow-visible ${selectedId ? 'z-[9999]' : 'z-10'}`}>
       {/* Cinematic Ambient Background Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[20%] left-[-15%] w-[40%] h-[50%] rounded-full bg-cat-multimedia/5 dark:bg-cat-multimedia/10 blur-[120px]" />

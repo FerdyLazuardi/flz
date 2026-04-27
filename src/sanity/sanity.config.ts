@@ -47,8 +47,14 @@ export default defineConfig({
                   .schemaType("siteSettings")
                   .documentId("siteSettings")
               ),
+            S.divider(),
             // Regular document types
             S.documentTypeListItem("project").title("Projects"),
+            S.documentTypeListItem("designShowcase").title("Design Showcase"),
+            S.divider(),
+            S.documentTypeListItem("post").title("Blog Posts"),
+            S.documentTypeListItem("category").title("Categories"),
+            S.documentTypeListItem("author").title("Authors"),
           ]),
     }),
     visionTool({ defaultApiVersion: apiVersion }),

@@ -12,7 +12,7 @@ export function ProjectGallery({ projects }: { projects: ProjectData[] }) {
   const activeProject = projects.find(p => p._id === selectedId);
 
   return (
-    <div className="flex flex-col relative z-20">
+    <div className={`flex flex-col relative ${selectedId ? 'z-[9999]' : 'z-20'}`}>
       <motion.div 
         layout 
         className="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-12 gap-y-12 lg:gap-y-20"
@@ -23,7 +23,7 @@ export function ProjectGallery({ projects }: { projects: ProjectData[] }) {
               layout
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, margin: "-100px" }}
+              viewport={{ once: true, margin: "-100px" }}
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
@@ -35,6 +35,7 @@ export function ProjectGallery({ projects }: { projects: ProjectData[] }) {
                 }
               }}
               key={project._id}
+              id={project.slug}
               className="w-full"
             >
               <LusionCard project={project} onClick={() => setSelectedId(project._id)} />

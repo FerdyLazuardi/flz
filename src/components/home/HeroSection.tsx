@@ -10,15 +10,15 @@ import { Typewriter } from "@/components/ui/typewriter"
 import { InteractiveHeroGraphic } from "@/components/home/InteractiveHeroGraphic"
 import { Magnetic } from "@/components/ui/magnetic"
 
-function Counter({ 
-  value, 
-  suffix = "", 
-  duration = 2.5, 
-  useSeparator = false 
-}: { 
-  value: number; 
-  suffix?: string; 
-  duration?: number; 
+function Counter({
+  value,
+  suffix = "",
+  duration = 2.5,
+  useSeparator = false
+}: {
+  value: number;
+  suffix?: string;
+  duration?: number;
   useSeparator?: boolean;
 }) {
   const count = useMotionValue(0);
@@ -35,8 +35,8 @@ function Counter({
   });
 
   React.useEffect(() => {
-    const controls = animate(count, value, { 
-      duration, 
+    const controls = animate(count, value, {
+      duration,
       ease: [0.16, 1, 0.3, 1], // Smooth easeOutExpo
     });
     return controls.stop;
@@ -73,9 +73,10 @@ const itemVariants: Variants = {
 export function HeroSection({
   phrases = [
     "Hello, I'm Ferdy.",
+    "Instructional Designer.",
     "Learning Designer.",
-    "Video Learning Producer.",
-    "Interactive Media Developer."
+    "Multimedia Producer.",
+    "AI-Enhanced Learning."
   ],
   headline = (
     <>
@@ -83,7 +84,7 @@ export function HeroSection({
       who turns tools into impact.
     </>
   ),
-  subtitle = "I merge instructional design with interactive media, video production, and artificial intelligence to create digital learning experiences that are engaging, scalable, and objective-driven.",
+  subtitle = "I merge instructional design, multimedia, and AI to build digital learning experiences that are engaging, scalable, and results-driven.",
 }: {
   phrases?: string[]
   headline?: React.ReactNode
@@ -144,10 +145,12 @@ export function HeroSection({
           >
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center rounded-full border border-border bg-bg-surface/50 px-3 py-1.5 text-xs sm:text-sm font-semibold text-text-secondary backdrop-blur-sm mb-6 sm:mb-8 shadow-sm"
+              className="inline-flex items-center rounded-full border border-border bg-bg-surface/50 px-3 py-1.5 text-[11px] sm:text-sm font-semibold text-text-secondary backdrop-blur-sm mb-6 sm:mb-8 shadow-sm max-w-full"
             >
-              <span className="flex h-2 w-2 rounded-full bg-accent mr-2 animate-pulse" />
-              <Typewriter phrases={phrases} />
+              <span className="flex h-2 w-2 rounded-full bg-accent mr-2 animate-pulse shrink-0" />
+              <div className="truncate">
+                <Typewriter phrases={phrases} />
+              </div>
             </motion.div>
 
             <motion.h1

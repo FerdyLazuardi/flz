@@ -29,7 +29,7 @@ export function LogoMarquee() {
             ease: "linear",
             duration: 40, // Adjust speed here
           }}
-          className="flex flex-none items-center gap-16 pr-16"
+          className="flex flex-none items-center gap-10 sm:gap-16 pr-10 sm:pr-16"
         >
           {duplicatedLogos.map((logo, index) => (
             <div key={index} className="flex items-center justify-center transition-all duration-300 hover:scale-105" style={{ height: logo.height }}>

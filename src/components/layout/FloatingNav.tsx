@@ -79,24 +79,7 @@ export function FloatingNav() {
 
   return (
     <>
-      {/* Floating Header Actions */}
-      <div className="fixed top-6 left-6 right-6 z-[60] flex justify-between items-center pointer-events-none">
-        <div>
-          {!isHome && !isProjects && (
-            <Link href="/" className="pointer-events-auto">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-white/80 dark:bg-black/80 backdrop-blur-md border border-border p-2 rounded-full shadow-lg hover:scale-105 transition-transform"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </motion.div>
-            </Link>
-          )}
-        </div>
-
-        <div />
-      </div>
+      {/* Floating Header Actions (Removed top-left back button) */}
 
       {/* Right Side Section Indicator (Only on Home) */}
       <AnimatePresence>
@@ -118,6 +101,7 @@ export function FloatingNav() {
                   onClick={() => scrollToSection(section.id)}
                   onMouseEnter={() => setShowLabels(true)}
                   className="group relative flex items-center justify-end"
+                  aria-label={`Scroll to ${section.label} section`}
                 >
                   {/* Persistent Active Label or Hover Label */}
                   <AnimatePresence mode="wait">

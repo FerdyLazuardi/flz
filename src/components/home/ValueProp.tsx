@@ -1,42 +1,42 @@
 "use client"
 
 import * as React from "react"
-import { Lightbulb, Code, Video, Sparkles, Workflow, Layers } from "lucide-react"
+import { Lightbulb, Code, Video, Sparkles, Workflow, Layers, MonitorPlay } from "lucide-react"
 import { motion, useInView, Variants } from "framer-motion"
 
 const capabilities = [
   {
     title: "Instructional Design",
-    description: "ADDIE model, Training Needs Analysis (TNA), Bloom’s Taxonomy, learning evaluation, and LMS management (Moodle) for 10,000+ employees.",
+    description: "Developing safe-to-fail learning environments using gamification, scenario-based learning, and interactive storytelling.",
     icon: Lightbulb,
     color: "var(--cat-instructional)",
     bgClass: "bg-[var(--cat-instructional)]/10",
     borderColor: "group-hover:border-[var(--cat-instructional)]/30",
-    glowColor: "rgba(124, 58, 237, 0.15)", // Approx for #7C3AED
+    glowColor: "rgba(124, 58, 237, 0.15)",
     badge: "Strategic",
     subIcon: Workflow
   },
   {
-    title: "Video & Multimedia Production",
-    description: "Producing engaging video learning courses, motion graphics in Adobe CC, and interactive e-learning modules in Articulate Storyline.",
+    title: "Multimedia Production",
+    description: "Creating high-retention video content, cinematic motion graphics, and interactive experiences that engage learners actively.",
     icon: Video,
     color: "var(--cat-multimedia)",
     bgClass: "bg-[var(--cat-multimedia)]/10",
     borderColor: "group-hover:border-[var(--cat-multimedia)]/30",
-    glowColor: "rgba(59, 130, 246, 0.15)", // Approx for #3B82F6
+    glowColor: "rgba(59, 130, 246, 0.15)",
     badge: "Creative",
     subIcon: Sparkles
   },
   {
-    title: "Advanced Learning Tech",
-    description: "Architecting RAG knowledge bases and smart LMS integrations (Python, FastAPI) for instant learning data retrieval.",
+    title: "AI-Enhanced Learning",
+    description: "Architecting RAG knowledge bases, AI-driven content generation, and smart LMS integrations for adaptive learning.",
     icon: Code,
     color: "var(--cat-ai)",
     bgClass: "bg-[var(--cat-ai)]/10",
     borderColor: "group-hover:border-[var(--cat-ai)]/30",
-    glowColor: "rgba(5, 150, 105, 0.15)", // Approx for #059669
+    glowColor: "rgba(5, 150, 105, 0.15)",
     badge: "Technical",
-    subIcon: Layers
+    subIcon: Sparkles
   },
 ]
 
@@ -74,7 +74,7 @@ export function ValueProp() {
       </div>
 
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -90,11 +90,11 @@ export function ValueProp() {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
         >
           {capabilities.map((cap, index) => {
             const Icon = cap.icon
@@ -107,10 +107,10 @@ export function ValueProp() {
                 className={`group relative flex flex-col p-8 rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden`}
               >
                 {/* Hover Glow Effect */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10"
-                  style={{ 
-                    background: `radial-gradient(circle at 50% 0%, ${cap.glowColor}, transparent 70%)` 
+                  style={{
+                    background: `radial-gradient(circle at 50% 0%, ${cap.glowColor}, transparent 70%)`
                   }}
                 />
 
@@ -129,14 +129,14 @@ export function ValueProp() {
                 <h3 className="font-heading text-2xl font-black text-text-primary mb-4 leading-tight">
                   {cap.title}
                 </h3>
-                
+
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-8 flex-grow">
                   {cap.description}
                 </p>
 
                 <div className="flex items-center gap-2 mt-auto">
                   <div className="h-1 w-12 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }}
                       animate={isInView ? { width: "100%" } : {}}
                       transition={{ duration: 1, delay: 0.5 + (index * 0.2) }}
@@ -145,7 +145,7 @@ export function ValueProp() {
                     />
                   </div>
                 </div>
-                
+
                 {/* Decorative corner element */}
                 <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-10 transition-opacity">
                   <Icon className="w-24 h-24 -mr-8 -mt-8 rotate-12" />

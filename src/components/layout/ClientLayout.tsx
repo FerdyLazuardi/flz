@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 
 const PATH_ORDER = ['/', '/projects', '/about'];
 
+const SCROLL_STORAGE_KEY = 'projects-scroll-position';
+
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mounted, setMounted] = React.useState(false);
@@ -30,6 +32,25 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
+  const handleExitComplete = React.useCallback(() => {
+    // Check if we need to restore a saved scroll position (e.g. returning to /projects)
+    const savedScroll = sessionStorage.getItem(SCROLL_STORAGE_KEY);
+    if (savedScroll && pathname === '/projects') {
+      const scrollY = parseInt(savedScroll, 10);
+      sessionStorage.removeItem(SCROLL_STORAGE_KEY);
+      // Double rAF + setTimeout ensures the new page content is fully painted
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            window.scrollTo({ top: scrollY, behavior: 'instant' as ScrollBehavior });
+          }, 50);
+        });
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
   const variants = {
     initial: (dir: number) => mounted ? { opacity: 0, x: dir > 0 ? 20 : dir < 0 ? -20 : 0 } : {},
     animate: { opacity: 1, x: 0 },
@@ -37,7 +58,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+    <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
       <motion.main
         key={pathname}
         custom={direction}

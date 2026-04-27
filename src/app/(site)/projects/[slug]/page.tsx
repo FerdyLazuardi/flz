@@ -5,15 +5,20 @@ import { ArrowLeft, ExternalLink, PlaySquare, MonitorPlay } from "lucide-react"
 
 import { client } from "@/sanity/lib/client"
 import { PROJECT_BY_SLUG_QUERY } from "@/sanity/lib/queries"
-// import { urlForImage } from "@/sanity/lib/image"
+import { urlForImage } from "@/sanity/lib/image"
+import { categoryLabels } from "@/components/projects/SharedProjectCard"
+import { ProjectDetailBackButton } from "@/components/projects/ProjectDetailBackButton"
+import Image from "next/image"
+import { ZoomableImage } from "@/components/ui/ZoomableImage"
+import { InteractiveIframe } from "@/components/projects/InteractiveIframe"
 
 // Dummy block for preview
 const dummyProject = {
   title: "AI-Powered Learning Platform",
-  category: "ai-learning",
+  category: "AI-Enhanced Learning",
   techStack: ["React", "FastAPI", "Articulate Storyline", "Adobe CC", "GDevelop"],
   publishedAt: new Date().toISOString(),
-  excerpt: "A comprehensive showcase of interactive media and video learning.",
+  excerpt: "A comprehensive showcase of multimedia production and instructional design.",
   demoEmbed: "https://storyline-showcase.vercel.app/", // Could be any demo URL
   youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Example video
   content: [
@@ -61,10 +66,10 @@ const dummyProject = {
 
 export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = await params
-  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let project: any = null
-  
+
   if (slug === 'dummy-project') {
     project = dummyProject
   } else {
@@ -76,34 +81,32 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
   return (
     <article className="min-h-screen bg-bg-primary pt-24 pb-24">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
-        
-        <Link href="/projects" className="inline-flex items-center text-text-secondary hover:text-accent font-medium mb-8 transition-colors group">
-          <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" /> Back to Projects
-        </Link>
+
+        <ProjectDetailBackButton href={`/projects#${project?.slug || slug}`} label="PROJECTS" />
 
         {/* Header */}
         <header className="mb-12">
-          <div className="flex flex-wrap gap-2 mb-4">
-            <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-semibold">
-              {project.category}
-            </span>
-          </div>
-          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-6 leading-tight">
+          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-6 leading-snug pb-2">
             {project.title}
           </h1>
-          <p className="text-base sm:text-xl text-text-secondary leading-relaxed mb-6">
-            {project.excerpt}
-          </p>
 
-          {project.techStack && project.techStack.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-8">
-              {project.techStack.map((tech: string) => (
-                <span key={tech} className="bg-bg-elevated text-text-primary border border-border px-3 py-1 rounded-md text-sm font-medium">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            {project.category && (
+              <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-semibold">
+                {categoryLabels[project.category] || project.category}
+              </span>
+            )}
+            {project.techStack && project.techStack.length > 0 && (
+              <>
+                {project.category && <span className="text-text-secondary mx-1">|</span>}
+                {project.techStack.map((tech: string) => (
+                  <span key={tech} className="bg-bg-elevated text-text-primary border border-border px-3 py-1 rounded-md text-sm font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </>
+            )}
+          </div>
 
           {project.demoUrl && (
             <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-accent hover:underline font-semibold">
@@ -114,18 +117,23 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
         {/* Media Showcase */}
         {(project.youtubeUrl || project.demoEmbed) && (
-          <section className="mb-16">
+          <section className="mb-6">
             <div className="bg-bg-surface border border-border p-2 sm:p-4 rounded-3xl shadow-lg">
-              
+
               {/* YouTube Embed */}
               {project.youtubeUrl && (
                 <div className="mb-8 last:mb-0">
-                  <h3 className="font-heading font-bold flex items-center gap-2 mb-4 px-2 text-text-primary">
-                    <PlaySquare className="w-5 h-5 text-red-500" /> Video Showreel
-                  </h3>
+                  <div className="flex items-center gap-3 mb-4 px-2">
+                    <h3 className="font-heading font-bold flex items-center gap-2 text-text-primary">
+                      <PlaySquare className="w-5 h-5 text-red-500" /> Video Showreel
+                    </h3>
+                    <span className="text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full border border-red-200 dark:border-red-700">
+                      Project Video Highlights
+                    </span>
+                  </div>
                   <div className="aspect-video w-full rounded-2xl overflow-hidden bg-black/5 ring-1 ring-border">
-                    <iframe 
-                      src={project.youtubeUrl} 
+                    <iframe
+                      src={project.youtubeUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i) ? `https://www.youtube.com/embed/${project.youtubeUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i)[1]}` : project.youtubeUrl}
                       title="YouTube Showcase"
                       className="w-full h-full"
                       allowFullScreen
@@ -142,17 +150,9 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                     <MonitorPlay className="w-5 h-5 text-blue-500" /> Interactive Web Module
                   </h3>
                   {/* Using aspect-[4/3] usually better for storyline, but 16:9 works too */}
-                  <div className="aspect-[4/3] sm:aspect-video w-full rounded-2xl overflow-hidden bg-black/5 ring-1 ring-border">
-                    <iframe 
-                      src={project.demoEmbed} 
-                      title="Interactive Module"
-                      className="w-full h-full"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
+                  <InteractiveIframe src={project.demoEmbed} />
                   <p className="text-xs text-text-secondary mt-3 px-2 text-center">
-                    Pro tip: Use the fullscreen icon inside the interactive module for the best experience.
+                    Pro tip: Click the expand icon on the bottom right for full screen.
                   </p>
                 </div>
               )}
@@ -163,10 +163,36 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
         {/* Design Thinking Content */}
         {project.content && (
-          <section className="prose prose-lg dark:prose-invert prose-headings:font-heading prose-a:text-accent max-w-none text-text-secondary">
-            <div className="border-t border-border pt-12">
-              <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">Design Thinking & Case Study</h2>
-              <PortableText value={project.content} />
+          <section className="border-t border-border">
+            <div className="article-body">
+              <PortableText
+                value={project.content}
+                components={{
+                  types: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    image: ({ value }: any) => {
+                      if (!value?.asset?._ref) {
+                        return null
+                      }
+                      return (
+                        <figure className="my-12">
+                          <div className="relative w-full overflow-hidden bg-black/5 ring-1 ring-border rounded-xl">
+                            <ZoomableImage
+                              src={urlForImage(value).width(1200).url()}
+                              alt={value.alt || "Project Image"}
+                            />
+                          </div>
+                          {value.caption && (
+                            <figcaption className="text-center font-sans text-sm text-text-secondary mt-3">
+                              {value.caption}
+                            </figcaption>
+                          )}
+                        </figure>
+                      )
+                    }
+                  }
+                }}
+              />
             </div>
           </section>
         )}

@@ -32,14 +32,35 @@ export const projectType = defineType({
       ]
     }),
     defineField({
+      name: 'clientLogo',
+      title: 'Client Logo',
+      type: 'image',
+      description: 'Optional logo of the client (e.g. Amartha)',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+      description: 'e.g. 2024',
+    }),
+    defineField({ 
+      name: 'order', 
+      title: 'Order', 
+      type: 'number',
+      description: 'Used for manual sorting (smaller numbers appear first).',
+      initialValue: 0
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
       options: {
         list: [
-          { title: 'Instructional Design', value: 'instructional-design' },
-          { title: 'Multimedia Production', value: 'multimedia' },
-          { title: 'AI-Enhanced Learning', value: 'ai-learning' },
+          { title: 'Video Learning', value: 'Video Learning' },
+          { title: 'Media Interactive', value: 'Media Interactive' },
+          { title: 'Education Game', value: 'Education Game' },
+          { title: 'AI-Enhanced Learning', value: 'AI-Enhanced Learning' },
         ]
       },
       validation: (Rule) => Rule.required()
@@ -55,7 +76,21 @@ export const projectType = defineType({
       name: 'content', 
       title: 'Content',
       type: 'array', 
-      of: [{ type: 'block' }, { type: 'image' }] 
+      of: [
+        { type: 'block' }, 
+        { 
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+              description: 'Important for SEO and accessibility.',
+            }
+          ]
+        }
+      ] 
     }),
     defineField({ 
       name: 'techStack', 
@@ -83,17 +118,45 @@ export const projectType = defineType({
     }),
     defineField({
       name: 'gallery',
-      title: 'Image Gallery',
+      title: 'Media Gallery',
       type: 'array',
-      of: [{ type: 'image', options: { hotspot: true } }],
-      description: 'Additional screenshots or process images'
+      of: [
+        { type: 'image', options: { hotspot: true } },
+        { 
+          type: 'file', 
+          title: 'Video',
+          options: { accept: 'video/*' }
+        }
+      ],
+      description: 'Additional screenshots or process videos'
     }),
     defineField({ 
       name: 'featured', 
-      title: 'Featured',
+      title: 'Legacy Featured (Deprecated)',
       type: 'boolean', 
       initialValue: false,
-      description: 'Show this project on the homepage'
+      description: 'Use the Visibility option below instead. (Kept for backward compatibility)'
+    }),
+    defineField({
+      name: 'visibility',
+      title: 'Visibility / Tampilan Project',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Featured Project (Tampil di Home & halaman Projects)', value: 'featured' },
+          { title: 'Selected Project (Tampil di halaman Projects aja)', value: 'selected' }
+        ],
+        layout: 'radio'
+      },
+      initialValue: 'selected',
+      description: 'Pilih di mana project ini akan ditampilkan.'
+    }),
+    defineField({
+      name: 'softwareLogos',
+      title: 'Software/Tool Logos',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      description: 'Upload logos of software used (e.g., Premiere, After Effects). They will appear on the right side of the expanded view.'
     }),
     defineField({ 
       name: 'publishedAt', 
@@ -106,9 +169,22 @@ export const projectType = defineType({
       title: 'title',
       media: 'coverImage',
       subtitle: 'category',
+      order: 'order',
+    },
+    prepare({ title, media, subtitle, order }) {
+      return {
+        title: `${order !== undefined ? `[${order}] ` : ''}${title}`,
+        media,
+        subtitle: subtitle,
+      };
     },
   },
   orderings: [
+    { 
+      title: 'Manual Order (Asc)', 
+      name: 'manualOrder', 
+      by: [{ field: 'order', direction: 'asc' }] 
+    },
     { 
       title: 'Published (Newest)', 
       name: 'publishedDesc', 

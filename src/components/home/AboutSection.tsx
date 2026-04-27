@@ -49,7 +49,7 @@ const noteData = [
     left: "32%",
   },
   {
-    title: "Video Learning",
+    title: "Multimedia Production",
     content: "Editing high-quality educational videos with Premiere Pro & Capcut.",
     color: "#FFC2E2", // Pink
     rotate: 4,
@@ -225,8 +225,8 @@ export function AboutSection() {
                       zIndex: 100,
                       transition: { duration: 0.2 }
                     }}
-                    whileDrag={{ 
-                      scale: 1.15, 
+                    whileDrag={{
+                      scale: 1.15,
                       rotate: note.rotate - 6, // Twist slightly when peeling off
                       zIndex: 100,
                       boxShadow: "15px 25px 35px rgba(0,0,0,0.2)"
@@ -272,7 +272,7 @@ export function AboutSection() {
             </div>
 
             {/* Mobile: Compact Grid View (Also no container background) */}
-            <div className="sm:hidden grid grid-cols-2 gap-x-3 gap-y-6 pt-4 pb-10">
+            <div className="sm:hidden grid grid-cols-2 gap-4 pt-4 pb-10 px-2">
               {noteData.map((note, index) => {
                 const style = note.title === "Learning Campaigns" ? foldStyles[0] : foldStyles[index % foldStyles.length]
                 const textRotation = 0

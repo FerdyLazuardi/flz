@@ -6,7 +6,9 @@ import {postType} from './postType'
 import {authorType} from './authorType'
 import {projectType} from './project'
 import {siteSettingsType} from './siteSettings'
+import {designShowcaseType} from './designShowcase'
+import {infiniteGalleryType} from './infiniteGallery'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, projectType, siteSettingsType],
+  types: [blockContentType, categoryType, postType, authorType, projectType, siteSettingsType, designShowcaseType, infiniteGalleryType],
 }

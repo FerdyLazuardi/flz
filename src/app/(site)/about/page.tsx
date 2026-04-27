@@ -1,5 +1,6 @@
 import { Mail, ArrowRight, Link as LinkIcon, Code, UserCircle, Award, BookOpen, Briefcase } from "lucide-react"
 import { PortableText } from "@portabletext/react"
+import Image from "next/image"
 
 import { client } from "@/sanity/lib/client"
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries"
@@ -52,7 +53,7 @@ const experiences = [
 
 const skillGroups = [
   {
-    label: "Instructional Design",
+    label: "Learning Design",
     colorClass: "text-cat-instructional",
     bgClass: "bg-cat-instructional/10",
     skills: ["ADDIE Model", "Training Needs Analysis (TNA)", "Bloom's Taxonomy", "Learning Evaluation", "LMS Moodle"],
@@ -109,10 +110,11 @@ export default async function AboutPage() {
           <div className="w-full lg:w-1/3 flex flex-col gap-8">
             <div className="rounded-3xl overflow-hidden border border-border bg-bg-surface aspect-[4/5] relative shadow-xl">
               {aboutImageUrl ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img 
+                <Image 
                   src={aboutImageUrl} 
                   alt="Ferdy Fadhil Lazuardi" 
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -203,10 +205,10 @@ export default async function AboutPage() {
                     I am a Learning Designer focused on creating engaging, objective-driven learning materials that empower employees and learners to grow.
                   </p>
                   <p>
-                    My journey spans instructional design, multimedia production, and interactive learning development. I graduated from Universitas Negeri Semarang with a thesis on interactive mathematics learning media — and have since worked across fintech, academia, and government institutions.
+                    My journey spans learning design, multimedia production, and interactive learning development. I graduated from Universitas Negeri Semarang with a thesis on interactive mathematics learning media — and have since worked across fintech, academia, and government institutions.
                   </p>
                   <p>
-                    Today at Amartha Financial, I manage learning content for 10,000+ employees. My work includes instructional design, multimedia production, and building targeted learning tools — such as an LMS Knowledge Base Chatbot that helps users brainstorm and instantly recall information about our courses, products, and culture.
+                    Today at Amartha Financial, I manage learning content for 10,000+ employees. My work includes learning design, multimedia production, and building targeted learning tools — such as an LMS Knowledge Base Chatbot that helps users brainstorm and instantly recall information about our courses, products, and culture.
                   </p>
                 </>
               )}

@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
+import { categoryLabels } from "./SharedProjectCard"
 
 export interface ProjectData {
   _id: string
@@ -21,8 +22,10 @@ export function ProjectGalleryCard({ project }: { project: ProjectData }) {
   const [isHovered, setIsHovered] = useState(false)
 
   const getYoutubeId = (url: string) => {
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-    return match ? match[1] : url.split('/').pop();
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
   }
 
   let imageSrc = project.imageUrl;
@@ -38,10 +41,7 @@ export function ProjectGalleryCard({ project }: { project: ProjectData }) {
     imageSrc = "https://placehold.co/800x600/E5E7EB/A1A1AA?text=No+Image"
   }
 
-  const categoryLabel = 
-    project.category === 'ai-learning' ? 'AI LEARNING' : 
-    project.category === 'multimedia' ? 'MULTIMEDIA' : 
-    'INSTRUCTIONAL DESIGN';
+  const categoryLabel = (categoryLabels[project.category] || project.category).toUpperCase();
 
   return (
     <Link href={`/projects/${project.slug}`} className="block h-full group outline-none">

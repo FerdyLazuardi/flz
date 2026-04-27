@@ -12,10 +12,17 @@ export interface ProjectData {
   slug: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   coverImage?: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  clientLogo?: any
+  year?: string
   category: string
   excerpt?: string
   imageUrl?: string // if already resolved
+  clientLogoUrl?: string
   youtubeUrl?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  softwareLogos?: any[]
+  softwareLogosUrls?: string[]
 }
 
 export function ProjectCard({ project, priority = false }: { project: ProjectData, priority?: boolean }) {
@@ -40,7 +47,7 @@ export function ProjectCard({ project, priority = false }: { project: ProjectDat
   }, [isHovered, project.youtubeUrl, shouldLoadVideo]);
 
   const getYoutubeId = (url: string) => {
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
     return match ? match[1] : url.split('/').pop();
   }
 
@@ -90,9 +97,9 @@ export function ProjectCard({ project, priority = false }: { project: ProjectDat
             {/* Rough Edge Solid Background - ONLY this element gets the SVG turbulence mapping */}
             <div
               className={`absolute inset-0 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-border pointer-events-none z-0 transition-all duration-500 group-hover:shadow-2xl ${
-                project.category === 'ai-learning'
+                (project.category === 'AI-Enhanced Learning' || project.category === 'ai-learning')
                   ? 'group-hover:border-[#059669]/30'
-                  : project.category === 'multimedia'
+                  : (project.category === 'Multimedia Production' || project.category === 'Video Learning' || project.category === 'Media Interactive' || project.category === 'multimedia')
                   ? 'group-hover:border-[#3B82F6]/30'
                   : 'group-hover:border-[#7C3AED]/30'
               }`}
@@ -103,9 +110,9 @@ export function ProjectCard({ project, priority = false }: { project: ProjectDat
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 rounded-lg overflow-hidden"
               style={{ 
                 background: `radial-gradient(circle at 50% 0%, ${
-                  project.category === 'ai-learning' 
+                  (project.category === 'AI-Enhanced Learning' || project.category === 'ai-learning')
                     ? 'rgba(5, 150, 105, 0.15)' 
-                    : project.category === 'multimedia'
+                    : (project.category === 'Multimedia Production' || project.category === 'Video Learning' || project.category === 'Media Interactive' || project.category === 'multimedia')
                     ? 'rgba(59, 130, 246, 0.15)'
                     : 'rgba(124, 58, 237, 0.15)'
                 }, transparent 70%)` 
@@ -119,9 +126,9 @@ export function ProjectCard({ project, priority = false }: { project: ProjectDat
                 animate={{ rotate: isHovered ? [0, -10, 10, 0] : 0 }}
               >
                 <div className="w-full h-full p-2 flex items-center justify-center opacity-90 drop-shadow-sm transition-transform duration-300 group-hover/seal:scale-110">
-                  {project.category === 'ai-learning' ? (
+                  {(project.category === 'AI-Enhanced Learning' || project.category === 'ai-learning') ? (
                     <BrainCircuit className="w-6 h-6 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
-                  ) : project.category === 'multimedia' ? (
+                  ) : (project.category === 'Multimedia Production' || project.category === 'Video Learning' || project.category === 'Media Interactive' || project.category === 'multimedia') ? (
                     <MonitorPlay className="w-6 h-6 text-blue-600 dark:text-blue-400" strokeWidth={1.5} />
                   ) : (
                     <BookOpen className="w-6 h-6 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
@@ -170,8 +177,30 @@ export function ProjectCard({ project, priority = false }: { project: ProjectDat
                 </AnimatePresence>
               </div>
 
+              {/* Client Logo & Year */}
+              {(project.clientLogoUrl || project.year) && (
+                <div className="flex items-center gap-3 px-1 mb-2 z-10">
+                  {project.year && (
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                      {project.year}
+                    </span>
+                  )}
+                  {project.clientLogoUrl && (
+                    <div className="relative h-5">
+                      <Image 
+                        src={project.clientLogoUrl} 
+                        alt="Client" 
+                        width={80} 
+                        height={20} 
+                        className="object-contain object-left h-full w-auto max-w-[100px]"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Title & Desc */}
-              <h3 className="font-heading text-lg font-black text-slate-800 dark:text-slate-100 mb-1.5 leading-tight tracking-tight px-1 z-10">
+              <h3 className="font-heading text-lg font-black text-slate-800 dark:text-slate-100 mb-1.5 leading-snug tracking-tight px-1 z-10 pb-1">
                 {project.title}
               </h3>
               <p className="text-slate-600/80 dark:text-slate-400 text-[11px] line-clamp-3 leading-relaxed mb-6 px-1 z-10 border-l-[1.5px] border-slate-200 dark:border-slate-700 pl-2">
