@@ -38,9 +38,13 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/logo_web/Logo_DigitalLayers.svg',
+    icon: [
+      { url: '/logo_web/Logo_DigitalLayers.svg', type: 'image/svg+xml' },
+      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: '48x48' },
+      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: '192x192' },
+    ],
     shortcut: '/logo_web/Logo_DigitalLayers.svg',
-    apple: '/logo_web/Logo_DigitalLayers.svg',
+    apple: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
   },
 };
 
