@@ -11,8 +11,9 @@ import { buttonVariants } from "@/components/ui/button"
 export const revalidate = 60
 
 export const metadata = {
-  title: 'About | Ferdy Fadhil Lazuardi — Learning Designer',
-  description: 'Educational Technology graduate and Learning Designer focused on creating engaging, objective-driven learning materials that empower employees and learners to grow.',
+  title: 'About | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer',
+  description: 'Learn more about Ferdy Fadhil Lazuardi (Ferdy Lazuardi), an Educational Technology graduate, Learning Designer & Instructional Designer focused on creating engaging, objective-driven learning materials.',
+  keywords: ['About Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi', 'Learning Designer Portfolio', 'Educational Technology', 'Instructional Designer'],
 }
 
 const experiences = [

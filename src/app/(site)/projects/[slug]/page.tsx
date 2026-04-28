@@ -11,6 +11,27 @@ import { ProjectDetailBackButton } from "@/components/projects/ProjectDetailBack
 import Image from "next/image"
 import { ZoomableImage } from "@/components/ui/ZoomableImage"
 import { InteractiveIframe } from "@/components/projects/InteractiveIframe"
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = await params
+  
+  if (slug === 'dummy-project') {
+    return {
+      title: 'AI-Powered Learning Platform | Ferdy Fadhil Lazuardi',
+      description: 'A comprehensive showcase of multimedia production and instructional design.',
+    }
+  }
+  
+  const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug })
+  if (!project) return {}
+  
+  return {
+    title: `${project.title} | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer`,
+    description: project.excerpt || `Read about the ${project.title} project by Ferdy Fadhil Lazuardi (Ferdy Lazuardi).`,
+    keywords: [project.title, 'Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi', 'Learning Designer', 'Instructional Designer', ...(project.techStack || [])],
+  }
+}
 
 // Dummy block for preview
 const dummyProject = {

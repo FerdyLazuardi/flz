@@ -13,8 +13,8 @@ export const dynamic = 'force-dynamic'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Projects | Ferdy Lazuardi',
-  description: 'A showcase of my recent multimedia and design projects.',
+  title: 'Projects | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer',
+  description: 'Explore the portfolio and recent projects of Ferdy Fadhil Lazuardi (Ferdy Lazuardi), showcasing expertise in Learning Design, Instructional Design, Educational Technology, and Multimedia.',
 }
 
 export default async function ProjectsPage() {
