@@ -98,6 +98,7 @@ export default async function AboutPage() {
     const pt = platform.toLowerCase()
     if (pt.includes('github')) return <Code className="w-5 h-5 mr-3" />
     if (pt.includes('linkedin')) return <UserCircle className="w-5 h-5 mr-3" />
+    if (pt.includes('medium')) return <BookOpen className="w-5 h-5 mr-3" />
     if (pt.includes('twitter') || pt.includes('x')) return <LinkIcon className="w-5 h-5 mr-3" />
     return <ArrowRight className="w-5 h-5 mr-3" />
   }
@@ -149,6 +150,28 @@ export default async function AboutPage() {
                 >
                   <UserCircle className="w-5 h-5 mr-3 text-blue-500" />
                   LinkedIn
+                </a>
+
+                {/* Always show GitHub */}
+                <a 
+                  href="https://github.com/FerdyLazuardi" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "outline", className: "w-full justify-start h-12 bg-bg-elevated hover:bg-border text-text-primary border-0 rounded-xl" })}
+                >
+                  <Code className="w-5 h-5 mr-3 text-slate-700 dark:text-slate-300" />
+                  GitHub
+                </a>
+
+                {/* Always show Medium */}
+                <a 
+                  href="https://medium.com/@ferdy.lazuardi" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "outline", className: "w-full justify-start h-12 bg-bg-elevated hover:bg-border text-text-primary border-0 rounded-xl" })}
+                >
+                  <BookOpen className="w-5 h-5 mr-3 text-emerald-600" />
+                  Medium
                 </a>
 
                 {/* Always show Behance */}
@@ -247,9 +270,14 @@ export default async function AboutPage() {
               <BookOpen className="w-5 h-5 text-accent" />
               Technical Capabilities
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {skillGroups.map((group) => (
-                <div key={group.label} className="bg-bg-surface border border-border rounded-2xl p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {skillGroups.map((group, index) => (
+                <div 
+                  key={group.label} 
+                  className={`bg-bg-surface border border-border rounded-2xl p-6 ${
+                    index === 2 ? "sm:col-span-2 lg:col-span-1 sm:w-1/2 sm:place-self-center lg:w-full lg:place-self-stretch" : ""
+                  }`}
+                >
                   <h3 className={`font-bold text-base mb-4 ${group.colorClass}`}>{group.label}</h3>
                   <ul className="flex flex-wrap gap-2">
                     {group.skills.map((skill) => (

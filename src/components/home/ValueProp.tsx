@@ -66,7 +66,7 @@ export function ValueProp() {
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
-    <section id="value" ref={ref} className="py-32 relative overflow-visible">
+    <section id="value" ref={ref} className="py-16 md:py-32 relative overflow-visible">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/5 blur-[120px]" />
@@ -104,7 +104,9 @@ export function ValueProp() {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className={`group relative flex flex-col p-8 rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden`}
+                className={`group relative flex flex-col p-8 rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden ${
+                  index === 2 ? "md:col-span-2 lg:col-span-1 md:w-1/2 md:place-self-center lg:w-full lg:place-self-stretch" : ""
+                }`}
               >
                 {/* Hover Glow Effect */}
                 <div

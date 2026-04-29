@@ -133,12 +133,12 @@ export function AboutSection() {
       mainClip: "polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 18%)",
       foldClass: "top-0 left-0",
       foldClip: "polygon(0% 0%, 100% 0%, 100% 100%)",
-      foldShadow: "shadow-[2px_2px_4px_rgba(0,0,0,0.1)]"
+      foldShadow: "shadow-[2px_-2px_4px_rgba(0,0,0,0.1)]"
     }
   ]
 
   return (
-    <section id="about" ref={ref} className="py-24 md:py-32 relative z-10 overflow-visible">
+    <section id="about" ref={ref} className="py-12 md:pt-16 md:pb-32 lg:py-32 relative z-10 overflow-visible">
       {/* Ambient Left Background Glow to prevent plain white look */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[-20%] w-[50%] h-[60%] rounded-full bg-cat-instructional/5 dark:bg-cat-instructional/10 blur-[120px]" />
@@ -172,7 +172,7 @@ export function AboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-start lg:pr-10"
           >
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-8 leading-[1.1] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-6xl lg:text-6xl font-black text-text-primary mb-8 leading-[1.1] md:leading-[1.05] tracking-tight md:tracking-tighter">
               Bridging Pedagogy with <br className="hidden md:block" />
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
@@ -187,7 +187,7 @@ export function AboutSection() {
                   text="Download CV"
                   color="#0a0a0a"
                   size="md"
-                  className="w-full sm:w-auto sm:px-8"
+                  className="w-full sm:w-auto sm:px-8 scale-[0.8] sm:scale-100 origin-left"
                   icon={<Download className="w-5 h-5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
                 />
               </div>
@@ -201,11 +201,10 @@ export function AboutSection() {
               Drag me
             </div>
 
-            {/* Desktop & Tablet: Floating Draggable View */}
-            <div className="hidden sm:block relative w-full h-full z-10">
+            {/* Desktop: Floating Draggable View - Only for Large Screens */}
+            <div className="hidden lg:block relative w-full h-full z-10">
               {noteData.map((note, index) => {
                 const style = foldStyles[index % foldStyles.length]
-                const textRotation = 0 // Flatten text as well
 
                 return (
                   <motion.div
@@ -227,17 +226,17 @@ export function AboutSection() {
                     }}
                     whileDrag={{
                       scale: 1.15,
-                      rotate: note.rotate - 6, // Twist slightly when peeling off
+                      rotate: note.rotate - 6,
                       zIndex: 100,
                       boxShadow: "15px 25px 35px rgba(0,0,0,0.2)"
                     }}
                     transition={{
                       type: "spring",
-                      stiffness: 250, // Increase stiffness for snappier return
+                      stiffness: 250,
                       damping: 20,
                       delay: index * 0.03
                     }}
-                    className="absolute w-[160px] lg:w-[185px] aspect-square p-6 pt-8 flex flex-col items-start justify-start text-left cursor-grab active:cursor-grabbing transition-shadow group shadow-[0_8px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.15)]"
+                    className="absolute w-[185px] aspect-square p-6 pt-8 flex flex-col items-start justify-start text-left cursor-grab active:cursor-grabbing transition-shadow group shadow-[0_8px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.15)]"
                     style={{
                       backgroundColor: note.color,
                       top: note.top,
@@ -258,11 +257,11 @@ export function AboutSection() {
                       }}
                     />
 
-                    <div className="relative z-10 font-handwriting select-none w-full" style={{ rotate: `${textRotation}deg` }}>
-                      <h3 className="font-black text-[16px] lg:text-[18px] text-slate-900 mb-2 leading-tight tracking-tight">
+                    <div className="relative z-10 font-handwriting select-none w-full">
+                      <h3 className="font-black text-[18px] text-slate-900 mb-2 leading-tight tracking-tight">
                         {note.title}
                       </h3>
-                      <p className="text-[11px] lg:text-[12px] text-slate-800 leading-relaxed opacity-90">
+                      <p className="text-[12px] text-slate-800 leading-relaxed opacity-90">
                         {note.content}
                       </p>
                     </div>
@@ -271,11 +270,10 @@ export function AboutSection() {
               })}
             </div>
 
-            {/* Mobile: Compact Grid View (Also no container background) */}
-            <div className="sm:hidden grid grid-cols-2 gap-4 pt-4 pb-10 px-2">
+            {/* Tablet & Mobile: Grid View (Structured) */}
+            <div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4 pb-10 px-2">
               {noteData.map((note, index) => {
-                const style = note.title === "Learning Campaigns" ? foldStyles[0] : foldStyles[index % foldStyles.length]
-                const textRotation = 0
+                const style = foldStyles[index % foldStyles.length]
 
                 return (
                   <motion.div
@@ -284,11 +282,11 @@ export function AboutSection() {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.04, duration: 0.3 }}
-                    className="relative aspect-square w-full p-5 pt-7 flex flex-col items-start justify-start text-left overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.1)]"
+                    className="relative aspect-square w-full p-5 pt-7 md:p-6 md:pt-8 flex flex-col items-start justify-start text-left overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.1)]"
                     style={{
                       backgroundColor: note.color,
                       clipPath: style.mainClip,
-                      rotate: note.rotate * 0.5,
+                      rotate: note.rotate * (index % 2 === 0 ? 0.5 : -0.5),
                       willChange: "transform"
                     }}
                   >
@@ -300,11 +298,11 @@ export function AboutSection() {
                         clipPath: style.foldClip
                       }}
                     />
-                    <div className="relative z-10 font-handwriting select-none w-full" style={{ rotate: `${textRotation}deg` }}>
-                      <h3 className="font-black text-[13px] text-slate-900 mb-1.5 leading-tight">
+                    <div className="relative z-10 font-handwriting select-none w-full">
+                      <h3 className="font-black text-[14px] md:text-[16px] text-slate-900 mb-1.5 leading-tight">
                         {note.title}
                       </h3>
-                      <p className="text-[9px] text-slate-800 leading-relaxed opacity-95">
+                      <p className="text-[10px] md:text-[11px] text-slate-800 leading-relaxed opacity-95">
                         {note.content}
                       </p>
                     </div>
@@ -312,9 +310,7 @@ export function AboutSection() {
                 )
               })}
             </div>
-
           </div>
-
         </div>
       </div>
     </section>

@@ -20,7 +20,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
   const activeProject = projects.find(p => p._id === selectedId);
 
   return (
-    <section id="projects" className={`py-32 relative overflow-visible ${selectedId ? 'z-[9999]' : 'z-10'}`}>
+    <section id="projects" className={`py-16 md:pt-16 md:pb-32 lg:py-32 relative overflow-visible ${selectedId ? 'z-[9999]' : 'z-10'}`}>
       {/* Cinematic Ambient Background Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[20%] left-[-15%] w-[40%] h-[50%] rounded-full bg-cat-multimedia/5 dark:bg-cat-multimedia/10 blur-[120px]" />
@@ -38,7 +38,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center"
           >
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-7xl font-black text-text-primary mb-6 tracking-tight">
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-black text-text-primary mb-6 tracking-tight md:tracking-tighter leading-tight md:leading-[1.05]">
               <span className="relative inline-block z-10 after:absolute after:bottom-1 after:left-[-2%] after:-z-10 after:h-[30%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
                 Featured Projects
               </span>
@@ -88,8 +88,8 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
                 href="/projects"
                 text="View All Projects"
                 color="#0a0a0a"
-                size="lg"
-                className="w-full sm:w-auto sm:px-10 scale-90 sm:scale-100"
+                size="md"
+                className="w-full sm:w-auto sm:px-10 scale-[0.8] sm:scale-100 origin-center"
                 icon={<ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />}
               />
             </div>
