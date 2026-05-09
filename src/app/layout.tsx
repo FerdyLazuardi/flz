@@ -47,11 +47,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo_web/Logo_DigitalLayers.svg', type: 'image/svg+xml' },
-      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: '48x48' },
-      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: '192x192' },
+      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: 'any' },
     ],
-    shortcut: '/logo_web/Logo_DigitalLayers.svg',
+    shortcut: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
     apple: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
   },
 };
@@ -66,10 +64,33 @@ export default function RootLayout({
     '@type': 'Person',
     name: 'Ferdy Fadhil Lazuardi',
     alternateName: 'Ferdy Lazuardi',
-    url: 'https://ferdy-fadhil-lazuardi.my.id',
+    url: 'https://ferdy-fadhil-lazuardi.my.id/',
     image: 'https://ferdy-fadhil-lazuardi.my.id/logo_web/Logo_DigitalLayers_WhiteBg.svg',
     jobTitle: ['Learning Designer', 'Instructional Designer'],
     description: 'Learning Designer & Instructional Designer focused on creating engaging, objective-driven learning materials that empower employees and learners to grow.',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Amartha Financial'
+    },
+    alumniOf: [
+      {
+        '@type': 'Organization',
+        name: 'Universitas Negeri Semarang'
+      },
+      {
+        '@type': 'Organization',
+        name: 'BPTIK Dikbud Jateng'
+      },
+      {
+        '@type': 'Organization',
+        name: 'Binar Academy'
+      },
+      {
+        '@type': 'Organization',
+        name: 'Skilvul'
+      }
+
+    ],
     sameAs: [
       'https://www.linkedin.com/in/ferdy10/',
       'https://www.behance.net/ferdylazuardi',
@@ -82,7 +103,8 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Ferdy Fadhil Lazuardi',
-    url: 'https://ferdy-fadhil-lazuardi.my.id',
+    alternateName: 'Ferdy Lazuardi',
+    url: 'https://ferdy-fadhil-lazuardi.my.id/',
   };
 
   return (
