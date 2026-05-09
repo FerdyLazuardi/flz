@@ -80,7 +80,7 @@ export function ValueProp() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black text-text-primary mb-6 tracking-tight leading-[1.05]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 tracking-normal leading-[1.05]">
             End-to-End <br />
             <span className="relative inline-block z-10 whitespace-nowrap after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm mt-2 sm:mt-0">Learning Architecture</span>
           </h2>

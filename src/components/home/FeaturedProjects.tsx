@@ -38,7 +38,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center"
           >
-            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-black text-text-primary mb-6 tracking-tight md:tracking-tighter leading-tight md:leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 tracking-normal leading-tight md:leading-[1.05]">
               <span className="relative inline-block z-10 after:absolute after:bottom-1 after:left-[-2%] after:-z-10 after:h-[30%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
                 Featured Projects
               </span>

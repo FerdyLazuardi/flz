@@ -52,12 +52,24 @@ export function InfiniteDesignGallery({ customImages }: { customImages?: Infinit
     )
   }
 
-  // Shuffle arrays for different rows and expand to ensure we cover ultra-wide resolutions
-  const expandedImages = [...customImages, ...customImages, ...customImages]
-  const row1 = [...expandedImages].sort(() => Math.random() - 0.5)
-  const row2 = [...expandedImages].sort(() => Math.random() - 0.5)
-  const row3 = [...expandedImages].sort(() => Math.random() - 0.5)
-  const row4 = [...expandedImages].sort(() => Math.random() - 0.5)
+  // Fisher-Yates shuffle for true randomness
+  const shuffle = (array: InfiniteGalleryImage[]) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  // Use state with lazy initialization so we only shuffle once per mount.
+  // We duplicate the customImages a few times before shuffling to create a long, varied sequence.
+  const [rows] = React.useState(() => {
+    const getShuffledRow = () => shuffle([...customImages, ...customImages, ...customImages, ...customImages]);
+    return [getShuffledRow(), getShuffledRow(), getShuffledRow(), getShuffledRow()];
+  });
+
+  const [row1, row2, row3, row4] = rows;
   
   return (
     <div 

@@ -155,7 +155,7 @@ export function HeroSection({
 
             <motion.h1
               variants={itemVariants}
-              className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black tracking-tight text-text-primary mb-6 leading-[1.05] max-w-2xl"
+              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-6 leading-[1.05] max-w-2xl"
             >
               {headline}
             </motion.h1>

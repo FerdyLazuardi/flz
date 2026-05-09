@@ -32,14 +32,14 @@ export function LogoMarquee() {
           className="flex flex-none items-center gap-10 sm:gap-16 pr-10 sm:pr-16"
         >
           {duplicatedLogos.map((logo, index) => (
-            <div key={index} className="flex items-center justify-center transition-all duration-300 hover:scale-105" style={{ height: logo.height }}>
-              <Image
+            <div key={index} className="flex items-center justify-center transition-all duration-300 hover:scale-105 [--logo-scale:0.65] sm:[--logo-scale:1]" style={{ height: `calc(${logo.height}px * var(--logo-scale))` }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={logo.src}
                 alt={logo.alt}
-                height={logo.height}
-                width={logo.height * 3} // Assumption for aspect ratio
-                className="h-full w-auto object-contain"
-                priority={index < 6}
+                style={{ height: '100%', width: 'auto' }}
+                className="object-contain"
+                loading={index < 6 ? "eager" : "lazy"}
               />
             </div>
           ))}

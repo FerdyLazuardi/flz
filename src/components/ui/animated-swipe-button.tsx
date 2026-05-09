@@ -30,9 +30,9 @@ export function AnimatedSwipeButton({
   const defaultTextClass = isSolid ? 'text-white border-transparent' : 'text-text-primary border-border bg-transparent';
   const appliedTextClass = textColorClass || defaultTextClass;
   
-  const sizeClass = size === 'sm' ? 'px-5 py-2.5 text-sm' : 
-                    size === 'md' ? 'px-6 py-3 text-base' : 
-                    'px-8 py-4 text-lg';
+  const sizeClass = size === 'sm' ? 'px-4 py-2 text-sm' : 
+                    size === 'md' ? 'px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base' : 
+                    'px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg';
   
   const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.endsWith('.pdf');
   const LinkComponent = isExternal ? 'a' : Link;

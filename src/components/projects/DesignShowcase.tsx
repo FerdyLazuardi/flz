@@ -233,10 +233,6 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
     return <section className="mt-40 mb-32 relative min-h-[500px]" />
   }
 
-  console.log(`[DesignShowcase] Rendering ${normalizedItems.length} items on client. Missing:`,
-    normalizedItems.filter(i => ['porastep', 'bumper', 'fiinal round'].includes(i.tag || i.src))
-  );
-
   return (
     <section className="mt-40 relative" ref={containerRef}>
       <div className="px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">

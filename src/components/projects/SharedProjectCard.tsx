@@ -115,6 +115,7 @@ export function LusionCard({ project, onClick }: { project: ProjectData, onClick
             <Image
               src={imageSrc}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
               alt={project.title}
             />
@@ -217,7 +218,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 z-0 bg-[#141414] overflow-hidden min-h-full"
           >
-            <Image src={imageSrc} fill className="object-cover object-top md:object-center" alt={project.title} priority />
+            <Image src={imageSrc} fill sizes="(max-width: 768px) 100vw, 80vw" className="object-cover object-top md:object-center" alt={project.title} priority />
 
             {vidId && (
               <motion.div

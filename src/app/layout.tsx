@@ -48,6 +48,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/logo_web/Logo_DigitalLayers.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
     ],
     shortcut: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
     apple: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',

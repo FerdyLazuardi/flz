@@ -421,7 +421,7 @@ export function ContactSection() {
                transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                className="relative z-10"
             >
-              <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-tight text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
+              <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
                 <RollingText text={text2} iterations={iterations} offset={text1.length} />
               </h1>
             </motion.div>
@@ -457,7 +457,7 @@ export function ContactSection() {
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
           }}
-          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-4xl p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-4xl p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 

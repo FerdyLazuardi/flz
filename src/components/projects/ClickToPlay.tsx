@@ -44,6 +44,7 @@ export function ClickToPlay({ embedUrl, thumbnailUrl, title }: ClickToPlayProps)
         src={thumbnailUrl || "https://placehold.co/1280x720/E5E7EB/A1A1AA?text=Preview"}
         alt={`Preview of ${title}`}
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/30" />
