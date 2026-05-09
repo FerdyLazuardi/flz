@@ -26,10 +26,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug })
   if (!project) return {}
   
+  const ogImage = project.coverImage ? urlForImage(project.coverImage).width(1200).height(630).url() : undefined;
+
   return {
     title: `${project.title} | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer`,
     description: project.excerpt || `Read about the ${project.title} project by Ferdy Fadhil Lazuardi (Ferdy Lazuardi).`,
     keywords: [project.title, 'Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi', 'Learning Designer', 'Instructional Designer', ...(project.techStack || [])],
+    openGraph: {
+      images: ogImage ? [{ url: ogImage, alt: project.title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: ogImage ? [ogImage] : [],
+    }
   }
 }
 
@@ -211,6 +220,26 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                   }
                 }}
               />
+            </div>
+          </section>
+        )}
+
+        {/* Project Gallery */}
+        {project.gallery && project.gallery.length > 0 && (
+          <section className="mt-16 border-t border-border pt-12">
+            <h2 className="font-heading text-2xl font-bold text-text-primary mb-8 text-center">Project Gallery</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {project.gallery.map((image: any, index: number) => {
+                if (!image?.asset?._ref) return null;
+                return (
+                  <div key={index} className="relative w-full overflow-hidden bg-black/5 ring-1 ring-border rounded-xl">
+                    <ZoomableImage
+                      src={urlForImage(image).width(800).url()}
+                      alt={image.alt || `${project.title} gallery image ${index + 1}`}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </section>
         )}
