@@ -21,7 +21,7 @@ export function SolidGlowButton({
   download
 }: SolidGlowButtonProps) {
   
-  const isExternal = href.startsWith('http') || href.startsWith('mailto:');
+  const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.endsWith('.pdf');
   const LinkComponent = isExternal ? 'a' : Link;
 
   const sizeClass = size === 'sm' ? 'px-4 py-2 text-sm' : 

@@ -104,7 +104,7 @@ export function ValueProp() {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className={`group relative flex flex-col p-8 rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden ${
+                className={`group relative flex flex-col p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden ${
                   index === 2 ? "md:col-span-2 lg:col-span-1 md:w-1/2 md:place-self-center lg:w-full lg:place-self-stretch" : ""
                 }`}
               >
@@ -116,9 +116,9 @@ export function ValueProp() {
                   }}
                 />
 
-                <div className="flex justify-between items-start mb-8">
-                  <div className={`p-4 rounded-2xl ${cap.bgClass} transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}>
-                    <Icon className="w-8 h-8 transition-colors duration-500" style={{ color: cap.color }} />
+                <div className="flex justify-between items-start mb-6 sm:mb-8">
+                  <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl ${cap.bgClass} transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}>
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 transition-colors duration-500" style={{ color: cap.color }} />
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-1">
@@ -128,11 +128,11 @@ export function ValueProp() {
                   </div>
                 </div>
 
-                <h3 className="font-heading text-2xl font-black text-text-primary mb-4 leading-tight">
+                <h3 className="font-heading text-xl sm:text-2xl font-black text-text-primary mb-3 sm:mb-4 leading-tight">
                   {cap.title}
                 </h3>
 
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-8 flex-grow">
+                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed mb-6 sm:mb-8 flex-grow">
                   {cap.description}
                 </p>
 

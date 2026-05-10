@@ -45,14 +45,6 @@ export const metadata: Metadata = {
     title: 'Ferdy Fadhil Lazuardi | Learning Designer & Instructional Designer',
     description: 'Official portfolio of Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer bridging pedagogy with advanced technology.',
   },
-  icons: {
-    icon: [
-      { url: '/logo_web/Logo_DigitalLayers_WhiteBg.svg', type: 'image/svg+xml', sizes: 'any' },
-      { url: '/logo_web/Logo_DigitalLayers.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
-    ],
-    shortcut: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
-    apple: '/logo_web/Logo_DigitalLayers_WhiteBg.svg',
-  },
 };
 
 export default function RootLayout({
@@ -114,7 +106,10 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${inter.variable} ${scribbled.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <body
+        className="min-h-full flex flex-col font-sans bg-transparent relative"
+        suppressHydrationWarning
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -123,11 +118,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-      </head>
-      <body
-        className="min-h-full flex flex-col font-sans bg-transparent relative"
-        suppressHydrationWarning
-      >
         {children}
       </body>
     </html>

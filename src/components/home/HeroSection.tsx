@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ArrowRight, Download } from "lucide-react"
-import { motion, useMotionValue, useSpring, useTransform, animate, useMotionValueEvent, Variants } from "framer-motion"
+import { motion, useMotionValue, useTransform, animate, useMotionValueEvent, Variants } from "framer-motion"
 
 import { AnimatedSwipeButton } from "@/components/ui/animated-swipe-button"
 import { SolidGlowButton } from "@/components/ui/solid-glow-button"
@@ -91,25 +91,10 @@ export function HeroSection({
   subtitle?: string
 }) {
   const [mounted, setMounted] = React.useState(false)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const springConfig = { damping: 25, stiffness: 100 }
-  const springX = useSpring(mouseX, springConfig)
-  const springY = useSpring(mouseY, springConfig)
-
-  const textX = useTransform(springX, [0, 1000], [0, 15])
-  const textY = useTransform(springY, [0, 1000], [0, 15])
 
   React.useEffect(() => {
     setMounted(true)
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [mouseX, mouseY])
+  }, [])
 
   return (
     <section id="hero" className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-4 pb-20">
@@ -140,7 +125,6 @@ export function HeroSection({
             variants={containerVariants}
             initial={mounted ? "hidden" : "visible"}
             animate={mounted ? "visible" : "visible"}
-            style={{ x: textX, y: textY }}
             className="text-left flex flex-col items-start lg:pr-10"
           >
             <motion.div

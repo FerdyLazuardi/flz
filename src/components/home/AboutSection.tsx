@@ -173,7 +173,7 @@ export function AboutSection() {
             className="flex flex-col items-start lg:pr-10"
           >
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-8 leading-[1.1] md:leading-[1.05] tracking-normal">
-              Bridging Pedagogy with <br className="hidden md:block" />
+              Bridging Pedagogy <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl align-baseline">with</span> <br className="hidden md:block" />
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
