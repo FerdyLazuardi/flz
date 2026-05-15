@@ -6,7 +6,6 @@ import { motion, useMotionValue, useTransform, animate, useMotionValueEvent, Var
 
 import { AnimatedSwipeButton } from "@/components/ui/animated-swipe-button"
 import { SolidGlowButton } from "@/components/ui/solid-glow-button"
-import { Typewriter } from "@/components/ui/typewriter"
 import { InteractiveHeroGraphic } from "@/components/home/InteractiveHeroGraphic"
 import { Magnetic } from "@/components/ui/magnetic"
 
@@ -71,13 +70,6 @@ const itemVariants: Variants = {
 }
 
 export function HeroSection({
-  phrases = [
-    "Hello, I'm Ferdy.",
-    "Instructional Designer.",
-    "Learning Designer.",
-    "Multimedia Producer.",
-    "AI-Enhanced Learning."
-  ],
   headline = (
     <>
       <span className="relative inline-block z-10 whitespace-nowrap after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Learning Designer</span> <br className="hidden lg:block" />
@@ -86,7 +78,6 @@ export function HeroSection({
   ),
   subtitle = "I merge instructional design, multimedia, and AI to build digital learning experiences that are engaging, scalable, and results-driven.",
 }: {
-  phrases?: string[]
   headline?: React.ReactNode
   subtitle?: string
 }) {
@@ -125,18 +116,8 @@ export function HeroSection({
             variants={containerVariants}
             initial={mounted ? "hidden" : "visible"}
             animate={mounted ? "visible" : "visible"}
-            className="text-left flex flex-col items-start lg:pr-10"
+            className="text-left flex flex-col items-start lg:pr-10 mt-24 md:mt-0"
           >
-            <motion.div
-              variants={itemVariants}
-              className="inline-flex items-center rounded-full border border-border bg-bg-surface/50 px-3 py-1.5 text-[11px] sm:text-sm font-semibold text-text-secondary backdrop-blur-sm mb-6 sm:mb-8 shadow-sm max-w-full"
-            >
-              <span className="flex h-2 w-2 rounded-full bg-accent mr-2 animate-pulse shrink-0" />
-              <div className="truncate">
-                <Typewriter phrases={phrases} />
-              </div>
-            </motion.div>
-
             <motion.h1
               variants={itemVariants}
               className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-6 leading-[1.05] max-w-2xl"
