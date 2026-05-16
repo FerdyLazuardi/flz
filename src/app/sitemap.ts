@@ -1,19 +1,20 @@
 import { MetadataRoute } from 'next'
-import { client } from "@/sanity/lib/client"
-import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries"
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ferdy-fadhil-lazuardi.my.id'
 
-  // Fetch all projects
-  const projects = await client.fetch(ALL_PROJECTS_QUERY)
-
-  const projectUrls = projects.map((project: { slug: string }) => ({
-    url: `${baseUrl}/projects/${project.slug}/`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+  const slugs = [
+    'amartha-lms-chatbot',
+    'agent-network',
+    'training-client-protection',
+    'amarthafin-mockup',
+    'dunia-geometri',
+    'anti-harassment',
+    'modal',
+    'asa',
+    'bts',
+    'botani-quest',
+  ]
 
   return [
     {
@@ -28,6 +29,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    ...projectUrls,
+    ...slugs.map((slug) => ({
+      url: `${baseUrl}/projects/${slug}/`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
   ]
 }
