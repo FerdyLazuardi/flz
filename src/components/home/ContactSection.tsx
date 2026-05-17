@@ -48,10 +48,10 @@ function RollingText({ text, iterations, offset = 0 }: { text: string, iteration
   return (
     <span className="flex items-center justify-center">
       {text.split("").map((char, i) => (
-        <RollingCharacter 
-          key={i} 
-          char={char} 
-          iter={iterations[i + offset]} 
+        <RollingCharacter
+          key={i}
+          char={char}
+          iter={iterations[i + offset]}
         />
       ))}
     </span>
@@ -74,7 +74,7 @@ export function ContactSection() {
     let height = canvas.height = window.innerHeight
 
     let particles: Array<{ x: number, y: number, ox: number, oy: number, vx: number, vy: number, type: number, size: number, angle: number, vAngle: number }> = []
-    
+
     // Pre-allocate spatial grid to avoid Garbage Collection stutters
     const cellSize = 45;
     let colsInGrid = Math.ceil(width / cellSize);
@@ -86,20 +86,20 @@ export function ContactSection() {
       const spacing = width < 768 ? 24 : 20
       const cols = Math.floor(width / spacing)
       const rows = Math.floor((height * 0.45) / spacing)
-      
+
       colsInGrid = Math.ceil(width / cellSize);
       rowsInGrid = Math.ceil(height / cellSize);
       grid = Array(colsInGrid * rowsInGrid).fill(0).map(() => []);
-      
+
       const homeYStart = height - (rows * spacing)
-      
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          if (Math.random() > 0.65) continue 
+          if (Math.random() > 0.65) continue
 
           const ox = (c * spacing) + (Math.random() * (spacing * 0.4)) + (spacing * 0.3)
           const oy = homeYStart + (r * spacing) + (Math.random() * (spacing * 0.4)) + (spacing * 0.3)
-          
+
           if (ox > width - 15 || ox < 15) continue
 
           particles.push({
@@ -212,7 +212,7 @@ export function ContactSection() {
         if (distSq < maxDistSq && isMouseInContent) {
           const dist = Math.sqrt(distSq)
           const force = Math.pow((70 - dist) / 70, 2)
-          
+
           p.vx -= (dx / dist) * force * 2.0
           p.vy -= (dy / dist) * force * 2.0
           p.vx += (dy / dist) * force * 4.0
@@ -232,24 +232,24 @@ export function ContactSection() {
               for (let ni = 0; ni < neighbors.length; ni++) {
                 const neighborIdx = neighbors[ni];
                 if (neighborIdx === i) continue;
-                
+
                 const other = particles[neighborIdx];
                 const pdx = p.x - other.x;
                 const pdy = p.y - other.y;
                 const pd2 = pdx * pdx + pdy * pdy;
                 const minDist = (p.size + other.size) * 3.5; // Larger hitbox for collisions
-                
+
                 if (pd2 > 0 && pd2 < minDist * minDist) {
                   const d = Math.sqrt(pd2);
                   const overlapForce = (minDist - d) / minDist;
-                  
+
                   // Transfer kinetic energy: moving particles push stationary ones
                   const pushX = (pdx / d) * overlapForce * 0.9;
                   const pushY = (pdy / d) * overlapForce * 0.9;
-                  
+
                   p.vx += pushX;
                   p.vy += pushY;
-                  
+
                   // Push the other particle away (Momentum Transfer)
                   other.vx -= pushX;
                   other.vy -= pushY;
@@ -263,14 +263,14 @@ export function ContactSection() {
         const distToTargetX = targetX - p.x;
         const distToTargetY = targetY - p.y;
         const distToTarget = Math.sqrt(distToTargetX * distToTargetX + distToTargetY * distToTargetY) || 1;
-        
+
         // A force that scales with distance but softly caps out, ensuring they steadily return
         // without snapping back violently like a stretched rubber band.
         const returnForce = Math.min(distToTarget * 0.0015, 0.4);
-        
+
         p.vx += (distToTargetX / distToTarget) * returnForce;
         p.vy += (distToTargetY / distToTarget) * returnForce;
-        
+
         // Slight gravity to give them a natural falling weight in the fluid
         p.vy += 0.03;
 
@@ -278,7 +278,7 @@ export function ContactSection() {
         // This stops them from bouncing or vibrating rapidly around their target
         p.vx *= 0.86;
         p.vy *= 0.86;
-        
+
         p.x += p.vx
         p.y += p.vy
 
@@ -289,13 +289,13 @@ export function ContactSection() {
 
         p.angle += p.vAngle + (Math.abs(p.vx) + Math.abs(p.vy)) * 0.01
 
-        const depthFactor = (p.oy / height) 
+        const depthFactor = (p.oy / height)
         const size = p.size * (0.6 + depthFactor * 1.2)
-        const alpha = (0.1 + depthFactor * 0.6) * (0.6 + Math.abs(driftX/35) * 0.4)
-        
+        const alpha = (0.1 + depthFactor * 0.6) * (0.6 + Math.abs(driftX / 35) * 0.4)
+
         // Fast transform without ctx.save() and ctx.restore()
         ctx.setTransform(Math.cos(p.angle), Math.sin(p.angle), -Math.sin(p.angle), Math.cos(p.angle), p.x, p.y)
-        
+
         ctx.fillStyle = `rgba(${colorBase}, ${alpha})`
         ctx.strokeStyle = `rgba(${colorBase}, ${alpha})`
         ctx.lineWidth = size / 2
@@ -310,7 +310,7 @@ export function ContactSection() {
           ctx.beginPath(); ctx.moveTo(0, -size * 1.5); ctx.lineTo(size * 1.5, size * 1.5); ctx.lineTo(-size * 1.5, size * 1.5); ctx.closePath(); ctx.stroke();
         }
       })
-      
+
       ctx.resetTransform() // Reset the transformation matrix for the next frame
 
       animationId = requestAnimationFrame(animate)
@@ -377,7 +377,7 @@ export function ContactSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-[0.65rem] sm:text-sm md:text-base font-black tracking-[0.25em] text-text-secondary uppercase mb-8 sm:mb-12 max-w-2xl text-center"
         >
-          READY FOR A NEW LEARNING <br className="sm:hidden" /> MEDIA EXPERIENCE?
+          Let's build something together!
         </motion.p>
 
         <div
@@ -387,11 +387,11 @@ export function ContactSection() {
         >
           <div className="relative inline-block">
             <motion.div
-               initial={{ opacity: 0, y: 40 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-               className="relative z-10"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10"
             >
               <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase whitespace-nowrap">
                 <RollingText text={text1} iterations={iterations} />
@@ -415,11 +415,11 @@ export function ContactSection() {
 
           <div className="relative inline-block mt-4 md:mt-0">
             <motion.div
-               initial={{ opacity: 0, y: 40 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-               className="relative z-10"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10"
             >
               <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
                 <RollingText text={text2} iterations={iterations} offset={text1.length} />
@@ -444,14 +444,14 @@ export function ContactSection() {
       </div>
 
       <div className="relative md:absolute bottom-0 md:bottom-60 left-0 w-full flex justify-center z-20 px-6 pointer-events-auto mt-16 md:mt-0">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ 
-            delay: 0.6, 
-            duration: 0.8, 
-            ease: [0.16, 1, 0.3, 1] 
+          transition={{
+            delay: 0.6,
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1]
           }}
           style={{
             backdropFilter: "blur(24px)",

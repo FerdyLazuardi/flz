@@ -106,10 +106,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${inter.variable} ${scribbled.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body
-        className="min-h-full flex flex-col font-sans bg-transparent relative"
-        suppressHydrationWarning
-      >
+      <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -118,6 +115,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+      </head>
+      <body
+        className="min-h-full flex flex-col font-sans bg-transparent relative"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

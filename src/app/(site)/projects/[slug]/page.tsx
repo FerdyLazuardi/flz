@@ -108,8 +108,27 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
   if (!project) return notFound()
 
+  const videoSchema = project.youtubeUrl ? {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": `${project.title} - Video Highlight`,
+    "description": project.excerpt || `Video showcase for ${project.title}`,
+    "thumbnailUrl": project.coverImage ? [urlForImage(project.coverImage).width(1200).height(630).url()] : [],
+    "uploadDate": project.publishedAt || new Date().toISOString(),
+    "embedUrl": project.youtubeUrl,
+    "contentUrl": project.youtubeUrl.includes('/embed/') 
+      ? project.youtubeUrl.replace('/embed/', '/watch?v=') 
+      : project.youtubeUrl
+  } : null;
+
   return (
     <article className="min-h-screen bg-bg-primary pt-24 pb-24">
+      {videoSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+        />
+      )}
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
 
         <ProjectDetailBackButton href={`/projects#${project?.slug || slug}`} label="PROJECTS" />

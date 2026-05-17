@@ -13,18 +13,24 @@ function Counter({
   value,
   suffix = "",
   duration = 2.5,
-  useSeparator = false
+  useSeparator = false,
+  decimals = 0
 }: {
   value: number;
   suffix?: string;
   duration?: number;
   useSeparator?: boolean;
+  decimals?: number;
 }) {
   const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.floor(latest));
-  const formatted = useTransform(rounded, (latest) => {
-    if (!useSeparator) return latest.toString();
-    return latest.toLocaleString('de-DE');
+  
+  const formatted = useTransform(count, (latest) => {
+    if (decimals > 0) {
+      return latest.toFixed(decimals);
+    }
+    const rounded = Math.floor(latest);
+    if (!useSeparator) return rounded.toString();
+    return rounded.toLocaleString('de-DE');
   });
 
   const [displayValue, setDisplayValue] = React.useState("0");
@@ -164,30 +170,43 @@ export function HeroSection({
               </Magnetic>
             </motion.div>
 
-            {/* Stats Row (like reference) */}
+            {/* Stats Row */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-[1fr_auto_1fr] sm:flex sm:items-center gap-y-8 gap-x-4 sm:gap-10 mt-16 pt-8 border-t border-border/50 w-full max-w-lg"
+              className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between gap-y-8 sm:gap-y-4 gap-x-0 sm:gap-x-6 mt-16 pt-8 border-t border-border/50 w-full max-w-2xl"
             >
-              <div className="flex flex-col items-center text-center">
-                <p className="font-heading font-extrabold text-2xl text-text-primary">
-                  <Counter value={10} suffix="+" duration={1.2} />
-                </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Modules Developed</p>
-              </div>
-              <div className="w-px h-10 bg-border/50 shrink-0" />
-              <div className="flex flex-col items-center text-center">
-                <p className="font-heading font-extrabold text-2xl text-text-primary">
-                  <Counter value={2} suffix="+" duration={0.8} />
-                </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Years Experience</p>
-              </div>
-              <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
-              <div className="col-span-3 sm:col-span-1 flex flex-col items-center text-center sm:text-left pt-2 sm:pt-0">
-                <p className="font-heading font-extrabold text-2xl text-text-primary text-accent">
+              <div className="flex flex-col items-center text-center border-r border-border/50 sm:border-r-0">
+                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
                   <Counter value={10000} suffix="+" duration={3} useSeparator={true} />
                 </p>
                 <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Users Empowered</p>
+              </div>
+
+              <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
+
+              <div className="flex flex-col items-center text-center">
+                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                  <Counter value={65} suffix="%" duration={2.5} />
+                </p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Completion Rate</p>
+              </div>
+
+              <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
+
+              <div className="flex flex-col items-center text-center border-r border-border/50 sm:border-r-0">
+                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                  <Counter value={3.64} suffix="/4" duration={2.5} decimals={2} />
+                </p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Satisfaction</p>
+              </div>
+
+              <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
+
+              <div className="flex flex-col items-center text-center">
+                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                  <Counter value={2} suffix="+" duration={1.5} />
+                </p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Years Experience</p>
               </div>
             </motion.div>
           </motion.div>

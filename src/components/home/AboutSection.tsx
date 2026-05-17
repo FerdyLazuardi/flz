@@ -177,8 +177,8 @@ export function AboutSection() {
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
-              I am Ferdy Fadhil Lazuardi — an Educational Technology graduate and Learning Designer
-              focused on creating engaging, objective-driven learning materials that empower employees and learners to grow.
+              I'm Ferdy Fadhil Lazuardi, a Learning Designer focused on building digital learning experiences that are engaging, measurable, and built to last.
+              I develop e-learning modules, produce instructional media, and integrate AI into learning systems. The goal is always the same: learning that works.
             </p>
             <Magnetic strength={0.2}>
               <div className="w-full sm:w-auto">
