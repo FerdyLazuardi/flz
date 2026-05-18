@@ -56,7 +56,7 @@ export function getProjectImage(project: ProjectData) {
   return imageSrc || "https://placehold.co/1200x800/E5E7EB/A1A1AA?text=No+Image"
 }
 
-export function LusionCard({ project, onClick }: { project: ProjectData, onClick: () => void }) {
+export function LusionCard({ project, onClick, priority = false }: { project: ProjectData, onClick: () => void, priority?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -118,6 +118,7 @@ export function LusionCard({ project, onClick }: { project: ProjectData, onClick
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
               alt={project.title}
+              priority={priority}
             />
             <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors duration-700 ease-out" />
           </motion.div>

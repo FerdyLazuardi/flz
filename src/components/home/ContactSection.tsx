@@ -93,6 +93,7 @@ export function ContactSection() {
 
       const homeYStart = height - (rows * spacing)
 
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           if (Math.random() > 0.65) continue
@@ -117,6 +118,8 @@ export function ContactSection() {
         }
       }
     }
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     initParticles()
 
@@ -170,11 +173,6 @@ export function ContactSection() {
     let time = 0
 
     const animate = () => {
-      if (!isVisible) {
-        animationId = requestAnimationFrame(animate)
-        return
-      }
-
       time += 0.003
       ctx.clearRect(0, 0, width, height)
 
@@ -316,7 +314,15 @@ export function ContactSection() {
       animationId = requestAnimationFrame(animate)
     }
 
-    animate()
+    if (prefersReduced) {
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove)
+        window.removeEventListener("mouseout", handleMouseLeave)
+        window.removeEventListener("resize", handleResize)
+      }
+    }
+
+    if (isVisible) animate()
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)

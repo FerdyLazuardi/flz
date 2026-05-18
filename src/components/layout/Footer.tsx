@@ -1,9 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
+import Link from "next/link"
 
 export function Footer() {
-  const [year, setYear] = useState(2026) // Stable fallback
+  const [year, setYear] = useState(2026)
 
   useEffect(() => {
     setYear(new Date().getFullYear())
@@ -21,6 +22,11 @@ export function Footer() {
               Learning Designer
             </p>
           </div>
+          <nav aria-label="Footer navigation" className="flex gap-6 text-sm text-text-secondary">
+            <Link href="/" className="hover:text-text-primary transition-colors">Home</Link>
+            <Link href="/projects" className="hover:text-text-primary transition-colors">Projects</Link>
+            <Link href="/#contact" className="hover:text-text-primary transition-colors">Contact</Link>
+          </nav>
         </div>
       </div>
     </footer>

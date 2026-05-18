@@ -32,6 +32,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${project.title} | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer`,
     description: project.excerpt || `Read about the ${project.title} project by Ferdy Fadhil Lazuardi (Ferdy Lazuardi).`,
     keywords: [project.title, 'Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi', 'Learning Designer', 'Instructional Designer', ...(project.techStack || [])],
+    alternates: {
+      canonical: `https://ferdy-fadhil-lazuardi.my.id/projects/${slug}`,
+    },
     openGraph: {
       images: ogImage ? [{ url: ogImage, alt: project.title }] : [],
     },
@@ -108,6 +111,16 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
   if (!project) return notFound()
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ferdy-fadhil-lazuardi.my.id/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ferdy-fadhil-lazuardi.my.id/projects" },
+      { "@type": "ListItem", "position": 3, "name": project.title, "item": `https://ferdy-fadhil-lazuardi.my.id/projects/${slug}` }
+    ]
+  }
+
   const videoSchema = project.youtubeUrl ? {
     "@context": "https://schema.org",
     "@type": "VideoObject",
@@ -123,6 +136,10 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
   return (
     <article className="min-h-screen bg-bg-primary pt-24 pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {videoSchema && (
         <script
           type="application/ld+json"

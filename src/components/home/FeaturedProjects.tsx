@@ -69,7 +69,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
                 }}
                 className="w-full"
               >
-                <LusionCard project={project} onClick={() => setSelectedId(project._id)} />
+                <LusionCard project={project} onClick={() => setSelectedId(project._id)} priority={idx === 0} />
               </motion.div>
            ))}
         </div>

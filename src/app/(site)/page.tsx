@@ -7,7 +7,7 @@ import { LogoMarquee } from "@/components/home/LogoMarquee"
 import { ValueProp } from "@/components/home/ValueProp"
 import { AboutSection } from "@/components/home/AboutSection"
 import { FeaturedProjects } from "@/components/home/FeaturedProjects"
-import { ContactSection } from "@/components/home/ContactSection"
+import { ContactSectionClient } from "@/components/home/ContactSectionClient"
 
 export const revalidate = 60
 
@@ -34,7 +34,7 @@ export default async function Home() {
       <ValueProp />
       <AboutSection />
       <FeaturedProjects projects={projectsWithUrls} />
-      <ContactSection />
+      <ContactSectionClient />
     </div>
   )
 }

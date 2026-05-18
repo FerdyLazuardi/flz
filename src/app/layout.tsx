@@ -31,7 +31,15 @@ export const metadata: Metadata = {
     template: '%s | Ferdy Fadhil Lazuardi',
   },
   description: 'Official portfolio of Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer bridging pedagogy with advanced technology to create impactful digital learning experiences.',
-  keywords: ['Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi', 'Learning Designer', 'Educational Technology', 'Instructional Designer', 'Multimedia Designer', 'Instructional Technology', 'Digital Learning'],
+  keywords: [
+    'Ferdy Fadhil Lazuardi', 'Ferdy Lazuardi',
+    'Learning Designer', 'Learning Designer Indonesia',
+    'Instructional Designer', 'Instructional Designer Jakarta',
+    'Educational Technology', 'E-learning Developer',
+    'Articulate Storyline Developer', 'Learning Experience Designer',
+    'LXD', 'ADDIE Model', 'Moodle LMS',
+    'Multimedia Designer', 'Instructional Technology', 'Digital Learning',
+  ],
   openGraph: {
     title: 'Ferdy Fadhil Lazuardi | Learning Designer & Instructional Designer',
     description: 'Portfolio of Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer merging creative multimedia design with AI to deliver engaging digital learning experiences.',
@@ -39,11 +47,13 @@ export const metadata: Metadata = {
     siteName: 'Ferdy Fadhil Lazuardi',
     locale: 'en_US',
     type: 'website',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ferdy Fadhil Lazuardi | Learning Designer & Instructional Designer',
     description: 'Official portfolio of Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer bridging pedagogy with advanced technology.',
+    images: ['/opengraph-image.png'],
   },
 };
 
@@ -107,6 +117,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

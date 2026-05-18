@@ -7,14 +7,16 @@ import { ProjectHeader } from "@/components/projects/ProjectHeader"
 import { DesignShowcase } from "@/components/projects/DesignShowcase"
 import { AnimatedBackground } from "@/components/ui/animated-background"
 
-export const revalidate = 0
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Projects | Ferdy Fadhil Lazuardi — Learning Designer & Instructional Designer',
   description: 'Explore the portfolio and recent projects of Ferdy Fadhil Lazuardi (Ferdy Lazuardi), showcasing expertise in Learning Design, Instructional Design, Educational Technology, and Multimedia.',
+  alternates: {
+    canonical: 'https://ferdy-fadhil-lazuardi.my.id/projects',
+  },
 }
 
 export default async function ProjectsPage() {
@@ -31,7 +33,7 @@ export default async function ProjectsPage() {
 
   try {
     // Use freshClient (no CDN) to always get latest showcase data
-    const rawShowcase = await freshClient.fetch(DESIGN_SHOWCASE_QUERY, {}, { next: { revalidate: 0 } }) || []
+    const rawShowcase = await freshClient.fetch(DESIGN_SHOWCASE_QUERY, {}, { next: { revalidate: 3600 } }) || []
     console.log(`[DesignShowcase] Fetched ${rawShowcase.length} items from Sanity`)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     showcaseItems = rawShowcase.map((item: any) => ({
@@ -46,7 +48,7 @@ export default async function ProjectsPage() {
   }
 
   try {
-    const rawInfiniteGallery = await freshClient.fetch(INFINITE_GALLERY_QUERY, {}, { next: { revalidate: 0 } })
+    const rawInfiniteGallery = await freshClient.fetch(INFINITE_GALLERY_QUERY, {}, { next: { revalidate: 3600 } })
     if (rawInfiniteGallery?.images) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       infiniteGalleryItems = rawInfiniteGallery.images.map((img: any) => {
