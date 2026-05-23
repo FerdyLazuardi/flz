@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import { AnimatedSwipeButton } from "@/components/ui/animated-swipe-button"
 import { Magnetic } from "@/components/ui/magnetic"
 
 const GmailIcon = ({ className }: { className?: string }) => (
@@ -47,48 +48,6 @@ function RollingText({ text, iterations, offset = 0 }: { text: string, iteration
         />
       ))}
     </span>
-  )
-}
-
-type CardKey = "linkedin" | "gmail"
-
-type CardData = {
-  href: string
-  color: string
-  icon: React.ReactNode
-  text: string
-  ariaLabel: string
-}
-
-function ContactCard({
-  data,
-  highlighted,
-  interactive,
-}: {
-  data: CardData
-  highlighted: boolean
-  interactive: boolean
-}) {
-  return (
-    <a
-      href={data.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={data.ariaLabel}
-      tabIndex={interactive ? 0 : -1}
-      className="group relative inline-flex w-full items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-bold transition-colors duration-300"
-      style={{
-        backgroundColor: highlighted ? data.color : "transparent",
-        borderColor: data.color,
-        color: highlighted ? "#ffffff" : "var(--color-text-primary, currentColor)",
-        boxShadow: highlighted ? `0 6px 20px 0 ${data.color}40` : "none",
-      }}
-    >
-      <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-        {data.icon}
-      </span>
-      <span className="relative z-10">{data.text}</span>
-    </a>
   )
 }
 
@@ -371,41 +330,6 @@ export function ContactSection() {
   const totalLen = text1.length + text2.length
   const [iterations, setIterations] = useState<number[]>(new Array(totalLen).fill(0))
 
-  const [frontKey, setFrontKey] = useState<CardKey>("linkedin")
-  const backKey: CardKey = frontKey === "linkedin" ? "gmail" : "linkedin"
-
-  const cards: Record<CardKey, CardData> = {
-    linkedin: {
-      href: "https://www.linkedin.com/in/ferdy10/",
-      color: "#0A66C2",
-      icon: <LinkedInIcon className="w-5 h-5 relative z-10" />,
-      text: "LinkedIn",
-      ariaLabel: "Open LinkedIn profile in new tab",
-    },
-    gmail: {
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=ferdy.lazuardi05@gmail.com",
-      color: "#EA4335",
-      icon: <GmailIcon className="w-5 h-5 relative z-10" />,
-      text: "Gmail",
-      ariaLabel: "Compose email via Gmail",
-    },
-  }
-
-  const swap = () => setFrontKey((prev) => (prev === "linkedin" ? "gmail" : "linkedin"))
-
-  const [reducedMotion, setReducedMotion] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false
-  )
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
-  }, [])
-
   useEffect(() => {
     const pickRandom = () => {
       setIterations(prev => {
@@ -532,77 +456,36 @@ export function ContactSection() {
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
           }}
-          className="flex flex-col items-center gap-6 w-full max-w-md sm:max-w-lg mx-auto p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] bg-white/5 dark:bg-white/[0.03] overflow-visible relative"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-2xl p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none rounded-[inherit]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
-          {/* Card stack */}
-          <div className="relative z-10 w-full h-12 sm:h-14">
-            {/* Back card (peek right) */}
-            <motion.div
-              initial={false}
-              animate={{
-                x: "var(--peek-x)",
-                scale: 0.92,
-                opacity: 0.55,
-                filter: "blur(1px)",
-              }}
-              transition={
-                reducedMotion
-                  ? { duration: 0 }
-                  : { type: "spring", stiffness: 260, damping: 28 }
-              }
-              className="absolute inset-0 [--peek-x:18%] sm:[--peek-x:28%] pointer-events-none"
-              aria-hidden="true"
-            >
-              <ContactCard data={cards[backKey]} highlighted={false} interactive={false} />
-            </motion.div>
+          <Magnetic strength={0.15}>
+            <div className="w-full sm:w-auto relative z-10 flex">
+              <AnimatedSwipeButton
+                href="https://www.linkedin.com/in/ferdy10/"
+                color="#0A66C2"
+                initialColor="#0A66C2"
+                size="md"
+                icon={<LinkedInIcon className="w-5 h-5 relative z-10" />}
+                text="LinkedIn"
+                className="w-full sm:w-auto sm:px-8 flex-1"
+              />
+            </div>
+          </Magnetic>
 
-            {/* Front card */}
-            <motion.div
-              initial={false}
-              animate={{
-                x: "0%",
-                scale: 1,
-                opacity: 1,
-                filter: "blur(0px)",
-              }}
-              transition={
-                reducedMotion
-                  ? { duration: 0 }
-                  : { type: "spring", stiffness: 260, damping: 28 }
-              }
-              className="absolute inset-0 z-10"
-            >
-              <Magnetic strength={0.15}>
-                <ContactCard data={cards[frontKey]} highlighted={true} interactive={true} />
-              </Magnetic>
-            </motion.div>
-          </div>
-
-          {/* Arrow controls */}
-          <div className="relative z-10 flex items-center gap-1 rounded-full border border-white/20 dark:border-white/10 bg-white/10 dark:bg-white/[0.05] backdrop-blur-xl p-1.5">
-            <button
-              type="button"
-              onClick={swap}
-              aria-label={`Show ${backKey === "linkedin" ? "LinkedIn" : "Gmail"}`}
-              className="flex items-center justify-center w-11 h-11 rounded-full text-text-primary hover:bg-white/10 dark:hover:bg-white/[0.08] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cat-instructional"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={swap}
-              aria-label={`Show ${backKey === "linkedin" ? "LinkedIn" : "Gmail"}`}
-              className="flex items-center justify-center w-11 h-11 rounded-full text-text-primary hover:bg-white/10 dark:hover:bg-white/[0.08] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cat-instructional"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
+          <Magnetic strength={0.15}>
+            <div className="w-full sm:w-auto relative z-10 flex">
+              <AnimatedSwipeButton
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ferdy.lazuardi05@gmail.com"
+                color="#EA4335"
+                size="md"
+                icon={<GmailIcon className="w-5 h-5 relative z-10" />}
+                text="Gmail"
+                className="w-full sm:w-auto sm:px-8 flex-1"
+              />
+            </div>
+          </Magnetic>
         </motion.div>
       </div>
     </section>
