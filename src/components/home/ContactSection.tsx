@@ -51,6 +51,48 @@ function RollingText({ text, iterations, offset = 0 }: { text: string, iteration
   )
 }
 
+type CardKey = "linkedin" | "gmail"
+
+type CardData = {
+  href: string
+  color: string
+  icon: React.ReactNode
+  text: string
+  ariaLabel: string
+}
+
+function ContactCard({
+  data,
+  highlighted,
+  interactive,
+}: {
+  data: CardData
+  highlighted: boolean
+  interactive: boolean
+}) {
+  return (
+    <a
+      href={data.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={data.ariaLabel}
+      tabIndex={interactive ? 0 : -1}
+      className="group relative inline-flex w-full items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-bold transition-colors duration-300"
+      style={{
+        backgroundColor: highlighted ? data.color : "transparent",
+        borderColor: data.color,
+        color: highlighted ? "#ffffff" : "var(--color-text-primary, currentColor)",
+        boxShadow: highlighted ? `0 6px 20px 0 ${data.color}40` : "none",
+      }}
+    >
+      <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
+        {data.icon}
+      </span>
+      <span className="relative z-10">{data.text}</span>
+    </a>
+  )
+}
+
 export function ContactSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
