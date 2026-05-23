@@ -32,7 +32,7 @@ export function AIChatWidget() {
   const [panelOpen, setPanelOpen] = React.useState(false)
   const [hidden, setHidden] = React.useState(false)
   const [bubbles, setBubbles] = React.useState<Bubble[]>([
-    { id: 0, type: "ai", text: "Hi! I'm Ferdy's AI. Ask me about his projects, skills, or experience." },
+    { id: 0, type: "ai", text: "Hi! I'm Ferdy. Ask me about my projects, skills, or experience." },
   ])
   const [thinking, setThinking] = React.useState(false)
   const [inputValue, setInputValue] = React.useState("")
@@ -268,8 +268,8 @@ export function AIChatWidget() {
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-black/5 dark:border-white/10">
             <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)] shrink-0 animate-pulse" />
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-bold text-text-primary leading-tight">Ferdy&apos;s AI Assistant</p>
-              <p className="text-[11px] text-text-secondary mt-0.5 max-sm:text-[10px]">Ask anything about my work, skills, or experience</p>
+              <p className="text-[13px] font-bold text-text-primary leading-tight tracking-[0.01em]">AskFer</p>
+              <p className="text-[11px] text-text-secondary mt-0.5 max-sm:text-[10px] tracking-[0.01em]">Ask anything about my work, skills, or experience</p>
             </div>
             <button
               onClick={closePanel}
@@ -286,10 +286,10 @@ export function AIChatWidget() {
               <div
                 key={b.id}
                 className={[
-                  "max-w-[82%] px-3.5 py-2.5 rounded-[18px] text-[13px] leading-relaxed max-sm:text-[12px] max-sm:px-3 max-sm:py-2",
+                  "max-w-[82%] px-3.5 py-2.5 rounded-[18px] text-[13px] leading-relaxed tracking-[0.015em] max-sm:text-[12px] max-sm:px-3 max-sm:py-2",
                   "animate-[bubbleIn_0.22s_cubic-bezier(0.22,1,0.36,1)]",
                   b.type === "user"
-                    ? "bg-foreground text-background self-end rounded-br-[4px]"
+                    ? "bg-neutral-700 text-white self-end rounded-br-[4px] dark:bg-neutral-200 dark:text-neutral-900"
                     : b.type === "error"
                     ? "bg-red-50 text-red-600 self-start rounded-bl-[4px] dark:bg-red-900/20 dark:text-red-400"
                     : "bg-muted text-text-primary self-start rounded-bl-[4px]",
