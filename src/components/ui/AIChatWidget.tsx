@@ -179,8 +179,6 @@ export function AIChatWidget() {
         body: JSON.stringify({ query: text }),
       })
       if (!res.ok || !res.body) {
-        const errBody = await res.text().catch(() => "")
-        console.error(`[AI chat] HTTP ${res.status}:`, errBody)
         throw new Error(`HTTP ${res.status}`)
       }
 
@@ -205,7 +203,7 @@ export function AIChatWidget() {
 
           try {
             const parsed = JSON.parse(dataStr)
-            const chunkText: string = parsed.text ?? ""
+            const chunkText: string = parsed.token ?? parsed.text ?? parsed.content ?? parsed.delta ?? ""
             if (!chunkText) continue
 
             if (!aiBubbleCreated) {
