@@ -214,14 +214,7 @@ export function AIChatWidget() {
       >
         {/* Inner wrapper — never animates opacity, glass stays solid */}
         <div>
-        <div
-          className="relative bg-white/5 dark:bg-white/[0.03] border border-white/20 dark:border-white/10 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] overflow-hidden flex flex-col"
-          style={{
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+        <div className="bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/15 rounded-2xl shadow-[0_12px_48px_rgba(0,0,0,0.18)] overflow-hidden flex flex-col">
           {/* Header */}
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-black/5 dark:border-white/10">
             <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)] shrink-0 animate-pulse" />
@@ -282,15 +275,13 @@ export function AIChatWidget() {
         className={[
           "fixed bottom-6 left-1/2",
           "w-[min(560px,calc(100%-48px))] max-sm:bottom-4 max-sm:w-[calc(100%-32px)]",
-          "bg-white/5 dark:bg-white/[0.03] border border-white/20 dark:border-white/10 rounded-full",
-          "shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.1)]",
+          "bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/15 rounded-full",
+          "shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]",
           "flex items-center gap-2.5 px-3.5 py-2.5 max-sm:px-2.5 max-sm:py-2 max-sm:gap-2",
-          "cursor-text overflow-hidden relative",
+          "cursor-text",
         ].join(" ")}
         style={{
           zIndex: 10000,
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
           transform: hidden
             ? "translateX(-50%) translateY(calc(100% + 32px)) scale(0.96)"
             : "translateX(-50%) translateY(0) scale(1)",
@@ -303,7 +294,6 @@ export function AIChatWidget() {
         }}
         onClick={() => { if (!panelOpen && !hidden) openPanel() }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none rounded-full" />
         {/* Chat icon */}
         <div className="w-8 h-8 max-sm:w-6 max-sm:h-6 flex items-center justify-center shrink-0">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground max-sm:w-[14px] max-sm:h-[14px]">
