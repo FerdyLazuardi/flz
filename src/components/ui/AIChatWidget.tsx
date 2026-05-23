@@ -273,7 +273,7 @@ export function AIChatWidget() {
       {/* Chat bar — always fixed, never animates position */}
       <div
         className={[
-          "fixed bottom-6 left-1/2 -translate-x-1/2",
+          "fixed bottom-6 left-1/2",
           "w-[min(560px,calc(100%-48px))] max-sm:bottom-4 max-sm:w-[calc(100%-32px)]",
           "bg-white/55 dark:bg-black/30 backdrop-blur-xl border border-white/75 dark:border-white/20 rounded-full",
           "shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]",
@@ -283,8 +283,8 @@ export function AIChatWidget() {
         style={{
           zIndex: 10000,
           transform: hidden
-            ? "translate(-50%, calc(100% + 32px)) scale(0.96)"
-            : "translate(-50%, 0) scale(1)",
+            ? "translateX(-50%) translateY(calc(100% + 32px)) scale(0.96)"
+            : "translateX(-50%) translateY(0) scale(1)",
           opacity: hidden ? 0 : 1,
           pointerEvents: hidden ? "none" : "auto",
           transition: hidden
