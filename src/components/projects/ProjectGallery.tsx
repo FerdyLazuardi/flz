@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 import type { ProjectData } from "@/components/projects/ProjectCard"
@@ -10,6 +10,21 @@ import { LusionCard, ExpandedView } from "@/components/projects/SharedProjectCar
 export function ProjectGallery({ projects }: { projects: ProjectData[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const activeProject = projects.find(p => p._id === selectedId);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(
+      new CustomEvent(selectedId ? "app:hide-chat" : "app:show-chat")
+    )
+  }, [selectedId])
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("app:show-chat"))
+      }
+    }
+  }, [])
 
   return (
     <div className={`flex flex-col relative ${selectedId ? 'z-[9999]' : 'z-20'}`}>

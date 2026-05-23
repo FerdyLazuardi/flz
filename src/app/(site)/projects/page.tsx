@@ -73,7 +73,7 @@ export default async function ProjectsPage() {
   }))
 
   return (
-    <div className="min-h-screen pt-24 md:pt-32 relative overflow-hidden">
+    <div className="min-h-screen pt-12 md:pt-20 relative overflow-hidden">
       
       {/* Background Accent 1 (Middle Right) */}
       <div className="absolute top-[30%] right-[-10%] w-[1000px] h-[800px] pointer-events-none -z-10">
