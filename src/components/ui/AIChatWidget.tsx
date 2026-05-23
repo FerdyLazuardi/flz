@@ -3,11 +3,12 @@
 import * as React from "react"
 import { usePathname } from "next/navigation"
 
-// ─── Configure your AI agent here ────────────────────────────────────────────
-const AI_AGENT_URL = "" // ← paste your AI agent URL here
-// Expected request:  POST AI_AGENT_URL  { message: string }
-// Expected response: { reply: string }
+// ─── AI agent endpoint ───────────────────────────────────────────────────────
+// Set NEXT_PUBLIC_AI_AGENT_URL in .env.local
+// Request:  POST AI_AGENT_URL  { message: string }
+// Response: Server-Sent Events (SSE) stream, chunks of `data: {"text": "..."}\n\n`
 // ─────────────────────────────────────────────────────────────────────────────
+const AI_AGENT_URL = process.env.NEXT_PUBLIC_AI_AGENT_URL ?? ""
 
 const SUGGESTIONS = [
   "Ask me anything about Ferdy's work...",
@@ -164,6 +165,9 @@ export function AIChatWidget() {
     setInputValue("")
     setThinking(true)
 
+    const aiBubbleId = nextId.current++
+    let aiBubbleCreated = false
+
     try {
       if (!AI_AGENT_URL) throw new Error("No URL configured")
       const res = await fetch(AI_AGENT_URL, {
@@ -171,10 +175,50 @@ export function AIChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
       })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json()
-      const reply = data.reply ?? data.message ?? data.text ?? JSON.stringify(data)
-      setBubbles(prev => [...prev, { id: nextId.current++, type: "ai", text: reply }])
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
+
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ""
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+
+        const events = buffer.split("\n\n")
+        buffer = events.pop() ?? ""
+
+        for (const event of events) {
+          const dataLine = event.split("\n").find(l => l.startsWith("data:"))
+          if (!dataLine) continue
+          const dataStr = dataLine.slice(5).trim()
+          if (!dataStr || dataStr === "[DONE]") continue
+
+          try {
+            const parsed = JSON.parse(dataStr)
+            const chunkText: string = parsed.text ?? ""
+            if (!chunkText) continue
+
+            if (!aiBubbleCreated) {
+              setBubbles(prev => [...prev, { id: aiBubbleId, type: "ai", text: chunkText }])
+              aiBubbleCreated = true
+              setThinking(false)
+            } else {
+              setBubbles(prev => prev.map(b =>
+                b.id === aiBubbleId ? { ...b, text: b.text + chunkText } : b
+              ))
+            }
+          } catch {
+            // skip malformed JSON
+          }
+        }
+      }
+
+      if (!aiBubbleCreated) {
+        setBubbles(prev => [...prev, { id: aiBubbleId, type: "ai", text: "(no response)" }])
+      }
     } catch {
       setBubbles(prev => [...prev, { id: nextId.current++, type: "error", text: "Sorry, something went wrong. Please try again." }])
     } finally {
