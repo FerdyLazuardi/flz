@@ -172,10 +172,17 @@ export function AIChatWidget() {
       if (!AI_AGENT_URL) throw new Error("No URL configured")
       const res = await fetch(AI_AGENT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: JSON.stringify({ query: text }),
       })
-      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
+      if (!res.ok || !res.body) {
+        const errBody = await res.text().catch(() => "")
+        console.error(`[AI chat] HTTP ${res.status}:`, errBody)
+        throw new Error(`HTTP ${res.status}`)
+      }
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
