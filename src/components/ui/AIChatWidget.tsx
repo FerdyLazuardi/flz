@@ -214,7 +214,7 @@ export function AIChatWidget() {
       >
         {/* Inner wrapper — never animates opacity, glass stays solid */}
         <div>
-        <div className="bg-white/55 dark:bg-black/30 backdrop-blur-2xl border border-white/80 dark:border-white/20 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+        <div className="bg-white/90 dark:bg-neutral-900/85 backdrop-blur-2xl border border-black/10 dark:border-white/15 rounded-2xl shadow-[0_12px_48px_rgba(0,0,0,0.18)] overflow-hidden flex flex-col">
           {/* Header */}
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-black/5 dark:border-white/10">
             <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)] shrink-0 animate-pulse" />
@@ -275,8 +275,8 @@ export function AIChatWidget() {
         className={[
           "fixed bottom-6 left-1/2",
           "w-[min(560px,calc(100%-48px))] max-sm:bottom-4 max-sm:w-[calc(100%-32px)]",
-          "bg-white/55 dark:bg-black/30 backdrop-blur-xl border border-white/75 dark:border-white/20 rounded-full",
-          "shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]",
+          "bg-white/90 dark:bg-neutral-900/85 backdrop-blur-xl border border-black/10 dark:border-white/15 rounded-full",
+          "shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]",
           "flex items-center gap-2.5 px-3.5 py-2.5 max-sm:px-2.5 max-sm:py-2 max-sm:gap-2",
           "cursor-text",
         ].join(" ")}
