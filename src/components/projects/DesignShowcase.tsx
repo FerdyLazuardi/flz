@@ -401,7 +401,7 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
           <InfiniteDesignGallery customImages={infiniteGalleryItems} />
 
           {/* Back to Top Button Overlay */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50">
+          <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-50">
             <Magnetic strength={0.2}>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
