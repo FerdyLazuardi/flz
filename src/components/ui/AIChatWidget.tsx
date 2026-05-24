@@ -4,6 +4,7 @@ import * as React from "react"
 import { usePathname } from "next/navigation"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { pickRandomFAQs } from "./chat-suggestions"
 
 // ─── AI agent endpoint ───────────────────────────────────────────────────────
 // Set NEXT_PUBLIC_AI_AGENT_URL in .env.local
@@ -38,6 +39,7 @@ export function AIChatWidget() {
   ])
   const [thinking, setThinking] = React.useState(false)
   const [inputValue, setInputValue] = React.useState("")
+  const [suggestions, setSuggestions] = React.useState<string[]>(() => pickRandomFAQs(4))
 
   // Typewriter state
   const [typedText, setTypedText] = React.useState("")
@@ -159,13 +161,14 @@ export function AIChatWidget() {
     setTimeout(restartTyping, 500)
   }
 
-  async function sendMessage() {
-    const text = inputValue.trim()
+  async function sendMessage(overrideText?: string) {
+    const text = (overrideText ?? inputValue).trim()
     if (!text || thinking) return
     const id = nextId.current++
     setBubbles(prev => [...prev, { id, type: "user", text }])
     setInputValue("")
     setThinking(true)
+    setSuggestions([]) // hide chips while AI is responding
 
     const aiBubbleId = nextId.current++
     let aiBubbleCreated = false
@@ -230,7 +233,13 @@ export function AIChatWidget() {
       setBubbles(prev => [...prev, { id: nextId.current++, type: "error", text: "Sorry, something went wrong. Please try again." }])
     } finally {
       setThinking(false)
+      setSuggestions(pickRandomFAQs(4, [text]))
     }
+  }
+
+  function handleChipClick(question: string) {
+    if (thinking) return
+    sendMessage(question)
   }
 
   function handleKey(e: React.KeyboardEvent) {
@@ -341,6 +350,22 @@ export function AIChatWidget() {
                 <span className="text-[12px] text-text-secondary italic max-sm:text-[11px]">Thinking...</span>
               </div>
             )}
+
+            {!thinking && suggestions.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-1 animate-[bubbleIn_0.3s_cubic-bezier(0.22,1,0.36,1)]">
+                {suggestions.map((q, i) => (
+                  <button
+                    key={`${q}-${i}`}
+                    type="button"
+                    onClick={() => handleChipClick(q)}
+                    className="text-[11px] max-sm:text-[10.5px] px-2.5 py-1.5 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary hover:bg-white dark:hover:bg-white/[0.08] hover:border-black/20 dark:hover:border-white/25 transition-colors duration-200 leading-tight tracking-[0.01em] text-left"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
         </div>
