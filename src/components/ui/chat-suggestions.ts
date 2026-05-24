@@ -14,7 +14,6 @@ export const FAQ_POOL: string[] = [
   // — Stats / impact —
   "Total users impacted?",
   "Course completion rate?",
-  "Biggest achievement?",
 
   // — AI Learning Assistant (peped-BE) —
   "Tell me about the AI Learning Assistant",
@@ -23,7 +22,6 @@ export const FAQ_POOL: string[] = [
 
   // — Agent Network —
   "What is the Agent Network project?",
-  "What is Poket digital wallet?",
 
   // — Anti-Harassment —
   "Tell me about the Anti-Harassment course",
