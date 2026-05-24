@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { AIChatWidget } from '@/components/ui/AIChatWidget';
 
 const PATH_ORDER = ['/', '/projects', '/about'];
 
@@ -58,19 +59,22 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
-      <motion.main
-        key={pathname}
-        custom={direction}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="flex-grow overflow-x-clip"
-      >
-        {children}
-      </motion.main>
-    </AnimatePresence>
+    <>
+      <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
+        <motion.main
+          key={pathname}
+          custom={direction}
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="flex-grow overflow-x-clip"
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
+      <AIChatWidget />
+    </>
   );
 }
