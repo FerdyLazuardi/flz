@@ -18,7 +18,7 @@ export const FAQ_POOL: string[] = [
 
   // — AI Learning Assistant (peped-BE) —
   "Tell me about the AI Learning Assistant",
-  "How does the RAG architecture work?",
+  "What is peped-BE?",
   "Why Qdrant and LangGraph?",
   "How do you prevent AI hallucination?",
 
@@ -35,7 +35,7 @@ export const FAQ_POOL: string[] = [
   "What is Training Client Protection?",
   "What is the ASA project?",
   "What is BTS?",
-  "What is Modal?",
+  "Tell me about the Modal Cycle video",
 
   // — Academic / personal projects —
   "What is Dunia Geometri?",
