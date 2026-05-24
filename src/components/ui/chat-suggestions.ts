@@ -4,53 +4,51 @@
 
 export const FAQ_POOL: string[] = [
   // — Profile & background —
-  "Ceritain background lo dong",
-  "Apa peran lo di Amartha sekarang?",
-  "Kenapa lo bilang lo \"sit at the intersection of design and engineering\"?",
-  "Apa skill teknis utama yang lo kuasai?",
-  "Tools apa aja yang lo pakai sehari-hari?",
-  "Berapa lama lo udah jadi Learning Designer?",
+  "Tell me about yourself",
+  "What's your role at Amartha?",
+  "What's your background?",
+  "Years of experience?",
+  "Tools you use daily?",
+  "Core technical skills?",
 
   // — Stats / impact —
-  "Berapa user yang udah lo impact?",
-  "Berapa completion rate course-course lo?",
-  "Apa pencapaian terbesar lo sejauh ini?",
+  "Total users impacted?",
+  "Course completion rate?",
+  "Biggest achievement?",
 
   // — AI Learning Assistant (peped-BE) —
-  "Ceritain project AI Learning Assistant di Amartha LMS",
-  "Apa itu peped-BE dan gimana cara kerjanya?",
-  "Gimana arsitektur Agentic RAG yang lo bangun?",
-  "Kenapa pilih Qdrant dan LangGraph untuk RAG?",
-  "Gimana cara lo handle hallucination di chatbot?",
+  "Tell me about the AI Learning Assistant",
+  "How does the RAG architecture work?",
+  "Why Qdrant and LangGraph?",
+  "How do you prevent AI hallucination?",
 
   // — Agent Network —
-  "Apa itu project Agent Network AmarthaLink?",
-  "Gimana strategi konten Agent Network?",
-  "Apa itu Poket digital wallet?",
+  "What is the Agent Network project?",
+  "What is Poket digital wallet?",
 
   // — Anti-Harassment —
-  "Ceritain training Anti-Harassment yang lo desain",
-  "Apa hasil dari Anti-Harassment course?",
-  "Gimana lo translate kebijakan jadi training engaging?",
+  "Tell me about the Anti-Harassment course",
+  "Anti-Harassment course results?",
 
   // — Other Amartha projects —
-  "Apa itu AmarthaFin Mockup?",
-  "Apa itu Training Client Protection?",
-  "Apa itu ASA project?",
-  "Ceritain BTS sama Modal project",
+  "What is AmarthaFin Mockup?",
+  "What is Training Client Protection?",
+  "What is the ASA project?",
+  "What is BTS?",
+  "What is Modal?",
 
   // — Academic / personal projects —
-  "Apa itu Dunia Geometri?",
-  "Hasil testing Dunia Geometri gimana?",
-  "Ceritain tentang Botani Quest",
-  "Kenapa pilih pixel-art untuk Botani Quest?",
+  "What is Dunia Geometri?",
+  "Dunia Geometri impact?",
+  "Tell me about Botani Quest",
+  "Why pixel-art for Botani Quest?",
 
   // — Methodology / approach —
-  "Gimana pendekatan ADDIE & TNA yang lo pakai?",
-  "Gimana cara lo apply Bloom's Taxonomy di course design?",
-  "Apa pengalaman lo dengan Moodle dan SCORM?",
-  "Gimana lo bikin learning yang engaging tapi tetap measurable?",
-  "Gimana lo gabungin instructional design sama AI?",
+  "Your design approach?",
+  "Experience with Moodle and SCORM?",
+  "How do you apply ADDIE?",
+  "How do you use Bloom's Taxonomy?",
+  "How do you blend ID with AI?",
 ]
 
 /** Pick `count` unique random questions from the pool. */
