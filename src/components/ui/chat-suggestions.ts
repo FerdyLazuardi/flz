@@ -3,48 +3,39 @@
 // Edit freely — values are picked randomly on panel open and after each AI reply.
 
 export const FAQ_POOL: string[] = [
-  // — Profile & background —
-  "Tell me about yourself",
-  "What's your role at Amartha?",
-  "What's your background?",
-  "Years of experience?",
-  "Tools you use daily?",
-  "Core technical skills?",
+  // — Standout / high-level —
+  "What makes you different from other learning designers?",
+  "Which project had the biggest impact?",
+  "How do you measure training success?",
+  "What's your tech stack?",
+  "How do you increase completion rate?",
+  "Tell me about a project that didn't work",
 
-  // — Stats / impact —
-  "Total users impacted?",
-  "Course completion rate?",
+  // — Projects —
+  "Tell me about Modal Cycle Zero",
+  "What's the AI Learning Assistant project?",
+  "Explain Training Client Protection (TCP)",
+  "What's BTS / Belajar Tulang Skuy?",
+  "Show me your Anti-Harassment course",
 
-  // — AI Learning Assistant (peped-BE) —
-  "Tell me about the AI Learning Assistant",
-  "Why Qdrant and LangGraph?",
-
-  // — Agent Network —
-  "What is the Agent Network project?",
-
-  // — Anti-Harassment —
-  "Tell me about the Anti-Harassment course",
-  "Anti-Harassment course results?",
-
-  // — Other Amartha projects —
-  "What is AmarthaFin Mockup?",
-  "What is Training Client Protection?",
-  "What is the ASA project?",
-  "What is BTS?",
-  "Tell me about the Modal Cycle video",
-
-  // — Academic / personal projects —
-  "What is Dunia Geometri?",
-  "Dunia Geometri impact?",
-  "Tell me about Botani Quest",
-  "Why pixel-art for Botani Quest?",
-
-  // — Methodology / approach —
-  "Your design approach?",
-  "Experience with Moodle and SCORM?",
-  "How do you apply ADDIE?",
+  // — Methodology —
   "How do you use Bloom's Taxonomy?",
-  "How do you blend ID with AI?",
+  "ADDIE vs SAM — when do you pick which?",
+  "How do you apply Cognitive Load Theory?",
+  "Walk me through your design process",
+  "How do you design for adult learners?",
+
+  // — Metrics —
+  "What's your average completion rate?",
+  "How many users have you reached?",
+  "What's your highest N-Gain?",
+  "How do you boost learner engagement?",
+
+  // — Alternative phrasings —
+  "Tell me about yourself",
+  "Which project are you most proud of?",
+  "How do you measure the impact of your training programs?",
+  "What are your essential tools as an L&D professional?",
 ]
 
 /** Pick `count` unique random questions from the pool. */
