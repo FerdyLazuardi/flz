@@ -2,6 +2,8 @@
 
 import * as React from "react"
 import { usePathname } from "next/navigation"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 // ─── AI agent endpoint ───────────────────────────────────────────────────────
 // Set NEXT_PUBLIC_AI_AGENT_URL in .env.local
@@ -295,7 +297,33 @@ export function AIChatWidget() {
                     : "bg-muted text-text-primary self-start rounded-bl-[4px]",
                 ].join(" ")}
               >
-                {b.text}
+                {b.type === "ai" ? (
+                  <div className="markdown-bubble">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc pl-4 my-1.5 space-y-1">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal pl-4 my-1.5 space-y-1">{children}</ol>,
+                        li: ({ children }) => <li className="leading-snug">{children}</li>,
+                        strong: ({ children }) => <strong className="font-semibold text-text-primary">{children}</strong>,
+                        em: ({ children }) => <em className="italic">{children}</em>,
+                        h1: ({ children }) => <h3 className="font-bold text-[14px] mt-1 mb-1.5">{children}</h3>,
+                        h2: ({ children }) => <h3 className="font-bold text-[14px] mt-1 mb-1.5">{children}</h3>,
+                        h3: ({ children }) => <h4 className="font-semibold text-[13px] mt-1 mb-1">{children}</h4>,
+                        h4: ({ children }) => <h4 className="font-semibold text-[13px] mt-1 mb-1">{children}</h4>,
+                        code: ({ children }) => <code className="px-1 py-0.5 rounded bg-black/5 dark:bg-white/10 text-[12px] font-mono">{children}</code>,
+                        a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:opacity-80">{children}</a>,
+                        hr: () => <hr className="my-2 border-black/10 dark:border-white/10" />,
+                        blockquote: ({ children }) => <blockquote className="border-l-2 border-black/20 dark:border-white/20 pl-2 my-1.5 italic opacity-90">{children}</blockquote>,
+                      }}
+                    >
+                      {b.text}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  b.text
+                )}
               </div>
             ))}
 
