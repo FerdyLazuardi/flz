@@ -18,7 +18,6 @@ export const FAQ_POOL: string[] = [
   // — AI Learning Assistant (peped-BE) —
   "Tell me about the AI Learning Assistant",
   "Why Qdrant and LangGraph?",
-  "How do you prevent AI hallucination?",
 
   // — Agent Network —
   "What is the Agent Network project?",
