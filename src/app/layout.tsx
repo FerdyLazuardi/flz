@@ -23,6 +23,7 @@ const scribbled = Gloria_Hallelujah({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ferdy-fadhil-lazuardi.my.id'),
+  applicationName: 'Ferdy Fadhil Lazuardi',
   alternates: {
     canonical: 'https://ferdy-fadhil-lazuardi.my.id',
   },
@@ -105,9 +106,16 @@ export default function RootLayout({
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://ferdy-fadhil-lazuardi.my.id/#website',
     name: 'Ferdy Fadhil Lazuardi',
-    alternateName: 'Ferdy Lazuardi',
+    alternateName: ['Ferdy Lazuardi', 'ferdy-fadhil-lazuardi.my.id'],
     url: 'https://ferdy-fadhil-lazuardi.my.id/',
+    inLanguage: 'en',
+    publisher: {
+      '@type': 'Person',
+      name: 'Ferdy Fadhil Lazuardi',
+      url: 'https://ferdy-fadhil-lazuardi.my.id/',
+    },
   };
 
   return (
