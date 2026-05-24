@@ -39,7 +39,12 @@ export function AIChatWidget() {
   ])
   const [thinking, setThinking] = React.useState(false)
   const [inputValue, setInputValue] = React.useState("")
-  const [suggestions, setSuggestions] = React.useState<string[]>(() => pickRandomFAQs(4))
+  const [suggestions, setSuggestions] = React.useState<string[]>([])
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  React.useEffect(() => {
+    setSuggestions(pickRandomFAQs(4))
+  }, [])
 
   // Typewriter state
   const [typedText, setTypedText] = React.useState("")
@@ -292,12 +297,12 @@ export function AIChatWidget() {
           </div>
 
           {/* Messages */}
-          <div className="flex flex-col gap-2 p-4 min-h-[160px] max-h-[360px] max-sm:max-h-[280px] max-sm:min-h-[120px] max-sm:p-3 overflow-y-auto">
+          <div className="flex flex-col gap-3.5 p-4 min-h-[160px] max-h-[360px] max-sm:max-h-[280px] max-sm:min-h-[120px] max-sm:p-3 max-sm:gap-3 overflow-y-auto">
             {bubbles.map(b => (
               <div
                 key={b.id}
                 className={[
-                  "max-w-[82%] px-3.5 py-2.5 rounded-[18px] text-[13px] leading-relaxed tracking-[0.015em] max-sm:text-[12px] max-sm:px-3 max-sm:py-2",
+                  "max-w-[82%] px-4 py-3 rounded-[18px] text-[13px] leading-[1.65] tracking-[0.02em] [word-spacing:0.04em] max-sm:text-[12px] max-sm:px-3.5 max-sm:py-2.5",
                   "animate-[bubbleIn_0.22s_cubic-bezier(0.22,1,0.36,1)]",
                   b.type === "user"
                     ? "bg-neutral-700 text-white self-end rounded-br-[4px] dark:bg-neutral-200 dark:text-neutral-900"
@@ -311,20 +316,20 @@ export function AIChatWidget() {
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                        ul: ({ children }) => <ul className="list-disc pl-4 my-1.5 space-y-1">{children}</ul>,
-                        ol: ({ children }) => <ol className="list-decimal pl-4 my-1.5 space-y-1">{children}</ol>,
-                        li: ({ children }) => <li className="leading-snug">{children}</li>,
+                        p: ({ children }) => <p className="mb-2.5 last:mb-0">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc pl-5 my-2 space-y-1.5">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal pl-5 my-2 space-y-1.5">{children}</ol>,
+                        li: ({ children }) => <li className="leading-[1.65] pl-0.5">{children}</li>,
                         strong: ({ children }) => <strong className="font-semibold text-text-primary">{children}</strong>,
                         em: ({ children }) => <em className="italic">{children}</em>,
-                        h1: ({ children }) => <h3 className="font-bold text-[14px] mt-1 mb-1.5">{children}</h3>,
-                        h2: ({ children }) => <h3 className="font-bold text-[14px] mt-1 mb-1.5">{children}</h3>,
-                        h3: ({ children }) => <h4 className="font-semibold text-[13px] mt-1 mb-1">{children}</h4>,
-                        h4: ({ children }) => <h4 className="font-semibold text-[13px] mt-1 mb-1">{children}</h4>,
-                        code: ({ children }) => <code className="px-1 py-0.5 rounded bg-black/5 dark:bg-white/10 text-[12px] font-mono">{children}</code>,
+                        h1: ({ children }) => <h3 className="font-bold text-[14px] mt-2 mb-2 first:mt-0">{children}</h3>,
+                        h2: ({ children }) => <h3 className="font-bold text-[14px] mt-2 mb-2 first:mt-0">{children}</h3>,
+                        h3: ({ children }) => <h4 className="font-semibold text-[13px] mt-1.5 mb-1.5 first:mt-0">{children}</h4>,
+                        h4: ({ children }) => <h4 className="font-semibold text-[13px] mt-1.5 mb-1.5 first:mt-0">{children}</h4>,
+                        code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-[12px] font-mono mx-0.5">{children}</code>,
                         a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:opacity-80">{children}</a>,
-                        hr: () => <hr className="my-2 border-black/10 dark:border-white/10" />,
-                        blockquote: ({ children }) => <blockquote className="border-l-2 border-black/20 dark:border-white/20 pl-2 my-1.5 italic opacity-90">{children}</blockquote>,
+                        hr: () => <hr className="my-3 border-black/10 dark:border-white/10" />,
+                        blockquote: ({ children }) => <blockquote className="border-l-2 border-black/20 dark:border-white/20 pl-3 my-2 italic opacity-90">{children}</blockquote>,
                       }}
                     >
                       {b.text}
@@ -352,13 +357,13 @@ export function AIChatWidget() {
             )}
 
             {!thinking && suggestions.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-1 animate-[bubbleIn_0.3s_cubic-bezier(0.22,1,0.36,1)]">
+              <div className="flex flex-wrap gap-2 mt-2 animate-[bubbleIn_0.3s_cubic-bezier(0.22,1,0.36,1)]">
                 {suggestions.map((q, i) => (
                   <button
                     key={`${q}-${i}`}
                     type="button"
                     onClick={() => handleChipClick(q)}
-                    className="text-[11px] max-sm:text-[10.5px] px-2.5 py-1.5 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary hover:bg-white dark:hover:bg-white/[0.08] hover:border-black/20 dark:hover:border-white/25 transition-colors duration-200 leading-tight tracking-[0.01em] text-left"
+                    className="text-[11px] max-sm:text-[10.5px] px-3 py-1.5 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary hover:bg-white dark:hover:bg-white/[0.08] hover:border-black/20 dark:hover:border-white/25 transition-colors duration-200 leading-tight tracking-[0.02em] [word-spacing:0.05em] text-left"
                   >
                     {q}
                   </button>
