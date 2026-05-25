@@ -153,12 +153,12 @@ export function LusionCard({ project, onClick, priority = false }: { project: Pr
           layoutId={`card-content-${project._id}`}
           className="flex flex-col"
         >
-          <p className="font-sans text-slate-500 dark:text-slate-400 font-medium text-xs md:text-sm tracking-[0.15em] uppercase mb-1.5">
+          <p className="font-sans text-slate-500 dark:text-slate-400 font-medium text-[10px] sm:text-xs md:text-sm tracking-[0.15em] uppercase mb-1 sm:mb-1.5">
             {categoryLabels[project.category] || project.category.replace('-', ' • ')}
           </p>
           <div className="relative flex items-center w-full">
-            <ArrowRight className="absolute left-0 w-6 h-6 md:w-8 md:h-8 text-slate-900 dark:text-white opacity-0 -translate-x-4 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-out shrink-0" />
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-sans font-bold text-slate-900 dark:text-white tracking-tight transition-transform duration-500 ease-out group-hover:translate-x-8 md:group-hover:translate-x-10 whitespace-nowrap truncate w-full pr-4 md:pr-10 pb-1">
+            <ArrowRight className="absolute left-0 w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-slate-900 dark:text-white opacity-0 -translate-x-4 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-out shrink-0" />
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-sans font-bold text-slate-900 dark:text-white tracking-tight transition-transform duration-500 ease-out group-hover:translate-x-7 sm:group-hover:translate-x-8 md:group-hover:translate-x-10 whitespace-nowrap truncate w-full pr-4 md:pr-10 pb-1">
               {project.title}
             </h3>
           </div>
@@ -242,7 +242,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/30 to-transparent pointer-events-none z-10 w-full md:w-[70%]" />
           </motion.div>
 
-          <div className="relative z-20 flex-1 flex flex-col justify-end w-full mt-auto p-6 pb-10 pl-8 md:p-12 md:pb-16 md:pl-16 lg:pb-20 lg:pl-20 min-h-fit pt-48">
+          <div className="relative z-20 flex-1 flex flex-col justify-end w-full mt-auto p-5 pb-8 pl-6 sm:p-6 sm:pb-10 sm:pl-8 md:p-12 md:pb-16 md:pl-16 lg:pb-20 lg:pl-20 min-h-fit pt-32 sm:pt-48">
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
               <div className="w-full lg:w-2/3">
                 <motion.div
@@ -250,7 +250,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="max-w-full w-full"
                 >
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-snug mb-2 tracking-tight whitespace-nowrap truncate pr-8 md:pr-12 pb-2">
+                  <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-snug mb-2 tracking-tight whitespace-nowrap truncate pr-8 md:pr-12 pb-2">
                     {project.title}
                   </h2>
                 </motion.div>
@@ -277,7 +277,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.2 } }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="w-full flex flex-col gap-4 mt-8 lg:mt-10"
                 >
-                  <div className="flex flex-wrap justify-start items-center gap-3 md:gap-4 font-sans font-bold text-sm md:text-base">
+                  <div className="flex flex-wrap justify-start items-center gap-2.5 sm:gap-3 md:gap-4 font-sans font-bold text-xs sm:text-sm md:text-base">
                     <span className="text-[#fef08a] drop-shadow-md">{project.year || "2024"}</span>
                     {project.clientLogoUrl && (
                       <div className="relative h-5 md:h-6">
@@ -293,7 +293,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
                     <span className="text-white hidden sm:inline-block drop-shadow-md">{categoryLabels[project.category] || project.category.replace('-', ' • ')}</span>
                   </div>
 
-                  <p className="font-sans text-white/90 text-base md:text-lg leading-relaxed max-w-3xl drop-shadow-lg">
+                  <p className="font-sans text-white/90 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl drop-shadow-lg">
                     {project.excerpt || "Dive into this interactive learning experience combining modern technology, striking visuals, and engaging content design meant to inspire and teach effectively."}
                   </p>
                 </motion.div>

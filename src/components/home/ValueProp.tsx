@@ -66,25 +66,25 @@ export function ValueProp() {
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
-    <section id="value" ref={ref} className="py-16 md:py-32 relative overflow-visible">
+    <section id="value" ref={ref} className="py-12 sm:py-16 md:py-32 relative overflow-visible">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/5 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+      <div className="container mx-auto px-5 sm:px-8 lg:px-12 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 tracking-normal leading-[1.05]">
+          <h2 className="font-heading text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-5 sm:mb-6 tracking-normal leading-[1.1] sm:leading-[1.05]">
             End-to-End <br />
             <span className="relative inline-block z-10 whitespace-nowrap after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm mt-2 sm:mt-0">Learning Architecture</span>
           </h2>
-          <p className="text-slate-500 max-w-3xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
+          <p className="text-slate-500 max-w-3xl mx-auto text-[13px] sm:text-base md:text-lg leading-relaxed">
             I bring three distinct disciplines together to build learning experiences that are
             conceptually sound, visually striking, and technically advanced.
           </p>
@@ -94,7 +94,7 @@ export function ValueProp() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 lg:gap-10"
         >
           {capabilities.map((cap, index) => {
             const Icon = cap.icon
@@ -104,7 +104,7 @@ export function ValueProp() {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className={`group relative flex flex-col p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden ${
+                className={`group relative flex flex-col p-5 sm:p-8 rounded-[1.25rem] sm:rounded-[2rem] border border-border bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${cap.borderColor} cursor-default overflow-hidden ${
                   index === 2 ? "md:col-span-2 lg:col-span-1 md:w-1/2 md:place-self-center lg:w-full lg:place-self-stretch" : ""
                 }`}
               >
@@ -116,23 +116,23 @@ export function ValueProp() {
                   }}
                 />
 
-                <div className="flex justify-between items-start mb-6 sm:mb-8">
-                  <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl ${cap.bgClass} transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}>
-                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 transition-colors duration-500" style={{ color: cap.color }} />
+                <div className="flex justify-between items-start mb-5 sm:mb-8">
+                  <div className={`p-2.5 sm:p-4 rounded-lg sm:rounded-2xl ${cap.bgClass} transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}>
+                    <Icon className="w-5 h-5 sm:w-8 sm:h-8 transition-colors duration-500" style={{ color: cap.color }} />
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-1">
+                    <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-1">
                       {cap.badge}
                     </span>
-                    <SubIcon className="w-4 h-4 text-slate-300 group-hover:text-slate-400 transition-colors" />
+                    <SubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-300 group-hover:text-slate-400 transition-colors" />
                   </div>
                 </div>
 
-                <h3 className="font-heading text-xl sm:text-2xl font-black text-text-primary mb-3 sm:mb-4 leading-tight">
+                <h3 className="font-heading text-lg sm:text-2xl font-black text-text-primary mb-2 sm:mb-4 leading-tight">
                   {cap.title}
                 </h3>
 
-                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed mb-6 sm:mb-8 flex-grow">
+                <p className="text-[13px] sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed mb-5 sm:mb-8 flex-grow">
                   {cap.description}
                 </p>
 

@@ -354,7 +354,7 @@ export function ContactSection() {
     <section
       id="contact"
       ref={containerRef}
-      className="relative w-full h-[85vh] md:h-screen min-h-[600px] md:min-h-[700px] flex flex-col items-center justify-center overflow-visible mt-40 sm:mt-0"
+      className="relative w-full h-[80vh] md:h-screen min-h-[520px] md:min-h-[700px] flex flex-col items-center justify-center overflow-visible mt-24 sm:mt-0"
     >
       {/* Cinematic Ambient Glow to unify with previous sections */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
@@ -368,13 +368,13 @@ export function ContactSection() {
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-4 -mt-16 sm:-mt-32 md:-mt-64">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 -mt-10 sm:-mt-32 md:-mt-64">
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[0.65rem] sm:text-sm md:text-base font-black tracking-[0.25em] text-text-secondary uppercase mb-8 sm:mb-12 max-w-2xl text-center"
+          className="text-[0.6rem] sm:text-sm md:text-base font-black tracking-[0.25em] text-text-secondary uppercase mb-6 sm:mb-12 max-w-2xl text-center"
         >
           Let's build something together!
         </motion.p>
@@ -392,7 +392,7 @@ export function ContactSection() {
               transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10"
             >
-              <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase whitespace-nowrap">
+              <h1 className="font-heading font-bold text-[2.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase whitespace-nowrap">
                 <RollingText text={text1} iterations={iterations} />
               </h1>
             </motion.div>
@@ -420,7 +420,7 @@ export function ContactSection() {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10"
             >
-              <h1 className="font-heading font-bold text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
+              <h1 className="font-heading font-bold text-[2.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.9] tracking-normal md:tracking-wide text-text-primary uppercase flex items-center justify-center whitespace-nowrap">
                 <RollingText text={text2} iterations={iterations} offset={text1.length} />
               </h1>
             </motion.div>
@@ -442,7 +442,7 @@ export function ContactSection() {
         </div>
       </div>
 
-      <div className="relative md:absolute bottom-0 md:bottom-60 left-0 w-full flex justify-center z-20 px-6 pointer-events-auto mt-16 md:mt-0">
+      <div className="relative md:absolute bottom-0 md:bottom-60 left-0 w-full flex justify-center z-20 px-5 pointer-events-auto mt-10 sm:mt-16 md:mt-0">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -456,7 +456,7 @@ export function ContactSection() {
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
           }}
-          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-2xl p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-2xl p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] bg-white/5 dark:bg-white/[0.03] overflow-hidden relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 

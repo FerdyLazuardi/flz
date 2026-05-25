@@ -8,9 +8,9 @@ import { Magnetic } from "@/components/ui/magnetic"
 
 export function ProjectHeader() {
   return (
-    <header className="mb-12 md:mb-24 flex flex-col items-start w-full relative">
+    <header className="mb-10 md:mb-24 flex flex-col items-start w-full relative">
       {/* Premium Magnetic Back Button */}
-      <div className="mb-10 md:mb-24 mt-0 md:mt-4">
+      <div className="mb-8 md:mb-24 mt-0 md:mt-4">
         <Magnetic strength={0.2}>
           <Link href="/" className="group relative outline-none block">
             <motion.div
@@ -116,17 +116,17 @@ export function ProjectHeader() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="w-full"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 w-full">
           <div className="relative group text-left">
-            <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
+            <h1 className="font-heading text-[2.6rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
               <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
                 PROJECTS.
               </span>
             </h1>
           </div>
 
-          <div className="flex flex-col gap-6 text-left md:text-right">
-            <p className="font-mono text-[11px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
+          <div className="flex flex-col gap-4 sm:gap-6 text-left md:text-right">
+            <p className="font-mono text-[10px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
               // A CURATED GALLERY OF LEARNING EXPERIENCES WHERE INSTRUCTIONAL DESIGN MEETS CUTTING-EDGE TECHNOLOGY AND VISUAL STORYTELLING.
             // EXECUTED WITH CREATIVE PRECISION.
             </p>

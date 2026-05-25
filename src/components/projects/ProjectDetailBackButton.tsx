@@ -24,16 +24,16 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
   }
 
   return (
-    <div className="mb-12 mt-4 w-fit">
+    <div className="mb-5 sm:mb-12 mt-1 sm:mt-4 w-fit">
       <Magnetic strength={0.2}>
         <Link href={href} onClick={handleBack} className="group relative outline-none block">
-          <motion.div 
+          <motion.div
             initial="initial"
             whileHover="hover"
-            className="relative flex items-center bg-white/10 dark:bg-white/5 border border-white/20 rounded-full cursor-pointer overflow-hidden p-1.5 pr-8 shadow-[0_0_20px_rgba(0,0,0,0.05)] hover:shadow-[0_0_30px_rgba(0,0,0,0.1)] transition-all duration-500 backdrop-blur-xl group-hover:border-white/40"
+            className="relative flex items-center bg-white/10 dark:bg-white/5 border border-white/20 rounded-full cursor-pointer overflow-hidden p-1 pr-5 sm:p-1.5 sm:pr-8 shadow-[0_0_20px_rgba(0,0,0,0.05)] hover:shadow-[0_0_30px_rgba(0,0,0,0.1)] transition-all duration-500 backdrop-blur-xl group-hover:border-white/40"
           >
             {/* Liquid highlight background */}
-            <motion.div 
+            <motion.div
               variants={{
                 initial: { x: "-100%", opacity: 0 },
                 hover: { x: "0%", opacity: 1 }
@@ -42,7 +42,7 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
               className="absolute inset-0 bg-gradient-to-r from-slate-200/50 to-slate-100/30 dark:from-slate-500/20 dark:to-transparent z-0"
             />
 
-            <div className="relative z-10 w-12 h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black shadow-lg">
+            <div className="relative z-10 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black shadow-lg">
               <motion.div
                 variants={{
                   initial: { x: 0, rotate: 0 },
@@ -50,11 +50,11 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <ArrowLeft className="w-6 h-6" />
+                <ArrowLeft className="w-4 h-4 sm:w-6 sm:h-6" />
               </motion.div>
-              
+
               {/* Pulse effect */}
-              <motion.div 
+              <motion.div
                 initial={{ scale: 1, opacity: 0 }}
                 animate={{ scale: 1.5, opacity: 0 }}
                 whileHover={{ scale: [1, 1.8], opacity: [0.5, 0] }}
@@ -63,7 +63,7 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
               />
             </div>
 
-            <div className="relative z-10 ml-5 h-12 flex items-center">
+            <div className="relative z-10 ml-3 sm:ml-5 h-9 sm:h-12 flex items-center">
               <div className="relative">
                 {/* Initial centered 'BACK.' */}
                 <motion.div
@@ -74,7 +74,7 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
                   transition={{ duration: 0.4, ease: [0.6, 0.01, -0.05, 0.95] }}
                   className="absolute inset-y-0 left-0 flex items-center whitespace-nowrap"
                 >
-                  <span className="text-sm font-black uppercase tracking-[0.2em] text-text-primary">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-text-primary">
                     BACK.
                   </span>
                 </motion.div>
@@ -88,27 +88,27 @@ export function ProjectDetailBackButton({ href, label }: ProjectDetailBackButton
                   transition={{ duration: 0.4, ease: [0.6, 0.01, -0.05, 0.95] }}
                   className="flex flex-col justify-center pointer-events-none"
                 >
-                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-text-primary leading-none mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-text-primary leading-none mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Back to
                   </span>
-                  <span className="text-sm font-black uppercase tracking-[0.2em] text-text-primary dark:text-white leading-none whitespace-nowrap">
+                  <span className="text-xs sm:text-sm font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-text-primary dark:text-white leading-none whitespace-nowrap">
                     {label}.
                   </span>
                 </motion.div>
               </div>
             </div>
-            
+
             {/* Interaction dots */}
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1">
-              <motion.div 
+            <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex gap-1">
+              <motion.div
                 animate={{ opacity: [0.2, 1, 0.2] }}
                 transition={{ repeat: Infinity, duration: 1, delay: 0 }}
-                className="w-1 h-1 rounded-full bg-current/30" 
+                className="w-1 h-1 rounded-full bg-current/30"
               />
-              <motion.div 
+              <motion.div
                 animate={{ opacity: [0.2, 1, 0.2] }}
                 transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}
-                className="w-1 h-1 rounded-full bg-current/30" 
+                className="w-1 h-1 rounded-full bg-current/30"
               />
             </div>
           </motion.div>

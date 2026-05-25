@@ -138,7 +138,7 @@ export function AboutSection() {
   ]
 
   return (
-    <section id="about" ref={ref} className="py-12 md:pt-16 md:pb-32 lg:py-32 relative z-10 overflow-visible">
+    <section id="about" ref={ref} className="py-10 sm:py-12 md:pt-16 md:pb-32 lg:py-32 relative z-10 overflow-visible">
       {/* Ambient Left Background Glow to prevent plain white look */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[-20%] w-[50%] h-[60%] rounded-full bg-cat-instructional/5 dark:bg-cat-instructional/10 blur-[120px]" />
@@ -162,8 +162,8 @@ export function AboutSection() {
         <div className="absolute inset-0 rounded-[100%] bg-gradient-to-br from-cat-multimedia/15 via-cat-instructional/10 to-cat-ai/15 blur-[60px]" />
       </motion.div>
 
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+      <div className="relative z-10 px-5 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-32 items-center">
 
           {/* LEFT: TEXT CONTENT */}
           <motion.div
@@ -172,11 +172,11 @@ export function AboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-start lg:pr-10"
           >
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-8 leading-[1.1] md:leading-[1.05] tracking-normal">
-              Bridging Pedagogy <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl align-baseline">with</span> <br className="hidden md:block" />
+            <h2 className="font-heading text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 sm:mb-8 leading-[1.1] md:leading-[1.05] tracking-normal">
+              Bridging Pedagogy <span className="text-lg sm:text-4xl md:text-5xl lg:text-6xl align-baseline">with</span> <br className="hidden md:block" />
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
+            <p className="text-[13px] sm:text-base md:text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-8 sm:mb-10 max-w-xl">
               I'm Ferdy Fadhil Lazuardi, a Learning Designer focused on building digital learning experiences that are engaging, measurable, and built to last.
               I develop e-learning modules, produce instructional media, and integrate AI into learning systems. The goal is always the same: learning that works.
             </p>
@@ -195,7 +195,7 @@ export function AboutSection() {
           </motion.div>
 
           {/* RIGHT: INTERACTIVE FLOATING NOTES (No background box) */}
-          <div className="relative min-h-[650px] lg:h-[800px] w-full mt-10 lg:mt-0">
+          <div className="relative min-h-[480px] sm:min-h-[650px] lg:h-[800px] w-full mt-6 sm:mt-10 lg:mt-0">
             {/* Background "Drag me" text for Desktop */}
             <div className="hidden sm:block absolute -right-6 lg:-right-12 top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] font-handwriting text-slate-300/40 dark:text-slate-700/40 font-bold text-4xl lg:text-6xl pointer-events-none select-none tracking-[0.2em] uppercase z-0">
               Drag me
@@ -271,7 +271,7 @@ export function AboutSection() {
             </div>
 
             {/* Tablet & Mobile: Grid View (Structured) */}
-            <div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4 pb-10 px-2">
+            <div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-2 sm:pt-4 pb-8 sm:pb-10 px-1 sm:px-2">
               {noteData.map((note, index) => {
                 const style = foldStyles[index % foldStyles.length]
 
@@ -282,7 +282,7 @@ export function AboutSection() {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.04, duration: 0.3 }}
-                    className="relative aspect-square w-full p-5 pt-7 md:p-6 md:pt-8 flex flex-col items-start justify-start text-left overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.1)]"
+                    className="relative aspect-square w-full p-3.5 pt-5 sm:p-5 sm:pt-7 md:p-6 md:pt-8 flex flex-col items-start justify-start text-left overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.1)]"
                     style={{
                       backgroundColor: note.color,
                       clipPath: style.mainClip,
@@ -299,10 +299,10 @@ export function AboutSection() {
                       }}
                     />
                     <div className="relative z-10 font-handwriting select-none w-full">
-                      <h3 className="font-black text-[14px] md:text-[16px] text-slate-900 mb-1.5 leading-tight">
+                      <h3 className="font-black text-[12px] sm:text-[14px] md:text-[16px] text-slate-900 mb-1 sm:mb-1.5 leading-tight">
                         {note.title}
                       </h3>
-                      <p className="text-[10px] md:text-[11px] text-slate-800 leading-relaxed opacity-95">
+                      <p className="text-[9px] sm:text-[10px] md:text-[11px] text-slate-800 leading-relaxed opacity-95">
                         {note.content}
                       </p>
                     </div>

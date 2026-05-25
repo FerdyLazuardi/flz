@@ -135,7 +135,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
   } : null;
 
   return (
-    <article className="min-h-screen bg-bg-primary pt-24 pb-24">
+    <article className="min-h-screen bg-bg-primary pt-16 sm:pt-24 pb-12 sm:pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -146,27 +146,27 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
           dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
         />
       )}
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
+      <div className="container mx-auto px-5 sm:px-8 lg:px-12 max-w-4xl">
 
         <ProjectDetailBackButton href={`/projects#${project?.slug || slug}`} label="PROJECTS" />
 
         {/* Header */}
-        <header className="mb-12">
-          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-6 leading-snug pb-2">
+        <header className="mb-10 sm:mb-12">
+          <h1 className="font-heading text-[1.7rem] sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-5 sm:mb-6 leading-snug pb-2">
             {project.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-2 mb-8">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8">
             {project.category && (
-              <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="bg-accent/10 text-accent px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-sm font-semibold">
                 {categoryLabels[project.category] || project.category}
               </span>
             )}
             {project.techStack && project.techStack.length > 0 && (
               <>
-                {project.category && <span className="text-text-secondary mx-1">|</span>}
+                {project.category && <span className="text-text-secondary mx-0.5 sm:mx-1 text-xs sm:text-base">|</span>}
                 {project.techStack.map((tech: string) => (
-                  <span key={tech} className="bg-bg-elevated text-text-primary border border-border px-3 py-1 rounded-md text-sm font-medium">
+                  <span key={tech} className="bg-bg-elevated text-text-primary border border-border px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-sm font-medium">
                     {tech}
                   </span>
                 ))}

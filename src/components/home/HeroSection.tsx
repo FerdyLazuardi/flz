@@ -94,7 +94,7 @@ export function HeroSection({
   }, [])
 
   return (
-    <section id="hero" className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-4 pb-20">
+    <section id="hero" className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-4 pb-12 sm:pb-20">
 
       {/* Background Accent - Adjusted position for 2-col */}
       <motion.div
@@ -114,26 +114,26 @@ export function HeroSection({
         <div className="absolute inset-0 rounded-[100%] bg-gradient-to-tr from-cat-instructional/20 via-purple-200/30 to-cat-ai/20 blur-[120px]" />
       </motion.div>
 
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32 items-center">
+      <div className="relative z-10 px-5 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-32 items-center">
 
           {/* LEFT COLUMN: TEXT */}
           <motion.div
             variants={containerVariants}
             initial={mounted ? "hidden" : "visible"}
             animate={mounted ? "visible" : "visible"}
-            className="text-left flex flex-col items-start lg:pr-10 mt-24 md:mt-0"
+            className="text-left flex flex-col items-start lg:pr-10 mt-12 sm:mt-16 md:mt-0"
           >
             <motion.h1
               variants={itemVariants}
-              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-6 leading-[1.05] max-w-2xl"
+              className="font-heading text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-5 sm:mb-6 leading-[1.1] sm:leading-[1.05] max-w-2xl"
             >
               {headline}
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="max-w-xl text-sm sm:text-base md:text-lg text-slate-500 leading-relaxed mb-10"
+              className="max-w-xl text-[13px] sm:text-base md:text-lg text-slate-500 leading-relaxed mb-8 sm:mb-10"
             >
               {subtitle}
             </motion.p>
@@ -149,7 +149,7 @@ export function HeroSection({
                     text="View Projects"
                     color="#0a0a0a"
                     size="md"
-                    className="w-full sm:w-auto sm:px-8 flex-1"
+                    className="w-full sm:w-auto sm:px-8 flex-1 scale-[0.85] sm:scale-100 origin-left"
                     icon={<ArrowRight className="w-5 h-5 ml-1" />}
                   />
                 </div>
@@ -162,7 +162,7 @@ export function HeroSection({
                     color="var(--primary)"
                     size="md"
                     textColorClass="text-text-primary border-border bg-transparent shadow-none"
-                    className="w-full sm:w-auto sm:px-8 flex-1"
+                    className="w-full sm:w-auto sm:px-8 flex-1 scale-[0.85] sm:scale-100 origin-left"
                     noSwipe={true}
                     icon={<Download className="w-5 h-5 mr-1" />}
                   />
@@ -173,40 +173,40 @@ export function HeroSection({
             {/* Stats Row */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between gap-y-8 sm:gap-y-4 gap-x-0 sm:gap-x-6 mt-16 pt-8 border-t border-border/50 w-full max-w-2xl"
+              className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between gap-y-6 sm:gap-y-4 gap-x-0 sm:gap-x-6 mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-border/50 w-full max-w-2xl"
             >
               <div className="flex flex-col items-center text-center border-r border-border/50 sm:border-r-0">
-                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                <p className="font-heading font-extrabold text-lg sm:text-3xl text-text-primary">
                   <Counter value={10000} suffix="+" duration={3} useSeparator={true} />
                 </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Users Empowered</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1 sm:mt-1.5 whitespace-nowrap">Users Empowered</p>
               </div>
 
               <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
 
               <div className="flex flex-col items-center text-center">
-                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                <p className="font-heading font-extrabold text-lg sm:text-3xl text-text-primary">
                   <Counter value={65} suffix="%" duration={2.5} />
                 </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Completion Rate</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1 sm:mt-1.5 whitespace-nowrap">Completion Rate</p>
               </div>
 
               <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
 
               <div className="flex flex-col items-center text-center border-r border-border/50 sm:border-r-0">
-                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                <p className="font-heading font-extrabold text-lg sm:text-3xl text-text-primary">
                   <Counter value={3.64} suffix="/4" duration={2.5} decimals={2} />
                 </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Satisfaction</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1 sm:mt-1.5 whitespace-nowrap">Satisfaction</p>
               </div>
 
               <div className="hidden sm:block w-px h-10 bg-border/50 shrink-0" />
 
               <div className="flex flex-col items-center text-center">
-                <p className="font-heading font-extrabold text-xl sm:text-3xl text-text-primary">
+                <p className="font-heading font-extrabold text-lg sm:text-3xl text-text-primary">
                   <Counter value={2} suffix="+" duration={1.5} />
                 </p>
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1.5 whitespace-nowrap">Years Experience</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-[0.1em] mt-1 sm:mt-1.5 whitespace-nowrap">Years Experience</p>
               </div>
             </motion.div>
           </motion.div>

@@ -234,24 +234,24 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
   }
 
   return (
-    <section className="mt-40 relative" ref={containerRef}>
-      <div className="px-6 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
+    <section className="mt-20 sm:mt-40 relative" ref={containerRef}>
+      <div className="px-5 sm:px-10 lg:px-14 mx-auto w-full max-w-[1800px]">
         {/* Aesthetic Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "100% 0px 0px 0px", amount: 0.2 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-24 relative z-20"
+          className="mb-14 sm:mb-24 relative z-20"
         >
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6 sm:mb-8">
             <div className="h-px flex-1 bg-border/40" />
             <div className="h-px w-12 bg-border/40" />
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10">
             <div className="relative group">
-              <h2 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
+              <h2 className="font-heading text-[2.4rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
                 <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
                   GALLERY
                 </span>
@@ -260,8 +260,8 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
 
             </div>
 
-            <div className="flex flex-col gap-6 text-left md:text-right">
-              <p className="font-mono text-[11px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
+            <div className="flex flex-col gap-4 sm:gap-6 text-left md:text-right">
+              <p className="font-mono text-[10px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
                    // TRANSLATING COMPLEX IDEAS INTO ACCESSIBLE DIGITAL EXPERIENCE.
               // AN ARCHIVE OF INSTRUCTIONAL DESIGN, AND VISUAL STORYTELLING.
               </p>
@@ -282,7 +282,7 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
 
         {/* Dynamic Masonry Grid with Perspective */}
         <div
-          className="columns-1 sm:columns-2 lg:columns-3 gap-10"
+          className="columns-1 sm:columns-2 lg:columns-3 gap-5 sm:gap-10"
           style={{ perspective: "2500px", transformStyle: "preserve-3d" }}
         >
           {normalizedItems.map((item, idx) => (
@@ -305,7 +305,7 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
                 e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
               }}
-              className={`relative break-inside-avoid group cursor-pointer transform-gpu mb-10 w-full inline-block`}
+              className={`relative break-inside-avoid group cursor-pointer transform-gpu mb-5 sm:mb-10 w-full inline-block`}
             >
               <div className="relative overflow-hidden bg-bg-surface border border-border/30 backdrop-blur-sm transition-all duration-1000 ease-[0.23,1,0.32,1] group-hover:border-primary/50 group-hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] group-hover:!rotate-0 group-hover:-translate-y-2 z-10">
                 <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/0 group-hover:border-primary/60 transition-all duration-500 z-30" />
@@ -387,9 +387,9 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "100px" }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-32 pt-20 border-t border-border/50 flex flex-col justify-center items-center text-center relative z-20"
+        className="mt-20 sm:mt-32 pt-12 sm:pt-20 border-t border-border/50 flex flex-col justify-center items-center text-center relative z-20"
       >
-        <h3 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] mb-10 px-6">
+        <h3 className="font-heading text-[2.4rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] mb-8 sm:mb-10 px-5">
           THE{" "}
           <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
             ARCHIVE.
