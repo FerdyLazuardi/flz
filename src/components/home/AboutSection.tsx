@@ -172,7 +172,7 @@ export function AboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-start lg:pr-10"
           >
-            <h2 className="font-heading text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 sm:mb-8 leading-[1.1] md:leading-[1.05] tracking-normal">
+            <h2 className="font-heading text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 sm:mb-8 leading-[1.1] md:leading-[1.05] tracking-normal">
               Bridging Pedagogy <span className="text-lg sm:text-4xl md:text-5xl lg:text-6xl align-baseline">with</span> <br className="hidden md:block" />
               <span className="relative inline-block z-10 after:absolute after:bottom-1.5 after:left-[-2%] after:-z-10 after:h-[35%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">Advanced Technology</span>
             </h2>
@@ -187,7 +187,7 @@ export function AboutSection() {
                   text="Download CV"
                   color="#0a0a0a"
                   size="md"
-                  className="w-full sm:w-auto sm:px-8 scale-[0.8] sm:scale-100 origin-left"
+                  className="w-full sm:w-auto sm:px-8"
                   icon={<Download className="w-5 h-5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
                 />
               </div>
@@ -258,10 +258,10 @@ export function AboutSection() {
                     />
 
                     <div className="relative z-10 font-handwriting select-none w-full">
-                      <h3 className="font-black text-[18px] text-slate-900 mb-2 leading-tight tracking-tight">
+                      <h3 className="font-black text-[20px] text-slate-900 mb-2 leading-tight tracking-tight">
                         {note.title}
                       </h3>
-                      <p className="text-[12px] text-slate-800 leading-relaxed opacity-90">
+                      <p className="text-[14px] text-slate-800 leading-relaxed opacity-90">
                         {note.content}
                       </p>
                     </div>
@@ -299,10 +299,10 @@ export function AboutSection() {
                       }}
                     />
                     <div className="relative z-10 font-handwriting select-none w-full">
-                      <h3 className="font-black text-[12px] sm:text-[14px] md:text-[16px] text-slate-900 mb-1 sm:mb-1.5 leading-tight">
+                      <h3 className="font-black text-[14px] sm:text-[18px] md:text-[22px] text-slate-900 mb-1.5 sm:mb-2 md:mb-3 leading-tight">
                         {note.title}
                       </h3>
-                      <p className="text-[9px] sm:text-[10px] md:text-[11px] text-slate-800 leading-relaxed opacity-95">
+                      <p className="text-[11px] sm:text-[13px] md:text-[16px] text-slate-800 leading-relaxed opacity-95">
                         {note.content}
                       </p>
                     </div>

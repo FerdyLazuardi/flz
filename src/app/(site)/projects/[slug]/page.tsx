@@ -152,7 +152,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
         {/* Header */}
         <header className="mb-10 sm:mb-12">
-          <h1 className="font-heading text-[1.7rem] sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-5 sm:mb-6 leading-snug pb-2">
+          <h1 className="font-heading text-[1.95rem] sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-5 sm:mb-6 leading-snug pb-2">
             {project.title}
           </h1>
 

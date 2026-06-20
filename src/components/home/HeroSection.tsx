@@ -126,14 +126,14 @@ export function HeroSection({
           >
             <motion.h1
               variants={itemVariants}
-              className="font-heading text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-5 sm:mb-6 leading-[1.1] sm:leading-[1.05] max-w-2xl"
+              className="font-heading text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-normal text-text-primary mb-5 sm:mb-6 leading-[1.1] sm:leading-[1.05] max-w-2xl"
             >
               {headline}
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="max-w-xl text-[13px] sm:text-base md:text-lg text-slate-500 leading-relaxed mb-8 sm:mb-10"
+              className="w-full max-w-[95%] sm:max-w-xl text-[13px] sm:text-base md:text-lg text-slate-500 leading-relaxed mb-8 sm:mb-10 break-words"
             >
               {subtitle}
             </motion.p>
@@ -144,28 +144,28 @@ export function HeroSection({
             >
               <Magnetic strength={0.3}>
                 <div className="w-full sm:w-auto flex">
-                  <SolidGlowButton
-                    href="/projects"
-                    text="View Projects"
-                    color="#0a0a0a"
-                    size="md"
-                    className="w-full sm:w-auto sm:px-8 flex-1 scale-[0.85] sm:scale-100 origin-left"
-                    icon={<ArrowRight className="w-5 h-5 ml-1" />}
-                  />
+                    <SolidGlowButton
+                      href="/projects"
+                      text="View Projects"
+                      color="#0a0a0a"
+                      size="md"
+                      className="w-full sm:w-auto sm:px-8 flex-1"
+                      icon={<ArrowRight className="w-5 h-5 ml-1" />}
+                    />
                 </div>
               </Magnetic>
               <Magnetic strength={0.2}>
                 <div className="w-full sm:w-auto flex">
-                  <AnimatedSwipeButton
-                    href="/CV - Ferdy Fadhil Lazuardi.pdf"
-                    text="Download CV"
-                    color="var(--primary)"
-                    size="md"
-                    textColorClass="text-text-primary border-border bg-transparent shadow-none"
-                    className="w-full sm:w-auto sm:px-8 flex-1 scale-[0.85] sm:scale-100 origin-left"
-                    noSwipe={true}
-                    icon={<Download className="w-5 h-5 mr-1" />}
-                  />
+                    <AnimatedSwipeButton
+                      href="/CV - Ferdy Fadhil Lazuardi.pdf"
+                      text="Download CV"
+                      color="var(--primary)"
+                      size="md"
+                      textColorClass="text-text-primary border-border bg-transparent shadow-none"
+                      className="w-full sm:w-auto sm:px-8 flex-1"
+                      noSwipe={true}
+                      icon={<Download className="w-5 h-5 mr-1" />}
+                    />
                 </div>
               </Magnetic>
             </motion.div>
