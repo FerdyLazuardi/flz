@@ -117,8 +117,8 @@ export function ProjectHeader() {
         className="w-full"
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 w-full">
-          <div className="relative group text-left">
-            <h1 className="font-heading text-[2.6rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] whitespace-nowrap">
+          <div className="relative group text-left max-w-full overflow-hidden sm:overflow-visible">
+            <h1 className="font-heading text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1.1] sm:leading-[1] sm:whitespace-nowrap break-words">
               <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
                 PROJECTS.
               </span>

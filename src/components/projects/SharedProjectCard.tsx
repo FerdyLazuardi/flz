@@ -265,11 +265,12 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
                       // Save scroll position so ClientLayout can restore it on return
                       sessionStorage.setItem('projects-scroll-position', String(window.scrollY || document.documentElement.scrollTop || 0));
                     }}
+                    aria-label={`View project details for ${project.title}`}
                   >
-                    <button className="group flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-white hover:bg-[#e6e6e6] active:scale-95 transition-all duration-300 ease-out text-black font-bold rounded shadow-lg hover:shadow-xl text-sm md:text-base" aria-label={`View project details for ${project.title}`}>
+                    <div className="group flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-white hover:bg-[#e6e6e6] active:scale-95 transition-all duration-300 ease-out text-black font-bold rounded shadow-lg hover:shadow-xl text-sm md:text-base">
                       <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-black transition-transform duration-300 ease-out group-hover:translate-x-1.5" />
                       View Project
-                    </button>
+                    </div>
                   </Link>
                 </motion.div>
 

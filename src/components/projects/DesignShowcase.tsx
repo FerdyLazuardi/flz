@@ -389,7 +389,7 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="mt-20 sm:mt-32 pt-12 sm:pt-20 border-t border-border/50 flex flex-col justify-center items-center text-center relative z-20"
       >
-        <h3 className="font-heading text-[2.4rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1] mb-8 sm:mb-10 px-5">
+        <h3 className="font-heading text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-text-primary leading-[1.1] sm:leading-[1] mb-8 sm:mb-10 px-4 sm:px-5 break-words">
           THE{" "}
           <span className="relative inline-block z-10 after:absolute after:bottom-2 after:left-[-2%] after:-z-10 after:h-[40%] after:w-[104%] after:bg-[#fef08a] dark:after:bg-[#ca8a04]/80 after:rounded-sm">
             ARCHIVE.
@@ -406,6 +406,7 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="group relative outline-none block cursor-pointer"
+                aria-label="Scroll back to top"
               >
                 <motion.div
                   initial="initial"

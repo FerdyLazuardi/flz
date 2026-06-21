@@ -4,9 +4,11 @@ import { urlForImage } from "@/sanity/lib/image"
 
 import { HeroSection } from "@/components/home/HeroSection"
 import { LogoMarquee } from "@/components/home/LogoMarquee"
-import { ValueProp } from "@/components/home/ValueProp"
-import { AboutSection } from "@/components/home/AboutSection"
-import { FeaturedProjects } from "@/components/home/FeaturedProjects"
+import dynamic from "next/dynamic"
+
+const ValueProp = dynamic(() => import("@/components/home/ValueProp").then(mod => mod.ValueProp))
+const AboutSection = dynamic(() => import("@/components/home/AboutSection").then(mod => mod.AboutSection))
+const FeaturedProjects = dynamic(() => import("@/components/home/FeaturedProjects").then(mod => mod.FeaturedProjects))
 import { ContactSectionClient } from "@/components/home/ContactSectionClient"
 
 export const revalidate = 60

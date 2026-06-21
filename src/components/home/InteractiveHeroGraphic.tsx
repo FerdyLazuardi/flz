@@ -132,7 +132,9 @@ export function InteractiveHeroGraphic() {
                 setIsPlaying(!isPlaying)
               }}
               className="relative z-10 w-20 h-20 bg-accent text-white rounded-full flex items-center justify-center shadow-xl shadow-accent/30"
+              aria-label={isPlaying ? "Pause interactive module" : "Play interactive module"}
             >
+              <span className="sr-only">{isPlaying ? "Pause" : "Play"}</span>
               {isPlaying ? <Pause className="w-8 h-8 fill-current" /> : <Play className="w-8 h-8 fill-current ml-1" />}
             </motion.button>
           </div>
