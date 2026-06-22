@@ -42,6 +42,7 @@ export function LogoMarquee() {
                 className="object-contain"
                 loading={index < 6 ? "eager" : "lazy"}
                 priority={index < 6}
+                sizes="(max-width: 768px) 100px, 200px"
               />
             </div>
           ))}
