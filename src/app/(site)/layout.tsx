@@ -1,6 +1,5 @@
 import { FloatingNav } from '@/components/layout/FloatingNav';
 import { Footer } from '@/components/layout/Footer';
-import { ThemeProvider } from '@/components/theme-provider';
 import { ClientLayout } from '@/components/layout/ClientLayout';
 
 export default function SiteLayout({
@@ -17,10 +16,8 @@ export default function SiteLayout({
         <div className="absolute inset-0 rounded-[100%] bg-gradient-to-tr from-blue-100 via-purple-100 to-transparent blur-[120px]" />
       </div>
       
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
-        <FloatingNav />
-        <ClientLayout>{children}</ClientLayout>
-      </ThemeProvider>
+      <FloatingNav />
+      <ClientLayout>{children}</ClientLayout>
     </div>
   );
 }
