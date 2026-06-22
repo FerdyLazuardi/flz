@@ -40,9 +40,9 @@ export function LogoMarquee() {
                 height={logo.originalHeight}
                 style={{ height: '100%', width: 'auto' }}
                 className="object-contain"
-                loading={index < 6 ? "eager" : "lazy"}
-                priority={index < 6}
-                sizes="(max-width: 768px) 100px, 200px"
+                loading="lazy"
+                quality={60}
+                sizes="(max-width: 768px) 60px, 120px"
               />
             </div>
           ))}
