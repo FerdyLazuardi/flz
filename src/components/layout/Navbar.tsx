@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Menu, Home, Briefcase, Mail } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -24,6 +24,7 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
   const [activeSection, setActiveSection] = React.useState("")
@@ -53,11 +54,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [pathname])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault()
       if (pathname !== "/") {
-        window.location.href = `/${href}`
+        router.push(`/${href}`)
       } else {
         const targetId = href.replace("#", "")
         const elem = document.getElementById(targetId)
@@ -179,7 +180,7 @@ export function Navbar() {
                       >
                         <Link
                           href={link.href}
-                          onClick={(e) => link.href.startsWith("#") && handleNavClick(e as any, link.href)}
+                          onClick={(e) => link.href.startsWith("#") && handleNavClick(e, link.href)}
                           className={`flex items-center gap-4 px-5 py-4 rounded-2xl transition-all ${
                             isActive
                               ? "bg-[#fef08a] text-black font-bold"

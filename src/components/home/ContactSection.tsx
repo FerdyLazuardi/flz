@@ -151,8 +151,40 @@ export function ContactSection() {
       isMouseInContent = false
     }
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!e.touches[0]) return
+      const touch = e.touches[0]
+      const rect = canvas.getBoundingClientRect()
+      const currentX = touch.clientX - rect.left
+      const currentY = touch.clientY - rect.top
+
+      if (lastMouseX !== -1000) {
+        mouseVX = (currentX - lastMouseX) * 0.45
+        mouseVY = (currentY - lastMouseY) * 0.45
+      }
+
+      lastMouseX = currentX
+      lastMouseY = currentY
+      mouseX = currentX
+      mouseY = currentY
+      isMouseInContent = true
+    }
+
+    const handleTouchEnd = () => {
+      mouseX = -1000
+      mouseY = -1000
+      lastMouseX = -1000
+      lastMouseY = -1000
+      mouseVX = 0
+      mouseVY = 0
+      isMouseInContent = false
+    }
+
     window.addEventListener("mousemove", handleMouseMove)
     window.addEventListener("mouseout", handleMouseLeave)
+    window.addEventListener("touchstart", handleTouchMove, { passive: true })
+    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+    window.addEventListener("touchend", handleTouchEnd, { passive: true })
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth
@@ -311,6 +343,9 @@ export function ContactSection() {
       return () => {
         window.removeEventListener("mousemove", handleMouseMove)
         window.removeEventListener("mouseout", handleMouseLeave)
+        window.removeEventListener("touchstart", handleTouchMove)
+        window.removeEventListener("touchmove", handleTouchMove)
+        window.removeEventListener("touchend", handleTouchEnd)
         window.removeEventListener("resize", handleResize)
       }
     }
@@ -320,6 +355,9 @@ export function ContactSection() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("mouseout", handleMouseLeave)
+      window.removeEventListener("touchstart", handleTouchMove)
+      window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchend", handleTouchEnd)
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationId)
     }
@@ -376,7 +414,7 @@ export function ContactSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-[0.6rem] sm:text-sm md:text-base font-black tracking-[0.25em] text-text-secondary uppercase mb-6 sm:mb-12 max-w-2xl text-center"
         >
-          Let's build something together!
+          Let&apos;s build something together!
         </motion.p>
 
         <div

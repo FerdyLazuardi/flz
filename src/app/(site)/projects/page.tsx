@@ -5,7 +5,6 @@ import { urlForImage } from "@/sanity/lib/image"
 import { ProjectGallery } from "@/components/projects/ProjectGallery"
 import { ProjectHeader } from "@/components/projects/ProjectHeader"
 import { DesignShowcase } from "@/components/projects/DesignShowcase"
-import { AnimatedBackground } from "@/components/ui/animated-background"
 
 export const revalidate = 3600
 
@@ -64,12 +63,18 @@ export default async function ProjectsPage() {
     console.error("Failed to fetch infinite gallery:", error)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const projectsWithUrls = projects.map((project: any) => ({
+  interface SanityProjectRaw {
+    coverImage?: Parameters<typeof urlForImage>[0];
+    clientLogo?: Parameters<typeof urlForImage>[0];
+    softwareLogos?: Array<Parameters<typeof urlForImage>[0]>;
+    [key: string]: unknown;
+  }
+
+  const projectsWithUrls = projects.map((project: SanityProjectRaw) => ({
     ...project,
     imageUrl: project.coverImage ? urlForImage(project.coverImage).width(800).height(500).url() : undefined,
     clientLogoUrl: project.clientLogo ? urlForImage(project.clientLogo).width(200).url() : undefined,
-    softwareLogosUrls: project.softwareLogos?.map((logo: any) => urlForImage(logo).width(100).height(100).url()) || [],
+    softwareLogosUrls: project.softwareLogos?.map((logo) => urlForImage(logo).width(100).height(100).url()) || [],
   }))
 
   return (

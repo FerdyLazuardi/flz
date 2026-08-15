@@ -1,5 +1,4 @@
 import { FloatingNav } from '@/components/layout/FloatingNav';
-import { Footer } from '@/components/layout/Footer';
 import { ClientLayout } from '@/components/layout/ClientLayout';
 
 export default function SiteLayout({

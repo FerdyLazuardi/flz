@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Lightbulb, Code, Video, Sparkles, Workflow, Layers, MonitorPlay } from "lucide-react"
+import { Lightbulb, Code, Video, Sparkles, Workflow } from "lucide-react"
 import { motion, useInView, Variants } from "framer-motion"
 
 const capabilities = [

@@ -127,8 +127,9 @@ export function ProjectHeader() {
 
           <div className="flex flex-col gap-4 sm:gap-6 text-left md:text-right">
             <p className="font-mono text-[10px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
-              // A CURATED GALLERY OF LEARNING EXPERIENCES WHERE INSTRUCTIONAL DESIGN MEETS CUTTING-EDGE TECHNOLOGY AND VISUAL STORYTELLING.
-            // EXECUTED WITH CREATIVE PRECISION.
+              {"// A CURATED GALLERY OF LEARNING EXPERIENCES WHERE INSTRUCTIONAL DESIGN MEETS CUTTING-EDGE TECHNOLOGY AND VISUAL STORYTELLING."}
+              <br />
+              {"// EXECUTED WITH CREATIVE PRECISION."}
             </p>
             <div className="flex gap-3 md:justify-end">
               {[1, 2, 3, 4].map(i => (

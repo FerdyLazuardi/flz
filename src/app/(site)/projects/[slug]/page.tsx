@@ -1,14 +1,12 @@
 import { notFound } from "next/navigation"
 import { PortableText } from "@portabletext/react"
-import Link from "next/link"
-import { ArrowLeft, ExternalLink, PlaySquare, MonitorPlay } from "lucide-react"
+import { ExternalLink, PlaySquare, MonitorPlay } from "lucide-react"
 
 import { client } from "@/sanity/lib/client"
 import { PROJECT_BY_SLUG_QUERY } from "@/sanity/lib/queries"
 import { urlForImage } from "@/sanity/lib/image"
 import { categoryLabels } from "@/components/projects/SharedProjectCard"
 import { ProjectDetailBackButton } from "@/components/projects/ProjectDetailBackButton"
-import Image from "next/image"
 import { ZoomableImage } from "@/components/ui/ZoomableImage"
 import { InteractiveIframe } from "@/components/projects/InteractiveIframe"
 import { Metadata } from 'next'
@@ -265,7 +263,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
           <section className="mt-16 border-t border-border pt-12">
             <h2 className="font-heading text-2xl font-bold text-text-primary mb-8 text-center">Project Gallery</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {project.gallery.map((image: any, index: number) => {
+              {project.gallery.map((image: Parameters<typeof urlForImage>[0] & { alt?: string; asset?: { _ref?: string } }, index: number) => {
                 if (!image?.asset?._ref) return null;
                 return (
                   <div key={index} className="relative w-full overflow-hidden bg-black/5 ring-1 ring-border rounded-xl">

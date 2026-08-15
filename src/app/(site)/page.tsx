@@ -21,12 +21,18 @@ export default async function Home() {
     console.error("Failed to fetch featured projects:", error)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const projectsWithUrls = featuredProjects.map((project: any) => ({
+  interface SanityProjectRaw {
+    coverImage?: Parameters<typeof urlForImage>[0];
+    clientLogo?: Parameters<typeof urlForImage>[0];
+    softwareLogos?: Array<Parameters<typeof urlForImage>[0]>;
+    [key: string]: unknown;
+  }
+
+  const projectsWithUrls = featuredProjects.map((project: SanityProjectRaw) => ({
     ...project,
     imageUrl: project.coverImage ? urlForImage(project.coverImage).width(1200).height(800).url() : undefined,
     clientLogoUrl: project.clientLogo ? urlForImage(project.clientLogo).width(200).url() : undefined,
-    softwareLogosUrls: project.softwareLogos?.map((logo: any) => urlForImage(logo).width(100).height(100).url()) || [],
+    softwareLogosUrls: project.softwareLogos?.map((logo) => urlForImage(logo).width(100).height(100).url()) || [],
   }))
 
   return (

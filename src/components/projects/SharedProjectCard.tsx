@@ -22,8 +22,6 @@ export interface ProjectData {
   softwareLogosUrls?: string[] // Tool logos
 }
 
-import type { ProjectData as ProjectDataImport } from "@/components/projects/ProjectCard"
-
 export const categoryLabels: Record<string, string> = {
   // Current values
   'Multimedia Production': 'Multimedia Production',
@@ -60,11 +58,6 @@ export function LusionCard({ project, onClick, priority = false }: { project: Pr
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleMouseMove = (e: MouseEvent) => {
     if (containerRef.current) {
@@ -76,7 +69,7 @@ export function LusionCard({ project, onClick, priority = false }: { project: Pr
   }
 
   const imageSrc = getProjectImage(project);
-  const cursorOffset = mounted && window.innerWidth < 768 ? 32 : 48;
+  const cursorOffset = typeof window !== "undefined" && window.innerWidth < 768 ? 32 : 48;
 
   return (
     <motion.div
@@ -181,9 +174,15 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = `${scrollbarWidth}px`;
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("app:hide-chat"));
+    }
     return () => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("app:show-chat"));
+      }
     };
   }, []);
 
@@ -250,7 +249,7 @@ export function ExpandedView({ project, onClose }: { project: ProjectData, onClo
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="max-w-full w-full"
                 >
-                  <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-snug mb-2 tracking-tight whitespace-nowrap truncate pr-8 md:pr-12 pb-2">
+                  <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-snug mb-2 tracking-tight whitespace-normal break-words sm:whitespace-nowrap sm:truncate pr-8 md:pr-12 pb-2">
                     {project.title}
                   </h2>
                 </motion.div>

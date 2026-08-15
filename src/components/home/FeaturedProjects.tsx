@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -11,6 +11,21 @@ import { LusionCard, ExpandedView } from "@/components/projects/SharedProjectCar
 
 export function FeaturedProjects({ projects }: { projects: ProjectData[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(
+      new CustomEvent(selectedId ? "app:hide-chat" : "app:show-chat")
+    )
+  }, [selectedId])
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("app:show-chat"))
+      }
+    }
+  }, [])
 
   if (!projects || projects.length === 0) {
     return null

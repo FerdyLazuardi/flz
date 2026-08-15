@@ -9,65 +9,62 @@ export interface InfiniteGalleryImage {
   aspectRatio: number;
 }
 
+// Fisher-Yates shuffle for true randomness
+const shuffle = (array: InfiniteGalleryImage[]) => {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
+function Row({ images, speed, direction = -1 }: { images: InfiniteGalleryImage[], speed: number, direction?: number }) {
+  return (
+    <div className="flex gap-4 sm:gap-6 md:gap-8 overflow-visible">
+      <motion.div
+        className="flex gap-4 sm:gap-6 md:gap-8 pr-4 sm:pr-6 md:pr-8 min-w-max will-change-transform"
+        animate={{
+          x: direction === -1 ? ["0%", "-50%"] : ["-50%", "0%"]
+        }}
+        transition={{
+          duration: speed,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      >
+        {[...images, ...images].map((img, idx) => {
+          return (
+            <div 
+              key={idx} 
+              className="relative rounded-md overflow-hidden flex-shrink-0 shadow-xl bg-bg-surface h-[120px] sm:h-[150px] md:h-[200px] lg:h-[250px]"
+              style={{ aspectRatio: img.aspectRatio }}
+            >
+              <Image
+                src={img.url}
+                alt="Design Mockup"
+                fill
+                sizes="(max-width: 768px) 200px, (max-width: 1200px) 300px, 400px"
+                className="object-cover"
+              />
+            </div>
+          );
+        })}
+      </motion.div>
+    </div>
+  )
+}
+
 export function InfiniteDesignGallery({ customImages }: { customImages?: InfiniteGalleryImage[] }) {
-  // Return null if no images are provided
-  if (!customImages || customImages.length === 0) {
-    return null;
-  }
-
-  const Row = ({ images, speed, direction = -1 }: { images: InfiniteGalleryImage[], speed: number, direction?: number }) => {
-    return (
-      <div className="flex gap-4 sm:gap-6 md:gap-8 overflow-visible">
-        <motion.div
-          className="flex gap-4 sm:gap-6 md:gap-8 pr-4 sm:pr-6 md:pr-8 min-w-max will-change-transform"
-          animate={{
-            x: direction === -1 ? ["0%", "-50%"] : ["-50%", "0%"]
-          }}
-          transition={{
-            duration: speed,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          {[...images, ...images].map((img, idx) => {
-            // Using a fixed height and dynamic width controlled by aspectRatio guarantees no cropping!
-            return (
-              <div 
-                key={idx} 
-                className="relative rounded-md overflow-hidden flex-shrink-0 shadow-xl bg-bg-surface h-[120px] sm:h-[150px] md:h-[200px] lg:h-[250px]"
-                style={{ aspectRatio: img.aspectRatio }}
-              >
-                <Image
-                  src={img.url}
-                  alt="Design Mockup"
-                  fill
-                  sizes="(max-width: 768px) 200px, (max-width: 1200px) 300px, 400px"
-                  className="object-cover"
-                />
-              </div>
-            );
-          })}
-        </motion.div>
-      </div>
-    )
-  }
-
-  // Fisher-Yates shuffle for true randomness
-  const shuffle = (array: InfiniteGalleryImage[]) => {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  };
-
-  // Use state with lazy initialization so we only shuffle once per mount.
-  // We duplicate the customImages a few times before shuffling to create a long, varied sequence.
   const [rows] = React.useState(() => {
+    if (!customImages || customImages.length === 0) return [[], [], [], []];
     const getShuffledRow = () => shuffle([...customImages, ...customImages, ...customImages, ...customImages]);
     return [getShuffledRow(), getShuffledRow(), getShuffledRow(), getShuffledRow()];
   });
+
+  if (!customImages || customImages.length === 0) {
+    return null;
+  }
 
   const [row1, row2, row3, row4] = rows;
   

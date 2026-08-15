@@ -12,22 +12,28 @@ const SCROLL_STORAGE_KEY = 'projects-scroll-position';
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mounted, setMounted] = React.useState(false);
-  const prevIndex = React.useRef(0);
 
   const currentIndex = React.useMemo(() => {
     const index = PATH_ORDER.findIndex(p => p === '/' ? pathname === '/' : pathname.startsWith(p));
     return index === -1 ? 0 : index;
   }, [pathname]);
 
-  const direction = React.useMemo(() => {
-    if (currentIndex > prevIndex.current) return 1;
-    if (currentIndex < prevIndex.current) return -1;
-    return 0;
-  }, [currentIndex]);
+  const [navState, setNavState] = React.useState(() => ({
+    prevPathname: pathname,
+    prevIndex: currentIndex,
+    direction: 0
+  }));
 
-  React.useEffect(() => {
-    prevIndex.current = currentIndex;
-  }, [currentIndex]);
+  if (pathname !== navState.prevPathname) {
+    const dir = currentIndex > navState.prevIndex ? 1 : currentIndex < navState.prevIndex ? -1 : 0;
+    setNavState({
+      prevPathname: pathname,
+      prevIndex: currentIndex,
+      direction: dir
+    });
+  }
+
+  const direction = navState.direction;
 
   React.useEffect(() => {
     setMounted(true);

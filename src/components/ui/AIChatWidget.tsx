@@ -41,7 +41,6 @@ export function AIChatWidget() {
   const [inputValue, setInputValue] = React.useState("")
   const [suggestions, setSuggestions] = React.useState<string[]>([])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
     setSuggestions(pickRandomFAQs(4))
   }, [])
@@ -59,10 +58,6 @@ export function AIChatWidget() {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const nextId = React.useRef(1)
 
-  // Don't render on studio route
-  if (pathname.startsWith("/studio")) return null
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
     function typeLoop() {
       if (!typingActiveRef.current) return
@@ -92,14 +87,12 @@ export function AIChatWidget() {
     return () => { if (typingRef.current) clearTimeout(typingRef.current) }
   }, [])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
     if (panelOpen && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: thinking ? "instant" as ScrollBehavior : "smooth" })
     }
   }, [bubbles, thinking, panelOpen])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
     const handleHide = () => {
       setHidden(true)
@@ -116,6 +109,9 @@ export function AIChatWidget() {
       window.removeEventListener("app:show-chat", handleShow)
     }
   }, [panelOpen])
+
+  // Don't render on studio route
+  if (pathname.startsWith("/studio")) return null
 
   function stopTyping() {
     typingActiveRef.current = false

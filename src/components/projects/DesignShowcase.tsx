@@ -5,7 +5,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowUp } from "lucide-react"
 import { Magnetic } from "@/components/ui/magnetic"
-import { InfiniteDesignGallery } from "./InfiniteDesignGallery"
+import { InfiniteDesignGallery, InfiniteGalleryImage } from "./InfiniteDesignGallery"
 
 export interface DesignShowcaseItem {
   _id: string
@@ -41,7 +41,6 @@ function getItemVariants(totalItems: { rot: number }[]) {
       filter: "blur(15px) brightness(0.8)",
     },
     visible: (i: number) => {
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
       const rot = totalItems[i]?.rot ?? 0;
       return {
         opacity: 1,
@@ -76,13 +75,11 @@ interface NormalizedItem {
 function YouTubeFacade({
   videoId,
   title,
-  isShort,
-  fillContainer,
 }: {
   videoId: string
   title: string
-  isShort: boolean
-  fillContainer: boolean
+  isShort?: boolean
+  fillContainer?: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = React.useState(false)
@@ -136,7 +133,7 @@ function YouTubeFacade({
 
 // ─── Lazy Video Component ───────────────────────────────────────────
 // Only loads video when it enters the viewport
-function LazyVideo({ src, tag, fillContainer }: { src: string; tag: string; fillContainer: boolean }) {
+function LazyVideo({ src, fillContainer }: { src: string; tag?: string; fillContainer: boolean }) {
   const videoRef = React.useRef<HTMLVideoElement>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = React.useState(false)
@@ -180,7 +177,7 @@ function LazyVideo({ src, tag, fillContainer }: { src: string; tag: string; fill
 }
 
 
-export function DesignShowcase({ items, infiniteGalleryItems }: { items?: DesignShowcaseItem[], infiniteGalleryItems?: any[] }) {
+export function DesignShowcase({ items, infiniteGalleryItems }: { items?: DesignShowcaseItem[], infiniteGalleryItems?: InfiniteGalleryImage[] }) {
   const [mounted, setMounted] = React.useState(false)
   const containerRef = React.useRef(null)
 
@@ -262,8 +259,9 @@ export function DesignShowcase({ items, infiniteGalleryItems }: { items?: Design
 
             <div className="flex flex-col gap-4 sm:gap-6 text-left md:text-right">
               <p className="font-mono text-[10px] sm:text-[12px] leading-relaxed text-slate-500 uppercase tracking-tight max-w-sm md:ml-auto">
-                   // TRANSLATING COMPLEX IDEAS INTO ACCESSIBLE DIGITAL EXPERIENCE.
-              // AN ARCHIVE OF INSTRUCTIONAL DESIGN, AND VISUAL STORYTELLING.
+                {"// TRANSLATING COMPLEX IDEAS INTO ACCESSIBLE DIGITAL EXPERIENCE."}
+                <br />
+                {"// AN ARCHIVE OF INSTRUCTIONAL DESIGN, AND VISUAL STORYTELLING."}
               </p>
               <div className="flex gap-3 md:justify-end">
                 {[1, 2, 3, 4].map(i => (

@@ -2,10 +2,8 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Home, Info, Briefcase, Mail, Zap, ArrowLeft } from "lucide-react"
+import { Home, Info, Briefcase, Mail, Zap } from "lucide-react"
 import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { SolidGlowButton } from "@/components/ui/solid-glow-button"
 
 const sections = [
   { id: "hero", label: "Home", icon: Home },
@@ -18,7 +16,6 @@ const sections = [
 export function FloatingNav() {
   const pathname = usePathname()
   const isHome = pathname === "/"
-  const isProjects = pathname === "/projects"
   const [activeSection, setActiveSection] = React.useState("hero")
   const [showLabels, setShowLabels] = React.useState(true)
   const idleTimerRef = React.useRef<NodeJS.Timeout | null>(null)
@@ -33,13 +30,10 @@ export function FloatingNav() {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      // Detect active section
-      const hero = document.getElementById("hero")
-      
       if (!isHome) return
 
       resetIdleTimer()
-      // 2. Detect active section
+      // Detect active section
       let currentSection = "hero"
       for (const section of sections) {
         const el = document.getElementById(section.id)

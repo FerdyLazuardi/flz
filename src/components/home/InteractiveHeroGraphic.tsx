@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, useMotionValueEvent } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, useMotionValueEvent, useInView } from "framer-motion"
 import { Play, Pause, CheckCircle2, LayoutTemplate, MonitorPlay } from "lucide-react"
 import { useState, useRef } from "react"
 
@@ -16,11 +16,12 @@ function ProgressNumber({ progress }: { progress: import("framer-motion").Motion
 export function InteractiveHeroGraphic() {
   const [isPlaying, setIsPlaying] = useState(true) // Autoplay enabled
   const containerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef, { margin: "200px" })
 
   const rawProgress = useMotionValue(0)
 
   useAnimationFrame((time, delta) => {
-    if (isPlaying) {
+    if (isPlaying && isInView) {
       const current = rawProgress.get()
       // Adjust speed to match original: 0.2 every 50ms means 4 per second
       rawProgress.set((current + (delta / 1000) * 4) % 100) 
