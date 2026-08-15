@@ -11,7 +11,7 @@ import { pickRandomFAQs } from "./chat-suggestions"
 // Request:  POST AI_AGENT_URL  { message: string }
 // Response: Server-Sent Events (SSE) stream, chunks of `data: {"text": "..."}\n\n`
 // ─────────────────────────────────────────────────────────────────────────────
-const AI_AGENT_URL = process.env.NEXT_PUBLIC_AI_AGENT_URL ?? ""
+const AI_AGENT_URL = process.env.NEXT_PUBLIC_AI_AGENT_URL || "/api/chat"
 
 const SUGGESTIONS = [
   "Ask me anything about Ferdy's work...",
@@ -94,7 +94,9 @@ export function AIChatWidget() {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
-    if (panelOpen) messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (panelOpen && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: thinking ? "instant" as ScrollBehavior : "smooth" })
+    }
   }, [bubbles, thinking, panelOpen])
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -177,6 +179,19 @@ export function AIChatWidget() {
 
     const aiBubbleId = nextId.current++
     let aiBubbleCreated = false
+    let fullText = ""
+    let rafId: number | null = null
+
+    const scheduleUpdate = () => {
+      if (rafId) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        const updatedText = fullText
+        setBubbles(prev => prev.map(b =>
+          b.id === aiBubbleId ? { ...b, text: updatedText } : b
+        ))
+      })
+    }
 
     try {
       if (!AI_AGENT_URL) throw new Error("No URL configured")
@@ -216,19 +231,30 @@ export function AIChatWidget() {
             const chunkText: string = parsed.token ?? parsed.text ?? parsed.content ?? parsed.delta ?? ""
             if (!chunkText) continue
 
+            fullText += chunkText
+
             if (!aiBubbleCreated) {
-              setBubbles(prev => [...prev, { id: aiBubbleId, type: "ai", text: chunkText }])
+              setBubbles(prev => [...prev, { id: aiBubbleId, type: "ai", text: fullText }])
               aiBubbleCreated = true
               setThinking(false)
             } else {
-              setBubbles(prev => prev.map(b =>
-                b.id === aiBubbleId ? { ...b, text: b.text + chunkText } : b
-              ))
+              scheduleUpdate()
             }
           } catch {
             // skip malformed JSON
           }
         }
+      }
+
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+        rafId = null
+      }
+      if (aiBubbleCreated) {
+        const finalContent = fullText
+        setBubbles(prev => prev.map(b =>
+          b.id === aiBubbleId ? { ...b, text: finalContent } : b
+        ))
       }
 
       if (!aiBubbleCreated) {
